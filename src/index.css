@@ -3,10 +3,13 @@
 @theme {
   --color-background: white;
   --color-background-alt: var(--color-neutral-200);
-  --color-foreground: black;
+  --color-foreground: var(--color-neutral-800);
+  --color-foreground-muted: var(--color-neutral-600);
   --color-special: var(--color-sky-400);
   --color-special-muted: var(--color-sky-500);
-  --color-muted: var(--color-neutral-600);
+  --color-muted: var(--color-neutral-400);
+  --color-upvote: var(--color-green-500);
+  --color-downvote: var(--color-red-500);
 
   --font-main: Lato, var(--font-sans);
 }
@@ -25,11 +28,16 @@
     display: contents;
   }
 
+  * {
+    @apply transition-colors;
+  }
+
   @media (prefers-color-scheme: dark) {
     :root {
       --color-background: black;
-      --color-background-alt: var(--color-neutral-800);
+      --color-background-alt: var(--color-neutral-900);
       --color-foreground: white;
+      --color-foreground-muted: var(--color-neutral-400);
       --color-special: var(--color-sky-400);
       --color-special-muted: var(--color-sky-500);
       --color-muted: var(--color-neutral-800);

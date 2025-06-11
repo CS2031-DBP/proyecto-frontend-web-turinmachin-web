@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import type { HTMLAttributes } from 'react';
 import { LuHouse } from 'react-icons/lu';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router';
 
 const links = [
   {
@@ -22,7 +22,7 @@ export const LeftBar = ({ className, ...props }: Props) => {
   const location = useLocation();
 
   return (
-    <aside {...props} className={clsx(className, 'mx-6 my-4')}>
+    <aside {...props} className={clsx(className, 'px-6 py-4')}>
       <NavLink to="/" className="mb-4 block text-3xl font-extrabold">
         UniLife
       </NavLink>
