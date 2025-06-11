@@ -1,5 +1,8 @@
 {
-  "singleQuote": true,
-  "importOrderGroupNamespaceSpecifiers": true,
-  "plugins": ["prettier-plugin-tailwindcss", "prettier-plugin-organize-imports"]
+  "plugins": [
+    "prettier-plugin-organize-imports",
+    "prettier-plugin-tailwindcss"
+  ],
+  "tailwindFunctions": ["clsx"],
+  "singleQuote": true
 }
