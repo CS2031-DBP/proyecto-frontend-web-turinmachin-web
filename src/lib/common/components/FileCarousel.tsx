@@ -139,6 +139,7 @@ export const FileCarousel = ({
         >
           {currentFile.mediaType.startsWith('video') ? (
             <video
+              key={currentFile.url}
               src={currentFile.url}
               muted={muteVideos}
               loop
@@ -153,6 +154,7 @@ export const FileCarousel = ({
             </video>
           ) : (
             <img
+              key={currentFile.url}
               src={currentFile.url}
               className={clsx(
                 'h-full w-full',
