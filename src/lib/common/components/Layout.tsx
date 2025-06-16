@@ -9,7 +9,7 @@ export interface Props {
 export const Layout = ({ children }: Props) => (
   <div className="flex grow">
     <LeftBar className="grow" />
-    <main className="border-muted grow-3 border-x">{children}</main>
+    <main className="border-background-alt grow-3 border-x">{children}</main>
     <RightBar className="grow" />
   </div>
 );

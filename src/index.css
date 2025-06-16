@@ -3,11 +3,11 @@
 @theme {
   --color-background: white;
   --color-background-alt: var(--color-neutral-200);
+  --color-surface: var(--color-white);
   --color-foreground: black;
   --color-special: var(--color-sky-400);
   --color-special-muted: var(--color-sky-500);
-  --color-muted: var(--color-neutral-600);
-
+  --color-muted: var(--color-neutral-500);
   --font-main: Lato, var(--font-sans);
 }
 
@@ -30,9 +30,10 @@
       --color-background: black;
       --color-background-alt: var(--color-neutral-800);
       --color-foreground: white;
+      --color-surface: var(--color-neutral-900);
       --color-special: var(--color-sky-400);
       --color-special-muted: var(--color-sky-500);
-      --color-muted: var(--color-neutral-800);
+      --color-muted: var(--color-neutral-400);
     }
   }
 }
