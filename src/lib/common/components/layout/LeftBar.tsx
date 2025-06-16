@@ -17,6 +17,7 @@ const links = [
     to: '/',
     label: 'Inicio',
     Icon: LuHouse,
+    exact: true,
   },
   {
     to: '/explore',
@@ -53,7 +54,7 @@ export const LeftBar = ({ className, ...props }: Props) => {
         UniLife
       </NavLink>
 
-      <div className="md-1 border-background-alt bg-surface my-2 mb-3 flex items-center rounded-full border px-5 py-3 shadow-sm">
+      <div className="border-background-alt bg-surface my-2 mb-3 flex items-center rounded-full border px-5 py-3 shadow-sm">
         <LuSearch className="text-muted mr-2 size-5" />
         <input
           type="text"
@@ -63,25 +64,28 @@ export const LeftBar = ({ className, ...props }: Props) => {
       </div>
 
       <nav className="block grow">
-        {links.map((link) => (
-          <NavLink
-            key={link.to}
-            to={link.to}
-            className={clsx(
-              'hover:bg-background-alt my-3 block rounded-full px-4 py-2.5 text-xl text-nowrap transition-colors duration-400 ease-in-out',
-              location.pathname === link.to && 'text-special font-extrabold',
-            )}
-          >
-            <link.Icon
+        {links.map((link) => {
+          const isActive = link.exact
+            ? location.pathname === link.to
+            : location.pathname.startsWith(link.to);
+
+          return (
+            <NavLink
+              key={link.to}
+              to={link.to}
               className={clsx(
-                'mr-2 inline',
-                location.pathname === link.to && 'fill-current',
+                'hover:bg-background-alt my-3 flex items-center rounded-full px-4 py-2.5 text-xl text-nowrap transition-colors duration-400 ease-in-out',
+                isActive && 'text-special',
               )}
-              size={30}
-            />
-            {link.label}
-          </NavLink>
-        ))}
+            >
+              <link.Icon
+                className={clsx('mr-2', isActive && 'fill-current')}
+                size={30}
+              />
+              <div>{link.label}</div>
+            </NavLink>
+          );
+        })}
       </nav>
 
       {loggedIn && (
