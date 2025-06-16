@@ -51,13 +51,6 @@ export const PostActionBar = ({ post, className, ...props }: Props) => {
     }
   };
 
-  const handleCopyLinkClick = (ev: MouseEvent) => {
-    ev.stopPropagation();
-    navigator.clipboard?.writeText(
-      `${import.meta.env.VITE_DEPLOYMENT_URL}/posts/${post.id}`,
-    );
-  };
-
   const UpvoteIcon = localCurrentVote === 1 ? BiSolidUpArrow : BiUpArrow;
   const DownvoteIcon = localCurrentVote === -1 ? BiSolidDownArrow : BiDownArrow;
 
