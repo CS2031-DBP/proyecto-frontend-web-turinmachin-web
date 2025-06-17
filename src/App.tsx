@@ -6,9 +6,10 @@ import { PostPopupProvider } from './lib/post/components/PostPopupProvider';
 import { Index } from './pages/Index';
 import { Login } from './pages/Login';
 import { NotFound } from './pages/NotFound';
-import { Register } from './pages/Register';
 import { Post } from './pages/posts/Post';
 import { Posts } from './pages/posts/Posts';
+import { Register } from './pages/Register';
+import { Verify } from './pages/Verify';
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ export const App = () => (
               <Route path="register" element={<Register />} />
               <Route path="posts" element={<Posts />} />
               <Route path="posts/:postId" element={<Post />} />
+              <Route path="verify" element={<Verify />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Layout>
