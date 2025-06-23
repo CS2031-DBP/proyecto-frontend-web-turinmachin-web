@@ -1,7 +1,10 @@
+'use client';
+
 import { DegreeSchema } from '@/lib/degree/schemas/degree';
 import { routes } from '@/lib/routes';
 import { UniversitySchema } from '@/lib/university/schemas/university';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { LuGraduationCap, LuUniversity } from 'react-icons/lu';
 
 export interface Props {
@@ -10,6 +13,8 @@ export interface Props {
 }
 
 export const RightBar = ({ universities, degrees, ...props }: Props) => {
+  const pathname = usePathname();
+
   return (
     <aside
       {...props}
@@ -21,16 +26,24 @@ export const RightBar = ({ universities, degrees, ...props }: Props) => {
           <span>Universidades</span>
         </h2>
         <ul className="text-foreground-muted space-y-3 pl-4">
-          {universities.map((university) => (
-            <li key={university.id}>
-              <Link
-                href={routes.universities.byId(university)}
-                className="hover:text-foreground"
-              >
-                {university.shortName ?? university.name}
-              </Link>
-            </li>
-          ))}
+          {universities.map((university) => {
+            const href = routes.universities.byId(university);
+
+            return (
+              <li key={university.id}>
+                <Link
+                  href={href}
+                  className={
+                    pathname === href
+                      ? 'text-special font-semibold'
+                      : 'hover:text-foreground'
+                  }
+                >
+                  {university.shortName ?? university.name}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </section>
       <section>
