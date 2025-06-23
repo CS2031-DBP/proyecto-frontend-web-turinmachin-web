@@ -1,0 +1,17 @@
+'use client';
+
+import { createContext } from 'react';
+import { SWRResponse } from 'swr';
+import { UserSchema } from '../schemas/user';
+
+export type UserContextValue = SWRResponse<UserSchema | null>;
+
+export const UserContext = createContext<UserContextValue>({
+  data: null,
+  error: null,
+  isLoading: true,
+  isValidating: true,
+  mutate: () => {
+    throw new Error('mutate() is not implemented');
+  },
+});
