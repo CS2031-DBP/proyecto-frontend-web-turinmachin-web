@@ -1,26 +1,60 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-background: white;
+  --color-background-alt: var(--color-neutral-200);
+  --color-foreground-muted: var(--color-neutral-600);
+  --color-upvote: var(--color-green-500);
+  --color-downvote: var(--color-red-500);
+  --color-surface: var(--color-white);
+  --color-foreground: var(--color-neutral-800);
+  --color-special: var(--color-sky-400);
+  --color-special-muted: var(--color-sky-500);
+  --color-muted: var(--color-neutral-500);
+
+  --font-main: Lato, var(--font-sans);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  * {
+    @apply transition-colors;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  button,
+  a {
+    @apply enabled:cursor-pointer;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-background: black;
+      --color-background-alt: var(--color-neutral-900);
+      --color-foreground: white;
+      --color-foreground-muted: var(--color-neutral-400);
+      --color-surface: var(--color-neutral-900);
+      --color-special: var(--color-sky-400);
+      --color-special-muted: var(--color-sky-500);
+      --color-muted: var(--color-neutral-700);
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@utility form-input {
+  @apply focus:border-special border-muted disabled:bg-muted/20 disabled:text-foreground-muted rounded border p-2 px-3 transition-colors focus:outline-none;
+}
+
+@utility button {
+  @apply rounded-full px-6 py-2 text-center font-semibold disabled:brightness-50;
+}
+
+@utility button-special {
+  @apply button bg-special enabled:hover:bg-special-muted;
+}
+
+@utility button-normal {
+  @apply button bg-foreground text-background transition-[filter] enabled:hover:brightness-80;
+}
+
+@utility button-outline {
+  @apply button border-foreground hover:bg-foreground hover:text-background border;
 }
