@@ -1,3 +1,4 @@
+import { apiClient } from '@/lib/api/util/client';
 import { auth } from '@/lib/auth';
 import { Main } from '@/lib/common/components/layout/Main';
 import { routes } from '@/lib/routes';
@@ -17,10 +18,15 @@ const AddUniversity = async ({ params }: Readonly<Props>) => {
     return redirect(routes.universities.byId(universityId));
   }
 
+  const availableDegrees = await apiClient.getDegrees();
+
   return (
     <Main>
       <h1 className="mb-8 text-2xl font-semibold">Añadir universidad</h1>
-      <UniversityCreator session={session} />
+      <UniversityCreator
+        session={session}
+        availableDegrees={availableDegrees}
+      />
     </Main>
   );
 };

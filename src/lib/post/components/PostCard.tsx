@@ -13,14 +13,14 @@ export interface Props extends HTMLAttributes<HTMLLIElement> {
   session: Session | null;
 }
 
-export const FeedPost = ({ post, session, className, ...props }: Props) => (
+export const PostCard = ({ post, session, className, ...props }: Props) => (
   <li {...props}>
     <DivLink
       className={twMerge(
         'border-muted block w-full rounded-2xl border px-6 py-4',
         className,
       )}
-      href={routes.posts.byId(post)}
+      href={routes.posts.byId(post.id)}
     >
       <ResourceDetails
         user={post.author}
@@ -33,7 +33,7 @@ export const FeedPost = ({ post, session, className, ...props }: Props) => (
       {post.files.length !== 0 && (
         <FileCarousel
           files={post.files}
-          linkTo={routes.posts.byId(post)}
+          linkTo={routes.posts.byId(post.id)}
           className="my-4"
         />
       )}

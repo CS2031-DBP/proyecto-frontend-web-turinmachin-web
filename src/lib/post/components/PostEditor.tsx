@@ -37,7 +37,7 @@ export const PostEditor = ({ post, session }: Props) => {
 
   const handleSubmit = async (data: FormSchema) => {
     await apiClient.updatePost(data, { params: { id: post.id } });
-    router.push(routes.posts.byId(post));
+    router.push(routes.posts.byId(post.id));
   };
 
   const tags = form.watch('tags');
@@ -51,10 +51,14 @@ export const PostEditor = ({ post, session }: Props) => {
         placeholder="Piensa en algo interesante..."
       />
       <TagInput value={tags} setValue={setTags} />
-      <FileCarousel files={post.files} contain />
-      <p className="text-foreground-muted my-8 text-center">
-        (Lo sentimos, no puedes editar las imágenes de un post...)
-      </p>
+      {post.files.length !== 0 && (
+        <>
+          <FileCarousel files={post.files} contain />
+          <p className="text-foreground-muted my-8 text-center">
+            (Lo sentimos, no puedes editar las imágenes de un post...)
+          </p>
+        </>
+      )}
       <div className="flex justify-end gap-x-4">
         <ResetButton form={form}>Restablecer</ResetButton>
         <Button type="submit">Guardar</Button>

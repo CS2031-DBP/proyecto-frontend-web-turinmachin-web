@@ -1,5 +1,5 @@
 import { isErrorFromAlias } from '@zodios/core';
-import NextAuth from 'next-auth';
+import NextAuth, { CredentialsSignin } from 'next-auth';
 import 'next-auth/jwt'; // Required to augment JWT interface
 import Credentials from 'next-auth/providers/credentials';
 import { ZodError } from 'zod';
@@ -29,6 +29,13 @@ declare module 'next-auth/jwt' {
   }
 }
 
+class InvalidLoginError extends CredentialsSignin {
+  constructor(message: string) {
+    super(message);
+    this.code = message;
+  }
+}
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
@@ -44,7 +51,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               err instanceof ZodError ||
               isErrorFromAlias(apiClient.api, 'register', err)
             ) {
-              return null;
+              throw new InvalidLoginError(
+                '¡Este correo o nombre de usuario ya está en uso!',
+              );
             }
             throw err;
           }
@@ -57,7 +66,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               err instanceof ZodError ||
               isErrorFromAlias(apiClient.api, 'login', err)
             ) {
-              return null;
+              throw new InvalidLoginError('Credenciales inválidas.');
             }
             throw err;
           }
@@ -65,14 +74,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         return {
           accessToken: data.token,
-          user: pick(
-            data.user,
-            'id',
-            'username',
-            'displayName',
-            'role',
-            'verified',
-          ),
+          user: {
+            ...pick(
+              data.user,
+              'id',
+              'username',
+              'displayName',
+              'role',
+              'verified',
+            ),
+            hasUniversity: !!data.user.university,
+          },
         };
       },
     }),

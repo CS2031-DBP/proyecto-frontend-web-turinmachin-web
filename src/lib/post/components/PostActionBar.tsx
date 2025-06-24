@@ -34,7 +34,7 @@ export const PostActionBar = ({
       session={session}
     />
     <Link
-      href={routes.posts.byId(post)}
+      href={routes.posts.byId(post.id)}
       className="bg-background-alt hover:bg-alt hover:text-foreground flex items-center rounded-full px-4 py-2"
     >
       <LuMessageCircle size={20} />

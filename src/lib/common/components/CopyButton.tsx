@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, type HTMLAttributes, type MouseEvent } from 'react';
+import { useState, type HTMLAttributes } from 'react';
 import { LuLink } from 'react-icons/lu';
 import { twMerge } from 'tailwind-merge';
 
@@ -12,8 +12,7 @@ export interface Props extends HTMLAttributes<HTMLButtonElement> {
 export const CopyButton = ({ text, label, className, ...props }: Props) => {
   const [copied, setCopied] = useState(false);
 
-  const handleClick = (ev: MouseEvent) => {
-    ev.stopPropagation();
+  const handleClick = () => {
     navigator.clipboard?.writeText(text);
     setCopied(true);
   };

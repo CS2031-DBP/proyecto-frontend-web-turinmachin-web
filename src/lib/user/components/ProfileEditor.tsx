@@ -51,7 +51,6 @@ export const ProfileEditor = ({ session, user, availableDegrees }: Props) => {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       ...pick(user, 'email', 'username', 'displayName', 'bio'),
-      universityId: user.university?.id,
       degreeId: user.degree?.id,
     },
   });
@@ -61,7 +60,7 @@ export const ProfileEditor = ({ session, user, availableDegrees }: Props) => {
       const newUser = await apiClient.updateSelf(data);
       await updateSession(newUser);
       await mutateUser(newUser);
-      router.push(routes.users.byUsername(newUser));
+      router.push(routes.users.byUsername(newUser.username));
     },
     [],
   );

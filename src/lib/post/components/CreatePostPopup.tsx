@@ -59,7 +59,7 @@ export const CreatePostPopup = ({ session }: Props) => {
       const createdPost = await apiClient.createPost(formData);
 
       closePopup();
-      router.push(routes.posts.byId(createdPost));
+      router.push(routes.posts.byId(createdPost.id));
     },
     [],
   );

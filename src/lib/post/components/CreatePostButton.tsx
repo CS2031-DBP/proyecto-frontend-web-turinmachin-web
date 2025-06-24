@@ -23,7 +23,9 @@ export const CreatePostButton = ({ session, ...props }: Props) => {
         title={
           session.user.verified
             ? undefined
-            : '¡Debes verificar tu cuenta primero!'
+            : !session.user.hasUniversity
+              ? 'Debes estar asociado a una universidad para publicar.'
+              : '¡Debes verificar tu cuenta primero!'
         }
         className="flex items-center justify-center py-3 text-xl not-sm:px-0"
       >

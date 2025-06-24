@@ -3,7 +3,7 @@ import { Spinner } from '@/lib/common/components/Spinner';
 import { Session } from 'next-auth';
 import useSWR from 'swr';
 import { twJoin } from 'tailwind-merge';
-import { FeedPost } from './FeedPost';
+import { PostCard } from './PostCard';
 
 export interface Props {
   page: number;
@@ -32,7 +32,7 @@ export const PostPage = ({ page, session }: Props) => {
   return (
     <>
       {data.content.map((post) => (
-        <FeedPost
+        <PostCard
           key={post.id}
           post={post}
           className="my-6"

@@ -17,7 +17,7 @@ export const UserCard = ({ session }: Props) => {
 
   return (
     <Link
-      href={routes.users.byUsername(session.user)}
+      href={routes.users.byUsername(session.user.username)}
       className="hover:bg-background-alt mt-4 flex rounded-lg px-3 py-2"
     >
       <div className="flex grow items-center space-x-3">
@@ -27,7 +27,7 @@ export const UserCard = ({ session }: Props) => {
               src={user.profilePicture.url}
               alt=""
               fill
-              sizes="5vw"
+              sizes="15vw"
               placeholder={user.profilePicture.blurDataUrl ? 'blur' : 'empty'}
               blurDataURL={user.profilePicture.blurDataUrl}
               className="bg-background-alt mr-2 h-8 w-8 rounded-full object-cover"

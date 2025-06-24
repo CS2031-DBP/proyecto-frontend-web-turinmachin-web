@@ -2,18 +2,13 @@
 
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
-import { useRouter, useSearchParams } from 'next/navigation';
-import {
-  useCallback,
-  useEffect,
-  useState,
-  type HTMLAttributes,
-  type MouseEvent,
-} from 'react';
+import { useSearchParams } from 'next/navigation';
+import { useCallback, useEffect, useState, type HTMLAttributes } from 'react';
 import { LuChevronLeft, LuChevronRight } from 'react-icons/lu';
 import { twJoin, twMerge } from 'tailwind-merge';
 import { useHasMounted } from '../hooks/use-has-mounted';
 import type { FileInfoSchema } from '../schemas/file-info';
+import { MaybeLink } from './MaybeLink';
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   height?: number;
@@ -62,27 +57,18 @@ export const FileCarousel = ({
   const [direction, setDirection] = useState(0);
 
   const hasMounted = useHasMounted();
-  const router = useRouter();
 
-  const slideLeft = useCallback(
-    (ev?: MouseEvent<HTMLButtonElement>) => {
-      ev?.stopPropagation();
-      setDirection(-1);
-      setCurrentIndex(
-        (prevIndex) => (prevIndex - 1 + files.length) % files.length,
-      );
-    },
-    [files.length],
-  );
+  const slideLeft = useCallback(() => {
+    setDirection(-1);
+    setCurrentIndex(
+      (prevIndex) => (prevIndex - 1 + files.length) % files.length,
+    );
+  }, [files.length]);
 
-  const slideRight = useCallback(
-    (ev?: MouseEvent<HTMLButtonElement>) => {
-      ev?.stopPropagation();
-      setDirection(1);
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % files.length);
-    },
-    [files.length],
-  );
+  const slideRight = useCallback(() => {
+    setDirection(1);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % files.length);
+  }, [files.length]);
 
   useEffect(() => {
     if (!keyControls) return;
@@ -103,15 +89,7 @@ export const FileCarousel = ({
 
   const openFileView = () => {};
 
-  const handleClick = (ev: MouseEvent) => {
-    if (!linkTo) return;
-
-    ev.stopPropagation();
-    router.push(currentIndex === 0 ? linkTo : `${linkTo}?file=${currentIndex}`);
-  };
-
   if (files.length === 0) return null;
-  console.log(files[0].blurDataUrl);
 
   return (
     <div
@@ -133,36 +111,39 @@ export const FileCarousel = ({
           exit="exit"
           transition={{ duration: 0.25, ease: 'easeInOut' }}
           role="button"
-          onClick={linkTo ? handleClick : undefined}
           className="relative h-full w-full"
         >
-          {currentFile.mediaType.startsWith('video') ? (
-            <video
-              key={currentFile.url}
-              src={currentFile.url}
-              muted={muteVideos}
-              loop
-              autoPlay
-              controls={fullVideoControls}
-              className={twJoin(
-                'h-full w-full',
-                contain ? 'object-contain' : 'object-cover',
-              )}
-            >
-              Tu navegador no soporta videos :(
-            </video>
-          ) : (
-            <Image
-              key={currentFile.url}
-              src={currentFile.url}
-              alt=""
-              fill
-              sizes="70vw"
-              placeholder={currentFile.blurDataUrl ? 'blur' : 'empty'}
-              blurDataURL={currentFile.blurDataUrl}
-              className={twJoin(contain ? 'object-contain' : 'object-cover')}
-            />
-          )}
+          <MaybeLink
+            href={linkTo ? `${linkTo}?file=${currentIndex}` : undefined}
+          >
+            {currentFile.mediaType.startsWith('video') ? (
+              <video
+                key={currentFile.url}
+                src={currentFile.url}
+                muted={muteVideos}
+                loop
+                autoPlay
+                controls={fullVideoControls}
+                className={twJoin(
+                  'h-full w-full',
+                  contain ? 'object-contain' : 'object-cover',
+                )}
+              >
+                Tu navegador no soporta videos :(
+              </video>
+            ) : (
+              <Image
+                key={currentFile.url}
+                src={currentFile.url}
+                alt=""
+                fill
+                sizes="70vw"
+                placeholder={currentFile.blurDataUrl ? 'blur' : 'empty'}
+                blurDataURL={currentFile.blurDataUrl}
+                className={twJoin(contain ? 'object-contain' : 'object-cover')}
+              />
+            )}
+          </MaybeLink>
         </motion.div>
       </AnimatePresence>
 
@@ -182,16 +163,10 @@ export const FileCarousel = ({
           >
             <LuChevronRight className="inline" size={36} />
           </button>
-          <div
-            className="absolute bottom-4 left-1/2 flex -translate-x-1/2 cursor-default items-center space-x-1.5 rounded-full bg-black/65 px-2 py-2"
-            onClick={(ev) => ev.stopPropagation()}
-          >
+          <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 cursor-default items-center space-x-1.5 rounded-full bg-black/65 px-2 py-2">
             {files.map((_, index) => (
               <button
-                onClick={(ev) => {
-                  ev.stopPropagation();
-                  setCurrentIndex(index);
-                }}
+                onClick={() => setCurrentIndex(index)}
                 key={index}
                 className={twJoin(
                   'h-1.5 rounded-full transition-all',

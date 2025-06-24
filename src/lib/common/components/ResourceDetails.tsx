@@ -31,7 +31,7 @@ export const ResourceDetails = ({
       <div className="flex items-center">
         {user.profilePicture && (
           <Link
-            href={routes.users.byUsername(user)}
+            href={routes.users.byUsername(user.username)}
             className="relative mr-3 h-8 w-8"
           >
             <Image
@@ -46,8 +46,8 @@ export const ResourceDetails = ({
         <div>
           <div>
             <Link
-              href={routes.users.byUsername(user)}
-              className="font-semibold"
+              href={routes.users.byUsername(user.username)}
+              className="font-semibold hover:underline"
             >
               {user.displayName ?? user.username}
             </Link>
@@ -72,7 +72,7 @@ export const ResourceDetails = ({
                 <>
                   ,{' '}
                   <Link
-                    href={routes.degrees.byId(degree)}
+                    href={routes.degrees.byId(degree.id)}
                     className="hover:underline"
                   >
                     {degree.name}

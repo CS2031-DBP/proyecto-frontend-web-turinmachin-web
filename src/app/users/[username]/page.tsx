@@ -136,7 +136,7 @@ const User = async ({ params }: Readonly<Props>) => {
           <li className="flex items-center">
             <LuGraduationCap className="mr-2 shrink-0" />
             <Link
-              href={routes.degrees.byId(user.degree)}
+              href={routes.degrees.byId(user.degree.id)}
               className="hover:text-foreground"
             >
               {user.degree.name}
@@ -148,7 +148,7 @@ const User = async ({ params }: Readonly<Props>) => {
       {isSelf && (
         <div className="flex justify-end gap-x-4 gap-y-2 not-md:flex-col">
           <Link
-            href={routes.users.editByUsername(user)}
+            href={routes.users.editByUsername(user.username)}
             className="button-normal text-nowrap"
           >
             Editar perfil

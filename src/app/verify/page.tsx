@@ -28,7 +28,7 @@ const Verify = async () => {
         <p className="text-foreground-muted my-2">
           No olvides{' '}
           <Link
-            href={routes.users.editByUsername(session.user)}
+            href={routes.users.editByUsername(session.user.username)}
             className="text-special underline-special hover:underline"
           >
             especificar tu carrera

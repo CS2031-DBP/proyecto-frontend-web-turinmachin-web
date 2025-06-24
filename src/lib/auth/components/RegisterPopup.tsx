@@ -1,6 +1,8 @@
 import { Button } from '@/lib/common/components/Button';
+import { Form } from '@/lib/common/components/form/Form';
 import { FormInput } from '@/lib/common/components/form/FormInput';
 import { Popup } from '@/lib/common/components/popup/Popup';
+import { usePendingCallback } from '@/lib/common/hooks/use-pending';
 import { usePopup } from '@/lib/common/hooks/use-popup';
 import { removeUndefined } from '@/lib/common/util/object';
 import { EmailUniversityInfo } from '@/lib/user/components/EmailUniversityInfo';
@@ -28,19 +30,23 @@ export const RegisterPopup = () => {
     },
   });
 
-  const onSubmit = async (data: FormSchema) => {
-    const res = await signIn('credentials', {
-      redirect: false,
-      type: 'register',
-      ...removeUndefined(data),
-    });
+  const [pending, onSubmit] = usePendingCallback(
+    async (data: FormSchema) => {
+      const res = await signIn('credentials', {
+        redirect: false,
+        type: 'register',
+        ...removeUndefined(data),
+      });
 
-    // TODO: fix message
-    if (res.error) throw 'Credenciales inválidas.';
+      if (res.error) {
+        throw res.code ?? 'Algo salió mal :(';
+      }
 
-    closePopup();
-    router.refresh();
-  };
+      closePopup();
+      router.refresh();
+    },
+    [router, closePopup],
+  );
 
   const email = form.watch('email');
 
@@ -48,7 +54,7 @@ export const RegisterPopup = () => {
     <Popup className="max-w-sm">
       <Popup.Title>Crear cuenta</Popup.Title>
 
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <Form form={form} onSubmit={onSubmit}>
         <FormInput
           form={form}
           name="email"
@@ -70,10 +76,15 @@ export const RegisterPopup = () => {
           type="password"
           label="Contraseña"
         />
-        <Button variant="special" className="w-full">
+        <Button
+          type="submit"
+          variant="special"
+          disabled={pending}
+          className="w-full"
+        >
           Crear cuenta
         </Button>
-      </form>
+      </Form>
 
       <Popup.Footer>
         ¿Ya tienes una cuenta?{' '}
