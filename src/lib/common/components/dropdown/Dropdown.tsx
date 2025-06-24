@@ -5,7 +5,6 @@ import {
   useRef,
   useState,
   type HTMLAttributes,
-  type MouseEvent as ReactMouseEvent,
   type ReactNode,
 } from 'react';
 import { twMerge } from 'tailwind-merge';
@@ -40,8 +39,7 @@ export const Dropdown = ({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const handleOpenerClick = (ev: ReactMouseEvent) => {
-    ev.stopPropagation();
+  const handleOpenerClick = () => {
     setOpen((prevOpen) => !prevOpen);
   };
 
@@ -66,12 +64,12 @@ export const Dropdown = ({
           ref={menuRef}
           id="dropdown-menu"
           role="menu"
-          className="bg-background-alt [&>*]:hover:bg-muted [&>*]:hover:text-foreground absolute top-12/10 right-0 z-25 overflow-hidden rounded-lg"
+          className="bg-background-alt [&>*]:hover:bg-muted [&>*]:hover:text-foreground absolute top-12/10 right-0 z-25 overflow-hidden rounded-lg [&>*]:block"
         >
           {items.map((item, i) => (
             <li
               key={i}
-              className="[&>*]: [&>*]:px-4 [&>*]:py-2 [&>*]:text-nowrap"
+              className="[&>*]: [&>*]:block [&>*]:px-4 [&>*]:py-2 [&>*]:text-nowrap"
             >
               {item}
             </li>

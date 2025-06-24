@@ -1,9 +1,12 @@
 import { sessionApiClient } from '@/lib/api/util/client';
 import { auth } from '@/lib/auth';
 import { Main } from '@/lib/common/components/layout/Main';
+import { PageTitle } from '@/lib/common/components/layout/PageTitle';
 import { routes } from '@/lib/routes';
 import { ProfileEditor } from '@/lib/user/components/ProfileEditor';
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
+import { LuKey } from 'react-icons/lu';
 
 export interface Props {
   params: Promise<{ username: string }>;
@@ -28,7 +31,18 @@ const EditUser = async ({ params }: Readonly<Props>) => {
 
   return (
     <Main>
-      <h1 className="mb-4 text-3xl font-semibold">Editar perfil</h1>
+      <PageTitle backHref={routes.users.byUsername(username)}>
+        Editar perfil
+      </PageTitle>
+      <div className="mb-2 flex justify-end">
+        <Link
+          href={routes.users.changePasswordByUsername(username)}
+          className="button-outline"
+        >
+          <LuKey className="mr-2 mb-1 inline" />
+          Cambiar contraseña
+        </Link>
+      </div>
       <ProfileEditor
         session={session}
         user={user}

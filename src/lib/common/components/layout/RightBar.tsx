@@ -59,7 +59,7 @@ export const RightBar = ({ universities, degrees, ...props }: Props) => {
           {degrees.map((degree) => (
             <li key={degree.id}>
               <Link
-                href={routes.degrees.byId(degree)}
+                href={routes.degrees.byId(degree.id)}
                 className="hover:text-foreground"
               >
                 {degree.name}

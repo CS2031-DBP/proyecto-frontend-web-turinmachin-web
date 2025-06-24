@@ -11,7 +11,7 @@ import { LuFileSearch, LuGhost } from 'react-icons/lu';
 import useSWRInfinite from 'swr/infinite';
 import { twJoin, twMerge } from 'tailwind-merge';
 import { PostPageSchema } from '../schemas/post';
-import { FeedPost } from './FeedPost';
+import { PostCard } from './PostCard';
 
 export interface Props extends HTMLAttributes<HTMLUListElement> {
   session: Session | null;
@@ -46,7 +46,7 @@ export const PostListing = ({
     setSize,
     mutate,
   } = useSWRInfinite(getKey, ([, page]) =>
-    apiClient.getPosts({ queries: { size: 1, ...queries, page } }),
+    apiClient.getPosts({ queries: { size: 10, ...queries, page } }),
   );
 
   const loaderRef = useRef<HTMLDivElement>(null);
@@ -66,7 +66,7 @@ export const PostListing = ({
     <>
       <ul {...props} className={twMerge(className, 'mx-auto w-full max-w-lg')}>
         {allData.map((post) => (
-          <FeedPost
+          <PostCard
             key={post.id}
             post={post}
             className="my-6"

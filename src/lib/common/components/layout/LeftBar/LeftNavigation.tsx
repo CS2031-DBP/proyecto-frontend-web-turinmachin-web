@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { HTMLAttributes } from 'react';
 import { IconType } from 'react-icons';
-import { LuBell, LuHouse, LuSearch, LuUser } from 'react-icons/lu';
+import { LuHouse, LuSearch, LuUser } from 'react-icons/lu';
 import { twJoin, twMerge } from 'tailwind-merge';
 
 type Link =
@@ -45,14 +45,15 @@ const links: Link[] = [
     Icon: LuSearch,
     exact: true,
   },
+  // {
+  //   to: '/notifications', // TODO: implement notifications
+  //   label: 'Notificaciones',
+  //   Icon: LuBell,
+  //   sessionOnly: true,
+  // },
   {
-    to: '/notifications', // TODO: implement notifications
-    label: 'Notificaciones',
-    Icon: LuBell,
-    sessionOnly: true,
-  },
-  {
-    to: (session) => (session ? routes.users.byUsername(session.user) : ''),
+    to: (session) =>
+      session ? routes.users.byUsername(session.user.username) : '',
     label: 'Mi cuenta',
     Icon: LuUser,
     sessionOnly: true,

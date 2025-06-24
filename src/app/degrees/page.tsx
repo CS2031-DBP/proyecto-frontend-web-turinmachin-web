@@ -6,16 +6,16 @@ import { isSessionAdmin } from '@/lib/user/util';
 import Link from 'next/link';
 import { LuPlus } from 'react-icons/lu';
 
-const Universities = async () => {
+const Degrees = async () => {
   const session = await auth();
-  const universities = await apiClient.getUniversities();
+  const degrees = await apiClient.getDegrees();
 
   return (
     <Main>
-      <h1 className="mb-4 text-3xl font-semibold">Universidades</h1>
+      <h1 className="mb-4 text-3xl font-semibold">Carreras</h1>
       {isSessionAdmin(session) && (
         <div className="mb-4 flex justify-end">
-          <Link href={routes.universities.add} className="button-normal">
+          <Link href={routes.degrees.add} className="button-normal">
             <LuPlus className="mr-2 inline size-5" />
             Añadir
           </Link>
@@ -23,13 +23,13 @@ const Universities = async () => {
       )}
 
       <ul className="space-y-6">
-        {universities.map((university) => (
-          <li key={university.id}>
+        {degrees.map((degree) => (
+          <li key={degree.id}>
             <Link
-              href={routes.universities.byId(university.id)}
+              href={routes.degrees.byId(degree.id)}
               className="border-muted hover:border-special block rounded-2xl border px-8 py-4 text-lg"
             >
-              {university.name}
+              {degree.name}
             </Link>
           </li>
         ))}
@@ -38,4 +38,4 @@ const Universities = async () => {
   );
 };
 
-export default Universities;
+export default Degrees;

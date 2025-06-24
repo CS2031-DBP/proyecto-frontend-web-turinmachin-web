@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { HTMLAttributes } from 'react';
+import { HTMLAttributes, MouseEvent } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -11,11 +11,17 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
 export const DivLink = ({ href, className, children, ...props }: Props) => {
   const router = useRouter();
 
+  const handleClick = (e: MouseEvent<HTMLDivElement>) => {
+    if (!(e.target instanceof Element) || !e.target.closest('a, button')) {
+      router.push(href);
+    }
+  };
+
   return (
     <div
       {...props}
       role="button"
-      onClick={() => router.push(href)}
+      onClick={handleClick}
       className={twMerge('cursor-pointer', className)}
     >
       {children}

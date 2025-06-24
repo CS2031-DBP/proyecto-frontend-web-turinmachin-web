@@ -1,28 +1,28 @@
-import { SessionUserSchema } from './auth/schemas/session-user';
-import { DegreeSchema } from './degree/schemas/degree';
-import { PostSchema } from './post/schemas/post';
-
 export const routes = {
   home: '/',
   verify: '/verify',
   users: {
     root: '/users',
-    byUsername: (user: SessionUserSchema) => `/users/${user.username}`,
-    editByUsername: (user: SessionUserSchema) => `/users/${user.username}/edit`,
+    byUsername: (username: string) => `/users/${username}`,
+    editByUsername: (username: string) => `/users/${username}/edit`,
+    changePasswordByUsername: (username: string) =>
+      `/users/${username}/change-password`,
   },
   posts: {
     root: '/posts',
-    byId: (post: PostSchema) => `/posts/${post.id}`,
-    editById: (post: PostSchema) => `/posts/${post.id}/edit`,
+    byId: (id: string) => `/posts/${id}`,
+    editById: (id: string) => `/posts/${id}/edit`,
   },
   universities: {
     root: '/universities',
     add: '/universities/add',
     byId: (id: string) => `/universities/${id}`,
+    editById: (id: string) => `/universities/${id}/edit`,
   },
   degrees: {
     root: '/degrees',
     add: '/degrees/add',
-    byId: (degree: DegreeSchema) => `/degrees/${degree.id}`,
+    byId: (id: string) => `/degrees/${id}`,
+    editById: (id: string) => `/degrees/${id}/edit`,
   },
 } as const;

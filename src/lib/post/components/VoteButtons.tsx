@@ -2,7 +2,7 @@
 
 import { useSessionApiClient } from '@/lib/auth/schemas/hooks/use-session-api-client';
 import { Session } from 'next-auth';
-import { HTMLAttributes, MouseEvent, useState } from 'react';
+import { HTMLAttributes, useState } from 'react';
 import {
   BiDownArrow,
   BiSolidDownArrow,
@@ -35,8 +35,7 @@ export const VoteButtons = ({
 
   const apiClient = useSessionApiClient(session);
 
-  const handleUpvote = async (ev: MouseEvent) => {
-    ev.stopPropagation();
+  const handleUpvote = async () => {
     if (session === null) return;
 
     if (localCurrentVote === 1) {
@@ -48,8 +47,7 @@ export const VoteButtons = ({
     }
   };
 
-  const handleDownvote = async (ev: MouseEvent) => {
-    ev.stopPropagation();
+  const handleDownvote = async () => {
     if (session === null) return;
 
     if (localCurrentVote === -1) {

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const CreateUniversitySchema = z.object({
+export const UpdateUniversitySchema = z.object({
   name: z.string().nonempty(),
   shortName: z
     .string()
@@ -16,4 +16,4 @@ export const CreateUniversitySchema = z.object({
   emailDomains: z.string().trim().nonempty().array(),
 });
 
-export type CreateUniversitySchema = z.infer<typeof CreateUniversitySchema>;
+export type UpdateUniversitySchema = z.infer<typeof UpdateUniversitySchema>;

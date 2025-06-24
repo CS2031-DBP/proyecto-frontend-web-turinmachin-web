@@ -1,6 +1,6 @@
 'use client';
 
-import { HTMLAttributes } from 'react';
+import { HTMLAttributes, useEffect } from 'react';
 import { LuX } from 'react-icons/lu';
 import { twMerge } from 'tailwind-merge';
 import { usePopup } from '../../hooks/use-popup';
@@ -12,12 +12,26 @@ export type Props = HTMLAttributes<HTMLDivElement>;
 const Popup = ({ className, children, ...props }: Props) => {
   const { closePopup } = usePopup();
 
+  useEffect(() => {
+    const clickHandler = (e: MouseEvent) => {
+      if (e.target instanceof Element && !e.target.closest('#popup')) {
+        closePopup();
+      }
+    };
+
+    document.addEventListener('click', clickHandler);
+    return () => {
+      document.removeEventListener('click', clickHandler);
+    };
+  }, [closePopup]);
+
   return (
     <div
       {...props}
       className="bg-foreground/5 fixed top-0 left-0 z-50 flex h-screen w-screen items-center justify-center backdrop-blur-xs"
     >
       <div
+        id="popup"
         className={twMerge(
           'bg-background border-muted relative w-full rounded-xl border px-4 py-6',
           className,

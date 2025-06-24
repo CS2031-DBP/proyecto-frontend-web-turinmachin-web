@@ -16,7 +16,7 @@ const EditPost = async ({ params }: Props) => {
   const post = await apiClient.getPost({ params: { id: postId } });
 
   if (session?.user.id !== post.author.id) {
-    return redirect(routes.posts.byId(post));
+    return redirect(routes.posts.byId(post.id));
   }
 
   return (

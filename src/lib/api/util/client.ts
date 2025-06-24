@@ -3,12 +3,16 @@ import { LoginResponseSchema } from '@/lib/auth/schemas/login-response';
 import { RegisterRequestSchema } from '@/lib/auth/schemas/register-request';
 import { CommentSchema } from '@/lib/comment/schemas/comment';
 import { CreateCommentSchema } from '@/lib/comment/schemas/create-comment';
+import { CreateDegreeSchema } from '@/lib/degree/schemas/create-degree';
 import { DegreeSchema } from '@/lib/degree/schemas/degree';
+import { UpdateDegreeSchema } from '@/lib/degree/schemas/update-degree';
 import { PostPageSchema, PostSchema } from '@/lib/post/schemas/post';
 import { UpdatePostSchema } from '@/lib/post/schemas/update-post';
 import { CreateUniversitySchema } from '@/lib/university/schemas/create-university';
 import { UniversitySchema } from '@/lib/university/schemas/university';
+import { UpdateUniversitySchema } from '@/lib/university/schemas/update-university';
 import { RoleSchema } from '@/lib/user/schemas/role';
+import { UpdatePasswordSchema } from '@/lib/user/schemas/update-password';
 import { UpdateUserSchema } from '@/lib/user/schemas/update-user';
 import { UserSchema } from '@/lib/user/schemas/user';
 import { makeApi, Zodios } from '@zodios/core';
@@ -23,7 +27,7 @@ export const api = makeApi([
     path: '/auth/register',
     parameters: [{ name: 'body', type: 'Body', schema: RegisterRequestSchema }],
     response: LoginResponseSchema,
-    errors: [{ status: 401, schema: DetailResponseSchema }],
+    errors: [{ status: 409, schema: DetailResponseSchema }],
   },
   {
     alias: 'login',
@@ -83,6 +87,14 @@ export const api = makeApi([
     alias: 'deleteSelfPicture',
     method: 'delete',
     path: '/users/@self/picture',
+    response: z.void(),
+  },
+  {
+    alias: 'updateSelfPassword',
+    method: 'patch',
+    path: '/users/@self/password',
+    parameters: [{ type: 'Body', name: 'body', schema: UpdatePasswordSchema }],
+    errors: [{ status: 401, schema: DetailResponseSchema }],
     response: z.void(),
   },
   {
@@ -235,6 +247,21 @@ export const api = makeApi([
     response: UniversitySchema,
   },
   {
+    alias: 'updateUniversity',
+    method: 'put',
+    path: '/universities/:id',
+    parameters: [
+      { type: 'Body', name: 'body', schema: UpdateUniversitySchema },
+    ],
+    response: UniversitySchema,
+  },
+  {
+    alias: 'removeUniversity',
+    method: 'delete',
+    path: '/universities/:id',
+    response: z.void(),
+  },
+  {
     alias: 'getDegrees',
     method: 'get',
     path: '/degrees',
@@ -248,7 +275,7 @@ export const api = makeApi([
     response: DegreeSchema.array(),
   },
   {
-    alias: 'getDegree',
+    alias: 'getDegreeById',
     method: 'get',
     path: '/degrees/:id',
     response: DegreeSchema,
@@ -256,6 +283,26 @@ export const api = makeApi([
       { status: 404, schema: DetailResponseSchema },
       { status: 400, schema: DetailResponseSchema },
     ],
+  },
+  {
+    alias: 'createDegree',
+    method: 'post',
+    path: '/degrees',
+    parameters: [{ type: 'Body', name: 'body', schema: CreateDegreeSchema }],
+    response: DegreeSchema,
+  },
+  {
+    alias: 'updateDegree',
+    method: 'put',
+    path: '/degrees/:id',
+    parameters: [{ type: 'Body', name: 'body', schema: UpdateDegreeSchema }],
+    response: DegreeSchema,
+  },
+  {
+    alias: 'removeDegree',
+    method: 'delete',
+    path: '/degrees/:id',
+    response: z.void(),
   },
 ]);
 

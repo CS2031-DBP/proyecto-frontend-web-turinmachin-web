@@ -7,6 +7,6 @@ export const SessionUserSchema = UserSchema.pick({
   displayName: true,
   role: true,
   verified: true,
-});
+}).extend({ hasUniversity: z.boolean() });
 
 export type SessionUserSchema = z.infer<typeof SessionUserSchema>;

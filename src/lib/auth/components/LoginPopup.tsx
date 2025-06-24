@@ -21,20 +21,25 @@ export const LoginPopup = () => {
   const { openPopup, closePopup } = usePopup();
   const form = useForm({ resolver: zodResolver(FormSchema) });
 
-  const [pending, onSubmit] = usePendingCallback(async (data: FormSchema) => {
-    const res = await signIn('credentials', { redirect: false, ...data });
+  const [pending, handleSubmit] = usePendingCallback(
+    async (data: FormSchema) => {
+      const res = await signIn('credentials', { redirect: false, ...data });
 
-    if (res.error) throw 'Credenciales inválidas.';
+      if (res.error) {
+        throw res.code ?? 'Algo salió mal :(';
+      }
 
-    closePopup();
-    router.refresh();
-  }, []);
+      closePopup();
+      router.refresh();
+    },
+    [],
+  );
 
   return (
     <Popup className="max-w-sm">
       <Popup.Title>Iniciar sesión</Popup.Title>
 
-      <Form form={form} onSubmit={onSubmit}>
+      <Form form={form} onSubmit={handleSubmit}>
         <FormInput form={form} label="Usuario / correo" name="username" />
         <FormInput
           form={form}
@@ -44,8 +49,8 @@ export const LoginPopup = () => {
         />
         <Button
           type="submit"
-          disabled={pending}
           variant="special"
+          disabled={pending}
           className="w-full"
         >
           Ingresar
