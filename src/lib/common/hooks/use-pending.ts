@@ -8,7 +8,7 @@ export const usePendingCallback = <T, A extends unknown[]>(
 ): [pending: boolean, cb: (...args: A) => Promise<T>] => {
   const [pending, setPending] = useState(false);
 
-  const newCb = useCallback(
+  const newCallback = useCallback(
     async (...args: A) => {
       setPending(true);
 
@@ -22,5 +22,5 @@ export const usePendingCallback = <T, A extends unknown[]>(
     [...deps],
   );
 
-  return [pending, newCb];
+  return [pending, newCallback];
 };

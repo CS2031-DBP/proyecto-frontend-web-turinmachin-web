@@ -6,7 +6,9 @@ import { day } from '@/lib/common/util/dayjs';
 import { PostListing } from '@/lib/post/components/PostListing';
 import { routes } from '@/lib/routes';
 import { ResendVerificationButton } from '@/lib/user/components/ResendVerificationButton';
+import { RoleSelector } from '@/lib/user/components/RoleSelector';
 import { UserSchema } from '@/lib/user/schemas/user';
+import { isSessionAdmin } from '@/lib/user/util';
 import { isErrorFromAlias } from '@zodios/core';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -45,6 +47,11 @@ const User = async ({ params }: Readonly<Props>) => {
 
   return (
     <Main>
+      {isSessionAdmin(session) && (
+        <div className="flex justify-end">
+          <RoleSelector session={session} user={user} />
+        </div>
+      )}
       <div className="mt-8">
         {user.profilePicture && (
           <div className="bg-background-alt relative mx-auto mb-8 size-36 min-h-36 overflow-hidden rounded-full">
@@ -118,7 +125,7 @@ const User = async ({ params }: Readonly<Props>) => {
           <li className="flex items-center">
             <LuUniversity className="mr-2 shrink-0" />
             <Link
-              href={routes.universities.byId(user.university)}
+              href={routes.universities.byId(user.university.id)}
               className="hover:text-foreground"
             >
               {user.university.shortName ?? user.university.name}

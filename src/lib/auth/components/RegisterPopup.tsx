@@ -2,6 +2,7 @@ import { Button } from '@/lib/common/components/Button';
 import { FormInput } from '@/lib/common/components/form/FormInput';
 import { Popup } from '@/lib/common/components/popup/Popup';
 import { usePopup } from '@/lib/common/hooks/use-popup';
+import { removeUndefined } from '@/lib/common/util/object';
 import { EmailUniversityInfo } from '@/lib/user/components/EmailUniversityInfo';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signIn } from 'next-auth/react';
@@ -22,6 +23,7 @@ export const RegisterPopup = () => {
     defaultValues: {
       email: '',
       username: '',
+      displayName: '',
       password: '',
     },
   });
@@ -30,9 +32,10 @@ export const RegisterPopup = () => {
     const res = await signIn('credentials', {
       redirect: false,
       type: 'register',
-      ...data,
+      ...removeUndefined(data),
     });
 
+    // TODO: fix message
     if (res.error) throw 'Credenciales inválidas.';
 
     closePopup();

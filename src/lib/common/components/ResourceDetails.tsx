@@ -63,7 +63,7 @@ export const ResourceDetails = ({
             <div>
               <LuUniversity className="mr-2 mb-1 inline size-4" />
               <Link
-                href={routes.universities.byId(university)}
+                href={routes.universities.byId(university.id)}
                 className="hover:underline"
               >
                 {universityName}
