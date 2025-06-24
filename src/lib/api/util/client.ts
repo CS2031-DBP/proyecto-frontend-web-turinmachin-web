@@ -6,7 +6,9 @@ import { CreateCommentSchema } from '@/lib/comment/schemas/create-comment';
 import { DegreeSchema } from '@/lib/degree/schemas/degree';
 import { PostPageSchema, PostSchema } from '@/lib/post/schemas/post';
 import { UpdatePostSchema } from '@/lib/post/schemas/update-post';
+import { CreateUniversitySchema } from '@/lib/university/schemas/create-university';
 import { UniversitySchema } from '@/lib/university/schemas/university';
+import { RoleSchema } from '@/lib/user/schemas/role';
 import { UpdateUserSchema } from '@/lib/user/schemas/update-user';
 import { UserSchema } from '@/lib/user/schemas/user';
 import { makeApi, Zodios } from '@zodios/core';
@@ -98,6 +100,15 @@ export const api = makeApi([
     method: 'get',
     path: '/users/username/:username',
     errors: [{ status: 404, schema: DetailResponseSchema }],
+    response: UserSchema,
+  },
+  {
+    alias: 'updateUserRole',
+    method: 'patch',
+    path: '/users/:id/role',
+    parameters: [
+      { type: 'Body', name: 'body', schema: z.object({ role: RoleSchema }) },
+    ],
     response: UserSchema,
   },
   {
@@ -213,6 +224,15 @@ export const api = makeApi([
     path: '/universities/domain/:emailDomain',
     response: UniversitySchema,
     errors: [{ status: 404, schema: DetailResponseSchema }],
+  },
+  {
+    alias: 'createUniversity',
+    method: 'post',
+    path: '/universities',
+    parameters: [
+      { type: 'Body', name: 'body', schema: CreateUniversitySchema },
+    ],
+    response: UniversitySchema,
   },
   {
     alias: 'getDegrees',

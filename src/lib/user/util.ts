@@ -8,3 +8,6 @@ export const sessionHasRights = (
   session !== null &&
   session.user.verified &&
   (session.user.role !== 'USER' || session.user.id === resourceAuthor.id);
+
+export const isSessionAdmin = (session: Session | null): session is Session =>
+  session !== null && session.user.role === 'ADMIN';

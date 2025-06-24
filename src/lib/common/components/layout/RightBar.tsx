@@ -22,12 +22,14 @@ export const RightBar = ({ universities, degrees, ...props }: Props) => {
     >
       <section>
         <h2 className="mb-4 flex flex-nowrap items-center text-xl font-semibold">
-          <LuUniversity className="mr-2 inline" />
-          <span>Universidades</span>
+          <Link href={routes.universities.root} className="hover:text-special">
+            <LuUniversity className="mr-2 inline" />
+            Universidades
+          </Link>
         </h2>
         <ul className="text-foreground-muted space-y-3 pl-4">
           {universities.map((university) => {
-            const href = routes.universities.byId(university);
+            const href = routes.universities.byId(university.id);
 
             return (
               <li key={university.id}>
@@ -48,8 +50,10 @@ export const RightBar = ({ universities, degrees, ...props }: Props) => {
       </section>
       <section>
         <h2 className="mb-4 flex items-center text-xl font-semibold">
-          <LuGraduationCap className="mr-2 inline" />
-          <span>Carreras</span>
+          <Link href={routes.degrees.root} className="hover:text-special">
+            <LuGraduationCap className="mr-2 inline" />
+            Carreras
+          </Link>
         </h2>
         <ul className="text-foreground-muted space-y-3 pl-4">
           {degrees.map((degree) => (

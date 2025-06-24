@@ -1,7 +1,6 @@
 import { SessionUserSchema } from './auth/schemas/session-user';
 import { DegreeSchema } from './degree/schemas/degree';
 import { PostSchema } from './post/schemas/post';
-import { UniversitySchema } from './university/schemas/university';
 
 export const routes = {
   home: '/',
@@ -18,10 +17,12 @@ export const routes = {
   },
   universities: {
     root: '/universities',
-    byId: (university: UniversitySchema) => `/universities/${university.id}`,
+    add: '/universities/add',
+    byId: (id: string) => `/universities/${id}`,
   },
   degrees: {
     root: '/degrees',
+    add: '/degrees/add',
     byId: (degree: DegreeSchema) => `/degrees/${degree.id}`,
   },
 } as const;
