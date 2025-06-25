@@ -2,7 +2,6 @@ import { routes } from '@/lib/routes';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { HTMLAttributes } from 'react';
-import { LuUniversity } from 'react-icons/lu';
 import type { DegreeSchema } from '../../degree/schemas/degree';
 import type { UniversitySchema } from '../../university/schemas/university';
 import type { UserSchema } from '../../user/schemas/user';
@@ -61,7 +60,6 @@ export const ResourceDetails = ({
           </div>
           {university && (
             <div>
-              <LuUniversity className="mr-2 mb-1 inline size-4" />
               <Link
                 href={routes.universities.byId(university.id)}
                 className="hover:underline"

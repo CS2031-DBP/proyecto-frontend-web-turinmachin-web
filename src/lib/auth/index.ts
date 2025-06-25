@@ -100,15 +100,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const updatedUser = await apiClient.getUserById({
           params: { id: token.user.id },
         });
-        token.user = pick(
-          updatedUser,
-          'id',
-          'email',
-          'username',
-          'displayName',
-          'role',
-          'verified',
-        );
+        token.user = {
+          ...pick(
+            updatedUser,
+            'id',
+            'email',
+            'username',
+            'displayName',
+            'role',
+            'verified',
+          ),
+          hasUniversity: !!updatedUser.university,
+        };
       }
       return token;
     },

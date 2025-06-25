@@ -1,15 +1,16 @@
 import { apiClient } from '@/lib/api/util/client';
 import { auth } from '@/lib/auth';
 import { Main } from '@/lib/common/components/layout/Main';
+import { quantify } from '@/lib/common/util/string';
 import { PostListing } from '@/lib/post/components/PostListing';
 import { routes } from '@/lib/routes';
 import { DeleteUniversityButton } from '@/lib/university/components/DeleteUniversityButton';
-import { UniversitySchema } from '@/lib/university/schemas/university';
+import { UniversityWithStatsSchema } from '@/lib/university/schemas/university-with-stats';
 import { isSessionAdmin } from '@/lib/user/util';
 import { isErrorFromAlias } from '@zodios/core';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { LuLink, LuPencil } from 'react-icons/lu';
+import { LuLink, LuPencil, LuUser } from 'react-icons/lu';
 
 export interface Props {
   params: Promise<{ id: string }>;
@@ -20,7 +21,7 @@ const University = async ({ params }: Readonly<Props>) => {
 
   const { id: universityId } = await params;
 
-  let university: UniversitySchema;
+  let university: UniversityWithStatsSchema;
   try {
     university = await apiClient.getUniversityById({
       params: { id: universityId },
@@ -57,19 +58,25 @@ const University = async ({ params }: Readonly<Props>) => {
         )}
       </div>
 
-      {university.websiteUrl && (
-        <p>
-          <LuLink className="mr-2 mb-1 inline" />
-          <Link
-            href={university.websiteUrl}
-            className="text-special hover:underline"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {university.websiteUrl}
-          </Link>
-        </p>
-      )}
+      <ul className="text-foreground-muted space-y-2">
+        <li>
+          <LuUser className="mr-2 mb-1 inline" />
+          {quantify(university.totalStudents, 'estudiante')}
+        </li>
+        {university.websiteUrl && (
+          <li>
+            <LuLink className="mr-2 mb-1 inline" />
+            <Link
+              href={university.websiteUrl}
+              className="text-special hover:underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {university.websiteUrl}
+            </Link>
+          </li>
+        )}
+      </ul>
 
       <hr className="border-muted my-4" />
 

@@ -37,6 +37,7 @@ export const CreatePostPopup = ({ session }: Props) => {
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
+      content: '',
       files: [],
       tags: [],
     },
@@ -52,16 +53,15 @@ export const CreatePostPopup = ({ session }: Props) => {
     async (data: FormSchema) => {
       const formData = new FormData();
       formData.set('content', data.content);
-
       data.tags.forEach((t) => formData.append('tags', t));
-      data.files.forEach((t) => formData.append('files', t));
+      data.files.forEach((f) => formData.append('files', f));
 
       const createdPost = await apiClient.createPost(formData);
 
-      closePopup();
       router.push(routes.posts.byId(createdPost.id));
+      closePopup();
     },
-    [],
+    [apiClient, router],
   );
 
   return (
@@ -77,6 +77,7 @@ export const CreatePostPopup = ({ session }: Props) => {
             form={form}
             name="content"
             placeholder="Piensa en algo interesante..."
+            autoFocus
             className="text-lg sm:text-xl"
           />
           <TagInput value={tags} setValue={setTags} />
