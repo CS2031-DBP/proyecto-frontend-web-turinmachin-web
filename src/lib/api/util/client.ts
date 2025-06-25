@@ -5,11 +5,13 @@ import { CommentSchema } from '@/lib/comment/schemas/comment';
 import { CreateCommentSchema } from '@/lib/comment/schemas/create-comment';
 import { CreateDegreeSchema } from '@/lib/degree/schemas/create-degree';
 import { DegreeSchema } from '@/lib/degree/schemas/degree';
+import { DegreeWithStatsSchema } from '@/lib/degree/schemas/degree-with-stats';
 import { UpdateDegreeSchema } from '@/lib/degree/schemas/update-degree';
 import { PostPageSchema, PostSchema } from '@/lib/post/schemas/post';
 import { UpdatePostSchema } from '@/lib/post/schemas/update-post';
 import { CreateUniversitySchema } from '@/lib/university/schemas/create-university';
 import { UniversitySchema } from '@/lib/university/schemas/university';
+import { UniversityWithStatsSchema } from '@/lib/university/schemas/university-with-stats';
 import { UpdateUniversitySchema } from '@/lib/university/schemas/update-university';
 import { RoleSchema } from '@/lib/user/schemas/role';
 import { UpdatePasswordSchema } from '@/lib/user/schemas/update-password';
@@ -224,7 +226,7 @@ export const api = makeApi([
     alias: 'getUniversityById',
     method: 'get',
     path: '/universities/:id',
-    response: UniversitySchema,
+    response: UniversityWithStatsSchema,
     errors: [
       { status: 404, schema: DetailResponseSchema },
       { status: 400, schema: DetailResponseSchema },
@@ -278,7 +280,7 @@ export const api = makeApi([
     alias: 'getDegreeById',
     method: 'get',
     path: '/degrees/:id',
-    response: DegreeSchema,
+    response: DegreeWithStatsSchema,
     errors: [
       { status: 404, schema: DetailResponseSchema },
       { status: 400, schema: DetailResponseSchema },

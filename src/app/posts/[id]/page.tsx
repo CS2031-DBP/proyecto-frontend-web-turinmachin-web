@@ -51,10 +51,12 @@ const Post = async ({ params }: Readonly<Props>) => {
           <Dropdown
             items={[
               <DeletePostButton key={0} postId={postId} session={session} />,
-              <Link key={1} href={routes.posts.editById(post.id)}>
-                <LuPencil className="mr-2 inline" />
-                Editar
-              </Link>,
+              post.author.id === session.user.id && (
+                <Link key={1} href={routes.posts.editById(post.id)}>
+                  <LuPencil className="mr-2 inline" />
+                  Editar
+                </Link>
+              ),
             ]}
             buttonProps={{ className: 'py-1 px-2' }}
           >

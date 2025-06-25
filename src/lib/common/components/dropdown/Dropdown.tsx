@@ -11,7 +11,7 @@ import { twMerge } from 'tailwind-merge';
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   buttonProps?: HTMLAttributes<HTMLButtonElement>;
-  items: ReactNode[];
+  items: (ReactNode | false | undefined)[];
 }
 
 export const Dropdown = ({
@@ -66,14 +66,16 @@ export const Dropdown = ({
           role="menu"
           className="bg-background-alt [&>*]:hover:bg-muted [&>*]:hover:text-foreground absolute top-12/10 right-0 z-25 overflow-hidden rounded-lg [&>*]:block"
         >
-          {items.map((item, i) => (
-            <li
-              key={i}
-              className="[&>*]: [&>*]:block [&>*]:px-4 [&>*]:py-2 [&>*]:text-nowrap"
-            >
-              {item}
-            </li>
-          ))}
+          {items
+            .filter((item) => !!item)
+            .map((item, i) => (
+              <li
+                key={i}
+                className="[&>*]: [&>*]:block [&>*]:px-4 [&>*]:py-2 [&>*]:text-nowrap"
+              >
+                {item}
+              </li>
+            ))}
         </ul>
       )}
     </span>
