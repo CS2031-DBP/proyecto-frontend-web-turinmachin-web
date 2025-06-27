@@ -19,7 +19,13 @@ export type FormSchema = z.infer<typeof FormSchema>;
 export const LoginPopup = () => {
   const router = useRouter();
   const { openPopup, closePopup } = usePopup();
-  const form = useForm({ resolver: zodResolver(FormSchema) });
+  const form = useForm({
+    resolver: zodResolver(FormSchema),
+    defaultValues: {
+      username: '',
+      password: '',
+    },
+  });
 
   const [pending, handleSubmit] = usePendingCallback(
     async (data: FormSchema) => {
