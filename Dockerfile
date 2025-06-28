@@ -7,7 +7,7 @@ WORKDIR /app
 
 # Dependencies layer
 FROM base AS deps
-COPY package.json pnpm-lock.yaml* .npmrc* ./
+COPY package.json pnpm-lock.yaml* pnpm-workspace.yaml* .npmrc* ./
 RUN --mount=type=cache,target=/root/.pnpm-store pnpm install --frozen-lockfile
 
 # Build layer
