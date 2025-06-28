@@ -19,7 +19,7 @@ if (!apiUrl) {
 
 export const ApiClientProvider = ({ session, children }: Props) => {
   const apiClient = useRef<ApiClient | null>(null);
-  const { data: sessionData } = useSession();
+  const { status: sessionStatus, data: sessionData } = useSession();
 
   const setToken = (token: string) => {
     if (!apiClient.current) throw new Error('apiClient is null');
@@ -42,14 +42,16 @@ export const ApiClientProvider = ({ session, children }: Props) => {
     }
   }
 
-  // TODO: maybe this is erasing the token before the rquest is made?
+  // TODO: maybe this is erasing the token before the request is made?
   useEffect(() => {
+    if (sessionStatus === 'loading') return;
+
     if (sessionData) {
       setToken(sessionData.accessToken);
     } else {
       clearToken();
     }
-  }, [sessionData]);
+  }, [sessionData, sessionStatus]);
 
   return (
     <ApiClientContext

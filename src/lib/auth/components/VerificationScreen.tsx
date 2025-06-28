@@ -1,10 +1,10 @@
 'use client';
 
-import { createServerApiClient } from '@/lib/api/util/client';
+import { useApiClient } from '@/lib/api/hooks/use-api-client';
 import { Spinner } from '@/lib/common/components/Spinner';
 import { Session } from 'next-auth';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { RiRobot2Line } from 'react-icons/ri';
 
 type Status = 'pending' | 'error';
@@ -17,7 +17,7 @@ export const VerificationScreen = ({ session }: Props) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const apiClient = useMemo(() => createServerApiClient(session), [session]);
+  const { apiClient } = useApiClient();
 
   const started = useRef(false);
   const [status, setStatus] = useState<Status>('pending');
