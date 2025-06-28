@@ -14,7 +14,12 @@ jobs:
         run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
 
       - name: Build Docker image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/unilife-web:latest .
+        run: |
+          docker build . \
+            -t ${{ secrets.DOCKER_USERNAME }}/unilife-web:latest \
+            --build-arg API_URL_INTERNAL=${{ secrets.API_URL_INTERNAL }} \
+            --build-arg NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }} \
+            --build-arg NEXT_PUBLIC_DEPLOYMENT_URL=${{ secrets.NEXT_PUBLIC_DEPLOYMENT_URL }}
 
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/unilife-web:latest
