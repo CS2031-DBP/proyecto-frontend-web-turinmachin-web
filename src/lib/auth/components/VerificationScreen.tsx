@@ -2,18 +2,13 @@
 
 import { useApiClient } from '@/lib/api/hooks/use-api-client';
 import { Spinner } from '@/lib/common/components/Spinner';
-import { Session } from 'next-auth';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { RiRobot2Line } from 'react-icons/ri';
 
 type Status = 'pending' | 'error';
 
-export interface Props {
-  session: Session;
-}
-
-export const VerificationScreen = ({ session }: Props) => {
+export const VerificationScreen = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -27,7 +22,6 @@ export const VerificationScreen = ({ session }: Props) => {
   const doVerification = useCallback(
     async (verificationId: string) => {
       try {
-        // FIX: this request doesn't include Authorization for some reason
         await apiClient.verify({ verificationId });
         router.refresh();
       } catch (err) {

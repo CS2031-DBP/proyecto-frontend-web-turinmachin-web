@@ -41,7 +41,7 @@ const Verify = async () => {
 
   return (
     <Main className="flex grow flex-col items-center justify-center">
-      <VerificationScreen session={session} />
+      <VerificationScreen />
     </Main>
   );
 };

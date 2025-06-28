@@ -42,7 +42,6 @@ export const ApiClientProvider = ({ session, children }: Props) => {
     }
   }
 
-  // TODO: maybe this is erasing the token before the request is made?
   useEffect(() => {
     if (sessionStatus === 'loading') return;
 
