@@ -2,6 +2,7 @@ import { Button } from '@/lib/common/components/Button';
 import { Form } from '@/lib/common/components/form/Form';
 import { FormInput } from '@/lib/common/components/form/FormInput';
 import { Popup } from '@/lib/common/components/popup/Popup';
+import { PopupComponent } from '@/lib/common/components/providers/PopupProvider';
 import { usePendingCallback } from '@/lib/common/hooks/use-pending';
 import { usePopup } from '@/lib/common/hooks/use-popup';
 import { removeUndefined } from '@/lib/common/util/object';
@@ -16,9 +17,9 @@ import { RegisterRequestSchema } from '../schemas/register-request';
 const FormSchema = RegisterRequestSchema;
 type FormSchema = z.infer<typeof FormSchema>;
 
-export const RegisterPopup = () => {
+export const RegisterPopup: PopupComponent = ({ onClose }) => {
   const router = useRouter();
-  const { closePopup, openPopup } = usePopup();
+  const { openPopup } = usePopup();
 
   const form = useForm({
     resolver: zodResolver(FormSchema),
@@ -42,10 +43,10 @@ export const RegisterPopup = () => {
         throw res.code ?? 'Algo salió mal :(';
       }
 
-      closePopup();
+      onClose();
       router.refresh();
     },
-    [router, closePopup],
+    [router],
   );
 
   const email = form.watch('email');

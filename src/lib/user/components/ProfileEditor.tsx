@@ -23,6 +23,7 @@ import { z } from 'zod';
 import { useUser } from '../hooks/use-user';
 import { UpdateUserSchema } from '../schemas/update-user';
 import { UserSchema } from '../schemas/user';
+import { DeleteAccountButton } from './DeleteAccountButton';
 import { EmailUniversityInfo } from './EmailUniversityInfo';
 
 export interface Props {
@@ -89,7 +90,8 @@ export const ProfileEditor = ({ session, user, availableDegrees }: Props) => {
   const degreeId = form.watch('degreeId');
 
   const emailChanged = email !== user.email;
-  const degreesDisabled = emailChanged || !session.user.verified;
+  const degreesDisabled =
+    emailChanged || !session.user.verified || !session.user.hasUniversity;
 
   return (
     <>
@@ -167,8 +169,10 @@ export const ProfileEditor = ({ session, user, availableDegrees }: Props) => {
           <p className="text-foreground-muted my-1">
             <LuInfo className="mr-2 inline" />
             {emailChanged
-              ? 'Podrás establecer tu carrera cuando verifiques tu nuevo correo.'
-              : 'Podrás establecer tu carrera cuando verifiques tu correo.'}
+              ? 'Debes verificar tu nuevo correo antes de establecer tu carrera.'
+              : !session.user.hasUniversity
+                ? 'Tu correo no es de alguna universidad que conozcamos.'
+                : 'Debes verificar tu correo antes de establecer tu carrera.'}
           </p>
         )}
         <FormTextArea
@@ -179,11 +183,14 @@ export const ProfileEditor = ({ session, user, availableDegrees }: Props) => {
           rows={6}
           required={false}
         />
-        <div className="flex justify-end">
-          <ResetButton form={form}>Restablecer</ResetButton>
-          <Button variant="special" disabled={pending}>
-            Guardar
-          </Button>
+        <div className="flex justify-between">
+          <DeleteAccountButton />
+          <div>
+            <ResetButton form={form}>Restablecer</ResetButton>
+            <Button variant="special" disabled={pending}>
+              Guardar
+            </Button>
+          </div>
         </div>
       </Form>
     </>

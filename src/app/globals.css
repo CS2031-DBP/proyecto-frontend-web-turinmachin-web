@@ -11,6 +11,7 @@
   --color-special: var(--color-sky-400);
   --color-special-muted: var(--color-sky-500);
   --color-muted: var(--color-neutral-500);
+  --color-error: var(--color-red-700);
 
   --font-main: Lato, var(--font-sans);
 }
@@ -35,6 +36,7 @@
       --color-special: var(--color-sky-400);
       --color-special-muted: var(--color-sky-500);
       --color-muted: var(--color-neutral-700);
+      --color-error: var(--color-red-300);
     }
   }
 }
@@ -57,4 +59,8 @@
 
 @utility button-outline {
   @apply button border-foreground hover:bg-foreground hover:text-background border;
+}
+
+@utility button-error {
+  @apply button hover:text-background border border-red-300 text-red-300 hover:bg-red-300;
 }

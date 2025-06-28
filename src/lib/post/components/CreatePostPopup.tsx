@@ -1,5 +1,3 @@
-'use client';
-
 import { useApiClient } from '@/lib/api/hooks/use-api-client';
 import { Button } from '@/lib/common/components/Button';
 import { Form } from '@/lib/common/components/form/Form';
@@ -7,8 +5,8 @@ import { FormTextArea } from '@/lib/common/components/form/FormTextArea';
 import { MediaSelector } from '@/lib/common/components/form/MediaSelector';
 import { TagInput } from '@/lib/common/components/form/TagInput';
 import { Popup } from '@/lib/common/components/popup/Popup';
+import { PopupComponent } from '@/lib/common/components/providers/PopupProvider';
 import { usePendingCallback } from '@/lib/common/hooks/use-pending';
-import { usePopup } from '@/lib/common/hooks/use-popup';
 import { routes } from '@/lib/routes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
@@ -24,9 +22,8 @@ const FormSchema = z.object({
 
 type FormSchema = z.infer<typeof FormSchema>;
 
-export const CreatePostPopup = () => {
+export const CreatePostPopup: PopupComponent = ({ onClose }) => {
   const router = useRouter();
-  const { closePopup } = usePopup();
   const { apiClient } = useApiClient();
 
   const form = useForm({
@@ -54,7 +51,7 @@ export const CreatePostPopup = () => {
       const createdPost = await apiClient.createPost(formData);
 
       router.push(routes.posts.byId(createdPost.id));
-      closePopup();
+      onClose();
     },
     [apiClient, router],
   );

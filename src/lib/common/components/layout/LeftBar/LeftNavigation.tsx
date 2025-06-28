@@ -45,12 +45,6 @@ const links: Link[] = [
     Icon: LuSearch,
     exact: true,
   },
-  // {
-  //   to: '/notifications', // TODO: implement notifications
-  //   label: 'Notificaciones',
-  //   Icon: LuBell,
-  //   sessionOnly: true,
-  // },
   {
     to: (session) =>
       session ? routes.users.byUsername(session.user.username) : '',

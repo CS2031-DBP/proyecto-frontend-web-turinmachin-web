@@ -1,9 +1,8 @@
-'use client';
-
 import { Button } from '@/lib/common/components/Button';
 import { Form } from '@/lib/common/components/form/Form';
 import { FormInput } from '@/lib/common/components/form/FormInput';
 import { Popup } from '@/lib/common/components/popup/Popup';
+import { PopupComponent } from '@/lib/common/components/providers/PopupProvider';
 import { usePendingCallback } from '@/lib/common/hooks/use-pending';
 import { usePopup } from '@/lib/common/hooks/use-popup';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -16,9 +15,9 @@ import { LoginRequestSchema } from '../schemas/login-request';
 export const FormSchema = LoginRequestSchema;
 export type FormSchema = z.infer<typeof FormSchema>;
 
-export const LoginPopup = () => {
+export const LoginPopup: PopupComponent = ({ onClose }) => {
   const router = useRouter();
-  const { openPopup, closePopup } = usePopup();
+  const { openPopup } = usePopup();
 
   const form = useForm({
     resolver: zodResolver(FormSchema),
@@ -36,7 +35,7 @@ export const LoginPopup = () => {
         throw res.code ?? 'Algo salió mal :(';
       }
 
-      closePopup();
+      onClose();
       router.refresh();
     },
     [],

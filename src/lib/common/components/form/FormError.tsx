@@ -6,9 +6,8 @@ export interface Props {
   messages?: MultipleFieldErrors;
 }
 
-// TODO: use palette for red
 export const FormError = ({ message }: Props) => (
-  <div className="flex text-red-300">
+  <div className="text-error flex">
     <LuInfo className="mr-2" size={20} />
     <p className="rounded text-sm">{message}</p>
   </div>

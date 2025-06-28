@@ -2,7 +2,12 @@
 
 import { createContext } from 'react';
 
-export type PopupType = 'login' | 'register' | 'verification' | 'post';
+export type PopupType =
+  | 'login'
+  | 'register'
+  | 'verification'
+  | 'post'
+  | 'deleteAccount';
 
 export interface PopupContextValue {
   popup: PopupType | null;

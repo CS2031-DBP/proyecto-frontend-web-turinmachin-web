@@ -103,6 +103,12 @@ export const api = makeApi([
     response: z.void(),
   },
   {
+    alias: 'deleteSelf',
+    method: 'delete',
+    path: '/users/@self',
+    response: z.void(),
+  },
+  {
     alias: 'getUserById',
     method: 'get',
     path: '/users/:id',
