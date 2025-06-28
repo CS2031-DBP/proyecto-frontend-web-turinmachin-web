@@ -64,7 +64,7 @@ export const Dropdown = ({
           ref={menuRef}
           id="dropdown-menu"
           role="menu"
-          className="bg-background-alt [&>*]:hover:bg-muted [&>*]:hover:text-foreground absolute top-12/10 right-0 z-25 overflow-hidden rounded-lg [&>*]:block"
+          className="bg-background-alt absolute top-12/10 right-0 z-25 overflow-hidden rounded-lg"
         >
           {items
             .filter((item) => !!item)
