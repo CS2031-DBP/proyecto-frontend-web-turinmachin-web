@@ -5,7 +5,7 @@ import { type HTMLAttributes } from 'react';
 import { LuMessageCircle, LuShare2 } from 'react-icons/lu';
 import { twMerge } from 'tailwind-merge';
 import { CopyButton } from '../../common/components/CopyButton';
-import { Dropdown } from '../../common/components/dropdown/Dropdown';
+import { Dropdown } from '../../common/components/Dropdown';
 import { PostSchema } from '../schemas/post';
 import { VoteButtons } from './VoteButtons';
 

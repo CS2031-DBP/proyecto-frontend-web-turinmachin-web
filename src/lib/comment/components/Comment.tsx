@@ -7,7 +7,7 @@ import { useState, type HTMLAttributes } from 'react';
 import { LuEllipsis, LuTrash } from 'react-icons/lu';
 import { useSWRConfig } from 'swr';
 import { twMerge } from 'tailwind-merge';
-import { Dropdown } from '../../common/components/dropdown/Dropdown';
+import { Dropdown } from '../../common/components/Dropdown';
 import { ResourceDetails } from '../../common/components/ResourceDetails';
 import { CommentSchema } from '../schemas/comment';
 import { CommentForm } from './CommentForm';

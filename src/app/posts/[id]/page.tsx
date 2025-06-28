@@ -1,7 +1,7 @@
 import { createServerApiClient } from '@/lib/api/util/client';
 import { auth } from '@/lib/auth';
 import { CommentSection } from '@/lib/comment/components/CommentSection';
-import { Dropdown } from '@/lib/common/components/dropdown/Dropdown';
+import { Dropdown } from '@/lib/common/components/Dropdown';
 import { FileCarousel } from '@/lib/common/components/FileCarousel';
 import { Main } from '@/lib/common/components/layout/Main';
 import { ResourceDetails } from '@/lib/common/components/ResourceDetails';
