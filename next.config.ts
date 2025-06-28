@@ -1,11 +1,12 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  output: 'standalone',
   images: {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'unilife.s3.amazonaws.com',
+        hostname: 'unilife-production.s3.amazonaws.com',
         port: '',
         search: '',
       },
