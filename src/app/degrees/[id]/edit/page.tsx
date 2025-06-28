@@ -1,5 +1,5 @@
 import notFound from '@/app/not-found';
-import { apiClient } from '@/lib/api/util/client';
+import { createServerApiClient } from '@/lib/api/util/client';
 import { auth } from '@/lib/auth';
 import { Main } from '@/lib/common/components/layout/Main';
 import { DegreeEditor } from '@/lib/degree/components/DegreeEditor';
@@ -15,7 +15,9 @@ export interface Props {
 
 const EditDegree = async ({ params }: Readonly<Props>) => {
   const { id: degreeId } = await params;
+
   const session = await auth();
+  const apiClient = createServerApiClient(session);
 
   if (!isSessionAdmin(session)) {
     return redirect(routes.degrees.byId(degreeId));
@@ -37,7 +39,7 @@ const EditDegree = async ({ params }: Readonly<Props>) => {
   return (
     <Main>
       <h1 className="mb-8 text-2xl font-semibold">Editar carrera</h1>
-      <DegreeEditor degree={degree} session={session} />
+      <DegreeEditor degree={degree} />
     </Main>
   );
 };

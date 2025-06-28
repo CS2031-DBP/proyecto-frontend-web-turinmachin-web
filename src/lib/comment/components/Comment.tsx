@@ -1,6 +1,6 @@
 'use client';
 
-import { useSessionApiClient } from '@/lib/auth/schemas/hooks/use-session-api-client';
+import { useApiClient } from '@/lib/api/hooks/use-api-client';
 import { sessionHasRights } from '@/lib/user/util';
 import { Session } from 'next-auth';
 import { useState, type HTMLAttributes } from 'react';
@@ -27,7 +27,7 @@ export const Comment = ({
 }: Props) => {
   const { mutate } = useSWRConfig();
   const [replying, setReplying] = useState(false);
-  const apiClient = useSessionApiClient(session);
+  const { apiClient } = useApiClient();
 
   const handleReplyClick = () => {
     setReplying(true);

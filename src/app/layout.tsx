@@ -1,4 +1,5 @@
-import { apiClient } from '@/lib/api/util/client';
+import { ApiClientProvider } from '@/lib/api/context/ApiClientProvider';
+import { createServerApiClient } from '@/lib/api/util/client';
 import { auth } from '@/lib/auth';
 import { LeftBar } from '@/lib/common/components/layout/LeftBar/LeftBar';
 import { RightBar } from '@/lib/common/components/layout/RightBar';
@@ -14,6 +15,7 @@ import './globals.css';
 const inter = Inter({
   subsets: ['latin'],
 });
+
 export const metadata: Metadata = {
   title: 'UniLife',
 };
@@ -24,6 +26,8 @@ export interface Props {
 
 const RootLayout = async ({ children }: Readonly<Props>) => {
   const session = await auth();
+  const apiClient = createServerApiClient(session);
+
   const universities = await apiClient.getUniversities();
   const degrees = await apiClient.getDegrees();
 
@@ -37,13 +41,15 @@ const RootLayout = async ({ children }: Readonly<Props>) => {
       >
         <div className="flex max-h-screen grow justify-items-stretch">
           <SessionProvider>
-            <UserProvider session={session}>
-              <PopupProvider session={session}>
-                <LeftBar session={session} />
-                {children}
-                <RightBar universities={universities} degrees={degrees} />
-              </PopupProvider>
-            </UserProvider>
+            <ApiClientProvider session={session}>
+              <UserProvider session={session}>
+                <PopupProvider>
+                  <LeftBar session={session} />
+                  {children}
+                  <RightBar universities={universities} degrees={degrees} />
+                </PopupProvider>
+              </UserProvider>
+            </ApiClientProvider>
           </SessionProvider>
         </div>
       </body>

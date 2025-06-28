@@ -1,4 +1,4 @@
-import { apiClient } from '@/lib/api/util/client';
+import { createServerApiClient } from '@/lib/api/util/client';
 import { auth } from '@/lib/auth';
 import { SignOutButton } from '@/lib/auth/components/SignOutButton';
 import { Main } from '@/lib/common/components/layout/Main';
@@ -29,6 +29,7 @@ export interface Props {
 const User = async ({ params }: Readonly<Props>) => {
   const { username } = await params;
   const session = await auth();
+  const apiClient = createServerApiClient(session);
 
   let user: UserSchema;
 
@@ -49,7 +50,7 @@ const User = async ({ params }: Readonly<Props>) => {
     <Main>
       {isSessionAdmin(session) && (
         <div className="flex justify-end">
-          <RoleSelector session={session} user={user} />
+          <RoleSelector user={user} />
         </div>
       )}
       <div className="mt-8">
@@ -92,7 +93,7 @@ const User = async ({ params }: Readonly<Props>) => {
           {isSelf && (
             <p className="text-foreground-muted my-4 text-center">
               ¡Verifica tu cuenta para poder interactuar!{' '}
-              <ResendVerificationButton session={session} />
+              <ResendVerificationButton />
             </p>
           )}
         </>

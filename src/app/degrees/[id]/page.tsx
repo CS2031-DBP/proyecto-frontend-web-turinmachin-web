@@ -1,4 +1,4 @@
-import { apiClient } from '@/lib/api/util/client';
+import { createServerApiClient } from '@/lib/api/util/client';
 import { auth } from '@/lib/auth';
 import { Main } from '@/lib/common/components/layout/Main';
 import { quantify } from '@/lib/common/util/string';
@@ -17,9 +17,10 @@ export interface Props {
 }
 
 const Degree = async ({ params }: Readonly<Props>) => {
-  const session = await auth();
-
   const { id: degreeId } = await params;
+
+  const session = await auth();
+  const apiClient = createServerApiClient(session);
 
   let degree: DegreeWithStatsSchema;
   try {
@@ -44,7 +45,7 @@ const Degree = async ({ params }: Readonly<Props>) => {
             <LuPencil className="mr-2 mb-1 inline" />
             Editar
           </Link>
-          <DeleteDegreeButton session={session} degree={degree} />
+          <DeleteDegreeButton degree={degree} />
         </div>
       )}
       <div className="my-8">

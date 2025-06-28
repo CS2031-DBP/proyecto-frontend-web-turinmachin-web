@@ -1,6 +1,6 @@
 'use client';
 
-import { useSessionApiClient } from '@/lib/auth/schemas/hooks/use-session-api-client';
+import { useApiClient } from '@/lib/api/hooks/use-api-client';
 import { Button } from '@/lib/common/components/Button';
 import { Form } from '@/lib/common/components/form/Form';
 import { FormTextArea } from '@/lib/common/components/form/FormTextArea';
@@ -11,15 +11,10 @@ import { usePendingCallback } from '@/lib/common/hooks/use-pending';
 import { usePopup } from '@/lib/common/hooks/use-popup';
 import { routes } from '@/lib/routes';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Session } from 'next-auth';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { LuPlus } from 'react-icons/lu';
 import { z } from 'zod';
-
-export interface Props {
-  session: Session | null;
-}
 
 const FormSchema = z.object({
   content: z.string().trim().nonempty(),
@@ -29,10 +24,10 @@ const FormSchema = z.object({
 
 type FormSchema = z.infer<typeof FormSchema>;
 
-export const CreatePostPopup = ({ session }: Props) => {
+export const CreatePostPopup = () => {
   const router = useRouter();
   const { closePopup } = usePopup();
-  const apiClient = useSessionApiClient(session);
+  const { apiClient } = useApiClient();
 
   const form = useForm({
     resolver: zodResolver(FormSchema),

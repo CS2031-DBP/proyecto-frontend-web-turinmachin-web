@@ -1,6 +1,6 @@
 'use client';
 
-import { useSessionApiClient } from '@/lib/auth/schemas/hooks/use-session-api-client';
+import { useApiClient } from '@/lib/api/hooks/use-api-client';
 import { Button } from '@/lib/common/components/Button';
 import { Spinner } from '@/lib/common/components/Spinner';
 import { Session } from 'next-auth';
@@ -16,7 +16,7 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const CommentSection = ({ postId, session, ...props }: Props) => {
-  const apiClient = useSessionApiClient(session);
+  const { apiClient } = useApiClient();
 
   const {
     data: comments,

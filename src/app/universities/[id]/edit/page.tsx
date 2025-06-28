@@ -1,5 +1,5 @@
 import notFound from '@/app/not-found';
-import { apiClient } from '@/lib/api/util/client';
+import { createServerApiClient } from '@/lib/api/util/client';
 import { auth } from '@/lib/auth';
 import { Main } from '@/lib/common/components/layout/Main';
 import { routes } from '@/lib/routes';
@@ -15,7 +15,9 @@ export interface Props {
 
 const EditUniversity = async ({ params }: Readonly<Props>) => {
   const { id: universityId } = await params;
+
   const session = await auth();
+  const apiClient = createServerApiClient(session);
 
   if (!isSessionAdmin(session)) {
     return redirect(routes.universities.byId(universityId));
@@ -43,7 +45,6 @@ const EditUniversity = async ({ params }: Readonly<Props>) => {
     <Main>
       <h1 className="mb-8 text-2xl font-semibold">Editar universidad</h1>
       <UniversityEditor
-        session={session}
         availableDegrees={availableDegrees}
         university={university}
         universityDegrees={universityDegrees}

@@ -18,7 +18,7 @@ export const RightBar = ({ universities, degrees, ...props }: Props) => {
   return (
     <aside
       {...props}
-      className="flex w-60 min-w-60 flex-col space-y-10 overflow-y-scroll px-6 py-4 lg:w-68 lg:min-w-68"
+      className="border-muted flex w-60 min-w-60 flex-col space-y-10 overflow-y-scroll border-l px-6 py-4 lg:w-68 lg:min-w-68"
     >
       <section>
         <h2 className="mb-4 flex flex-nowrap items-center text-xl font-semibold">

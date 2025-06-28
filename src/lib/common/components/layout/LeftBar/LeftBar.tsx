@@ -11,10 +11,10 @@ export interface Props {
   session: Session | null;
 }
 
-export const LeftBar = async ({ session, ...props }: Props) => (
+export const LeftBar = ({ session, ...props }: Props) => (
   <aside
     {...props}
-    className="flex w-24 min-w-24 flex-col px-6 py-4 sm:w-64 sm:min-w-64 lg:w-72 lg:min-w-72"
+    className="border-muted flex w-24 min-w-24 flex-col border-r px-6 py-4 sm:w-64 sm:min-w-64 lg:w-72 lg:min-w-72"
   >
     <Link href="/" className="my-3 flex items-center text-4xl font-extrabold">
       <LuGraduationCap className="h-full w-auto" />

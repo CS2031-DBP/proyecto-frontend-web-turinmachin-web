@@ -17,10 +17,13 @@ import { RoleSchema } from '@/lib/user/schemas/role';
 import { UpdatePasswordSchema } from '@/lib/user/schemas/update-password';
 import { UpdateUserSchema } from '@/lib/user/schemas/update-user';
 import { UserSchema } from '@/lib/user/schemas/user';
-import { makeApi, Zodios } from '@zodios/core';
+import { makeApi, Zodios, ZodiosInstance } from '@zodios/core';
 import { Session } from 'next-auth';
 import { z } from 'zod';
 import { DetailResponseSchema } from '../schemas/detail-response';
+
+export type Api = typeof api;
+export type ApiClient = ZodiosInstance<Api>;
 
 export const api = makeApi([
   {
@@ -226,6 +229,16 @@ export const api = makeApi([
     alias: 'getUniversityById',
     method: 'get',
     path: '/universities/:id',
+    response: UniversitySchema,
+    errors: [
+      { status: 404, schema: DetailResponseSchema },
+      { status: 400, schema: DetailResponseSchema },
+    ],
+  },
+  {
+    alias: 'getUniversityWithStatsById',
+    method: 'get',
+    path: '/universities/with-stats/:id',
     response: UniversityWithStatsSchema,
     errors: [
       { status: 404, schema: DetailResponseSchema },
@@ -308,16 +321,13 @@ export const api = makeApi([
   },
 ]);
 
-const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+export const createServerApiClient = (session: Session | null) => {
+  const apiUrl = process.env.API_URL_INTERNAL;
+  if (!apiUrl) {
+    throw new Error('API_URL_INTERNAL environment variable is missing.');
+  }
 
-if (!apiUrl) {
-  throw new Error('NEXT_PUBLIC_API_URL environment variable is missing');
-}
-
-export const apiClient = new Zodios(apiUrl, api);
-
-export const sessionApiClient = (session: Session | null) =>
-  new Zodios(apiUrl, api, {
+  return new Zodios(apiUrl, api, {
     axiosConfig: {
       headers: {
         Authorization: session?.accessToken
@@ -326,3 +336,4 @@ export const sessionApiClient = (session: Session | null) =>
       },
     },
   });
+};

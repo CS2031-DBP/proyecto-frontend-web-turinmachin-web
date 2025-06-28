@@ -5,6 +5,7 @@ export const UniversitySchema = z.object({
   name: z.string(),
   shortName: z.string().optional(),
   websiteUrl: z.string().optional(),
+  emailDomains: z.string().array(),
 });
 
 export type UniversitySchema = z.infer<typeof UniversitySchema>;

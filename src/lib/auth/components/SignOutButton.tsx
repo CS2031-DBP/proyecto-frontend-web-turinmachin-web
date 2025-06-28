@@ -1,25 +1,21 @@
-import { signOut } from '@/lib/auth';
+'use client';
+
 import { Button } from '@/lib/common/components/Button';
-import { ButtonHTMLAttributes } from 'react';
+import { signOut } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { LuLogOut } from 'react-icons/lu';
 
-export interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
-  options?: {
-    redirectTo?: string;
-    redirect?: boolean;
-  };
-}
+export const SignOutButton = () => {
+  const router = useRouter();
 
-export const SignOutButton = ({ options, ...props }: Props) => {
-  const handleCLick = async () => {
-    'use server';
-    await signOut(options);
+  const handleClick = async () => {
+    await signOut({ redirect: false });
+    router.refresh();
   };
 
   return (
     <Button
-      {...props}
-      onClick={handleCLick}
+      onClick={handleClick}
       variant="outline"
       className="flex items-center justify-center"
     >

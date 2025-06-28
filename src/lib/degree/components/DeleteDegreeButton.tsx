@@ -1,22 +1,20 @@
 'use client';
 
-import { useSessionApiClient } from '@/lib/auth/schemas/hooks/use-session-api-client';
+import { useApiClient } from '@/lib/api/hooks/use-api-client';
 import { Button } from '@/lib/common/components/Button';
 import { usePendingCallback } from '@/lib/common/hooks/use-pending';
 import { routes } from '@/lib/routes';
-import { Session } from 'next-auth';
 import { useRouter } from 'next/navigation';
 import { LuTrash } from 'react-icons/lu';
 import { DegreeSchema } from '../schemas/degree';
 
 export interface Props {
-  session: Session;
   degree: DegreeSchema;
 }
 
-export const DeleteDegreeButton = ({ session, degree }: Props) => {
+export const DeleteDegreeButton = ({ degree }: Props) => {
   const router = useRouter();
-  const apiClient = useSessionApiClient(session);
+  const { apiClient } = useApiClient();
 
   const [pending, deleteSelf] = usePendingCallback(async () => {
     await apiClient.removeDegree(undefined, {

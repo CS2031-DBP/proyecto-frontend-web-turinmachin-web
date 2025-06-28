@@ -1,4 +1,4 @@
-import { apiClient } from '@/lib/api/util/client';
+import { createServerApiClient } from '@/lib/api/util/client';
 import { auth } from '@/lib/auth';
 import { Main } from '@/lib/common/components/layout/Main';
 import { routes } from '@/lib/routes';
@@ -8,6 +8,8 @@ import { LuPlus } from 'react-icons/lu';
 
 const Universities = async () => {
   const session = await auth();
+  const apiClient = createServerApiClient(session);
+
   const universities = await apiClient.getUniversities();
 
   return (

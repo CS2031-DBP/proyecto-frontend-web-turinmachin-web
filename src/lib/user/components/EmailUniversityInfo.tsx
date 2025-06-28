@@ -1,8 +1,10 @@
-import { apiClient } from '@/lib/api/util/client';
+'use client';
+
+import { useApiClient } from '@/lib/api/hooks/use-api-client';
 import { extractEmailDomain } from '@/lib/common/util/string';
 import { UniversitySchema } from '@/lib/university/schemas/university';
 import { isErrorFromAlias } from '@zodios/core';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { LuInfo } from 'react-icons/lu';
 import { twJoin } from 'tailwind-merge';
 
@@ -11,27 +13,34 @@ export interface Props {
 }
 
 export const EmailUniversityInfo = ({ email }: Props) => {
+  const { apiClient } = useApiClient();
+
   const [university, setUniversity] = useState<UniversitySchema | null>(null);
   const [pending, setPending] = useState(false);
 
   const emailDomain = extractEmailDomain(email);
 
-  const fetchUniversity = async (emailDomain: string) => {
-    try {
-      const foundUniversity = await apiClient.getUniversityByEmailDomain({
-        params: { emailDomain },
-      });
-      setUniversity(foundUniversity);
-    } catch (err) {
-      if (isErrorFromAlias(apiClient.api, 'getUniversityByEmailDomain', err)) {
-        setUniversity(null);
-      } else {
-        throw err;
+  const fetchUniversity = useCallback(
+    async (emailDomain: string) => {
+      try {
+        const foundUniversity = await apiClient.getUniversityByEmailDomain({
+          params: { emailDomain },
+        });
+        setUniversity(foundUniversity);
+      } catch (err) {
+        if (
+          isErrorFromAlias(apiClient.api, 'getUniversityByEmailDomain', err)
+        ) {
+          setUniversity(null);
+        } else {
+          throw err;
+        }
+      } finally {
+        setPending(false);
       }
-    } finally {
-      setPending(false);
-    }
-  };
+    },
+    [apiClient],
+  );
 
   useEffect(() => {
     setUniversity(null);
@@ -40,7 +49,7 @@ export const EmailUniversityInfo = ({ email }: Props) => {
       const handle = setTimeout(() => fetchUniversity(emailDomain), 500);
       return () => clearTimeout(handle);
     }
-  }, [emailDomain]);
+  }, [emailDomain, fetchUniversity]);
 
   if (!emailDomain) return null;
 

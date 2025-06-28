@@ -1,25 +1,20 @@
 'use client';
 
-import { useSessionApiClient } from '@/lib/auth/schemas/hooks/use-session-api-client';
+import { useApiClient } from '@/lib/api/hooks/use-api-client';
 import { Button } from '@/lib/common/components/Button';
 import { Form } from '@/lib/common/components/form/Form';
 import { FormInput } from '@/lib/common/components/form/FormInput';
 import { routes } from '@/lib/routes';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Session } from 'next-auth';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
 import { CreateDegreeSchema } from '../schemas/create-degree';
 
-export interface Props {
-  session: Session;
-}
-
 export const FormSchema = CreateDegreeSchema;
 export type FormSchema = z.infer<typeof FormSchema>;
 
-export const DegreeCreator = ({ session }: Props) => {
+export const DegreeCreator = () => {
   const router = useRouter();
   const form = useForm({
     resolver: zodResolver(FormSchema),
@@ -29,7 +24,7 @@ export const DegreeCreator = ({ session }: Props) => {
     },
   });
 
-  const apiClient = useSessionApiClient(session);
+  const { apiClient } = useApiClient();
 
   const handleSubmit = async (data: FormSchema) => {
     const createdDegree = await apiClient.createDegree(data);

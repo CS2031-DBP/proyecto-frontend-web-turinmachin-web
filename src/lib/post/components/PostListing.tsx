@@ -1,7 +1,7 @@
 'use client';
 
+import { useApiClient } from '@/lib/api/hooks/use-api-client';
 import { api } from '@/lib/api/util/client';
-import { useSessionApiClient } from '@/lib/auth/schemas/hooks/use-session-api-client';
 import { Spinner } from '@/lib/common/components/Spinner';
 import { useViewTrigger } from '@/lib/common/hooks/use-view-trigger';
 import { ZodiosQueryParamsByAlias } from '@zodios/core';
@@ -38,7 +38,7 @@ export const PostListing = ({
     return ['posts', pageIndex];
   };
 
-  const apiClient = useSessionApiClient(session);
+  const { apiClient } = useApiClient();
   const {
     data = [],
     isLoading,

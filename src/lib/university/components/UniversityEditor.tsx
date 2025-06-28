@@ -1,6 +1,6 @@
 'use client';
 
-import { useSessionApiClient } from '@/lib/auth/schemas/hooks/use-session-api-client';
+import { useApiClient } from '@/lib/api/hooks/use-api-client';
 import { Button } from '@/lib/common/components/Button';
 import { Form } from '@/lib/common/components/form/Form';
 import { FormInput } from '@/lib/common/components/form/FormInput';
@@ -11,7 +11,6 @@ import { DegreeSelector } from '@/lib/degree/components/MultiSelectDropdown';
 import { DegreeSchema } from '@/lib/degree/schemas/degree';
 import { routes } from '@/lib/routes';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Session } from 'next-auth';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
@@ -19,7 +18,6 @@ import { UniversitySchema } from '../schemas/university';
 import { UpdateUniversitySchema } from '../schemas/update-university';
 
 export interface Props {
-  session: Session;
   availableDegrees: DegreeSchema[];
   university: UniversitySchema;
   universityDegrees: DegreeSchema[];
@@ -29,7 +27,6 @@ export const FormSchema = UpdateUniversitySchema;
 export type FormSchema = z.infer<typeof FormSchema>;
 
 export const UniversityEditor = ({
-  session,
   availableDegrees,
   university,
   universityDegrees,
@@ -43,7 +40,7 @@ export const UniversityEditor = ({
     },
   });
 
-  const apiClient = useSessionApiClient(session);
+  const { apiClient } = useApiClient();
 
   const handleSubmit = async (data: FormSchema) => {
     const createdUniversity = await apiClient.updateUniversity(data, {

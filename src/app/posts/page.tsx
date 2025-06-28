@@ -1,10 +1,11 @@
-import { apiClient } from '@/lib/api/util/client';
+import { createServerApiClient } from '@/lib/api/util/client';
 import { auth } from '@/lib/auth';
 import { Main } from '@/lib/common/components/layout/Main';
 import { PostsExplorer } from '@/lib/post/components/PostsExplorer';
 
 const Posts = async () => {
   const session = await auth();
+  const apiClient = createServerApiClient(session);
 
   const universities = await apiClient.getUniversities();
   const degrees = await apiClient.getDegrees();

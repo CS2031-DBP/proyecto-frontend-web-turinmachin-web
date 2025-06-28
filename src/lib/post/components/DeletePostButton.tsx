@@ -1,20 +1,18 @@
 'use client';
 
-import { useSessionApiClient } from '@/lib/auth/schemas/hooks/use-session-api-client';
+import { useApiClient } from '@/lib/api/hooks/use-api-client';
 import { routes } from '@/lib/routes';
-import { Session } from 'next-auth';
 import { useRouter } from 'next/navigation';
 import { ButtonHTMLAttributes } from 'react';
 import { LuTrash } from 'react-icons/lu';
 
 export interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   postId: string;
-  session: Session;
 }
 
-export const DeletePostButton = ({ postId, session }: Props) => {
+export const DeletePostButton = ({ postId }: Props) => {
   const router = useRouter();
-  const apiClient = useSessionApiClient(session);
+  const { apiClient } = useApiClient();
 
   const handleClick = async () => {
     await apiClient.deletePost(undefined, {

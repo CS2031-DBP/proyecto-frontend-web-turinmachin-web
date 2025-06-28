@@ -1,6 +1,6 @@
 'use client';
 
-import { useSessionApiClient } from '@/lib/auth/schemas/hooks/use-session-api-client';
+import { useApiClient } from '@/lib/api/hooks/use-api-client';
 import { Button } from '@/lib/common/components/Button';
 import { FileCarousel } from '@/lib/common/components/FileCarousel';
 import { Form } from '@/lib/common/components/form/Form';
@@ -10,7 +10,6 @@ import { TagInput } from '@/lib/common/components/form/TagInput';
 import { pick } from '@/lib/common/util/object';
 import { routes } from '@/lib/routes';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Session } from 'next-auth';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -23,12 +22,11 @@ export type FormSchema = z.infer<typeof FormSchema>;
 
 export interface Props {
   post: PostSchema;
-  session: Session;
 }
 
-export const PostEditor = ({ post, session }: Props) => {
+export const PostEditor = ({ post }: Props) => {
   const router = useRouter();
-  const apiClient = useSessionApiClient(session);
+  const { apiClient } = useApiClient();
 
   const form = useForm({
     resolver: zodResolver(FormSchema),

@@ -1,6 +1,6 @@
 'use client';
 
-import { useSessionApiClient } from '@/lib/auth/schemas/hooks/use-session-api-client';
+import { useApiClient } from '@/lib/api/hooks/use-api-client';
 import { Session } from 'next-auth';
 import { ReactNode } from 'react';
 import useSWR from 'swr';
@@ -13,7 +13,7 @@ export interface Props {
 }
 
 export const UserProvider = ({ session, children }: Props) => {
-  const apiClient = useSessionApiClient(session);
+  const { apiClient } = useApiClient();
 
   const key = session ? ['user', session.user.username] : null;
 

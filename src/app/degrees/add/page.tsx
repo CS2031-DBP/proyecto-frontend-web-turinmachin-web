@@ -20,7 +20,7 @@ const AddDegree = async ({ params }: Readonly<Props>) => {
   return (
     <Main>
       <h1 className="mb-8 text-2xl font-semibold">Añadir carrera</h1>
-      <DegreeCreator session={session} />
+      <DegreeCreator />
     </Main>
   );
 };

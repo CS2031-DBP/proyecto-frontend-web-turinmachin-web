@@ -1,4 +1,4 @@
-import { apiClient } from '@/lib/api/util/client';
+import { createServerApiClient } from '@/lib/api/util/client';
 import { auth } from '@/lib/auth';
 import { Main } from '@/lib/common/components/layout/Main';
 import { PostEditor } from '@/lib/post/components/PostEditor';
@@ -10,8 +10,10 @@ export interface Props {
 }
 
 const EditPost = async ({ params }: Props) => {
-  const session = await auth();
   const { id: postId } = await params;
+
+  const session = await auth();
+  const apiClient = createServerApiClient(session);
 
   const post = await apiClient.getPost({ params: { id: postId } });
 
@@ -22,7 +24,7 @@ const EditPost = async ({ params }: Props) => {
   return (
     <Main>
       <h1 className="text-2xl font-semibold">Editar post</h1>
-      <PostEditor post={post} session={session} />
+      <PostEditor post={post} />
     </Main>
   );
 };

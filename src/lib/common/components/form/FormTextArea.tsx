@@ -18,14 +18,12 @@ export interface Props<T extends FieldValues>
   form: UseFormReturn<T>;
   name: FieldName<FieldValuesFromFieldErrors<FieldErrors<T>>> & Path<T>;
   label?: string;
-  setDefaultValue?: boolean;
 }
 
 export const FormTextArea = <T extends FieldValues>({
   form,
   label,
   name,
-  setDefaultValue = true,
   required = true,
   disabled,
   minLength,

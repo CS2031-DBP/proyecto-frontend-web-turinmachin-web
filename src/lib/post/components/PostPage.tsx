@@ -1,4 +1,4 @@
-import { useSessionApiClient } from '@/lib/auth/schemas/hooks/use-session-api-client';
+import { createServerApiClient } from '@/lib/api/util/client';
 import { Spinner } from '@/lib/common/components/Spinner';
 import { Session } from 'next-auth';
 import useSWR from 'swr';
@@ -11,7 +11,7 @@ export interface Props {
 }
 
 export const PostPage = ({ page, session }: Props) => {
-  const apiClient = useSessionApiClient(session);
+  const apiClient = createServerApiClient(session);
   const { data } = useSWR(['posts', page], () =>
     apiClient.getPosts({ queries: { page } }),
   );

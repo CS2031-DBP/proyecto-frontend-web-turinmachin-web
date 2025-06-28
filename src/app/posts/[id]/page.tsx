@@ -1,4 +1,4 @@
-import { sessionApiClient } from '@/lib/api/util/client';
+import { createServerApiClient } from '@/lib/api/util/client';
 import { auth } from '@/lib/auth';
 import { CommentSection } from '@/lib/comment/components/CommentSection';
 import { Dropdown } from '@/lib/common/components/dropdown/Dropdown';
@@ -23,7 +23,7 @@ export interface Props {
 const Post = async ({ params }: Readonly<Props>) => {
   const { id: postId } = await params;
   const session = await auth();
-  const apiClient = sessionApiClient(session);
+  const apiClient = createServerApiClient(session);
 
   let post: PostSchema;
 
@@ -50,7 +50,7 @@ const Post = async ({ params }: Readonly<Props>) => {
         {sessionHasRights(session, post.author) && (
           <Dropdown
             items={[
-              <DeletePostButton key={0} postId={postId} session={session} />,
+              <DeletePostButton key={0} postId={postId} />,
               post.author.id === session.user.id && (
                 <Link key={1} href={routes.posts.editById(post.id)}>
                   <LuPencil className="mr-2 inline" />

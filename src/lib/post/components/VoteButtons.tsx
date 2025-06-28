@@ -1,6 +1,6 @@
 'use client';
 
-import { useSessionApiClient } from '@/lib/auth/schemas/hooks/use-session-api-client';
+import { useApiClient } from '@/lib/api/hooks/use-api-client';
 import { Session } from 'next-auth';
 import { HTMLAttributes, useState } from 'react';
 import {
@@ -33,7 +33,7 @@ export const VoteButtons = ({
 
   const displayScore = postScore - (originalVote ?? 0) + localCurrentVote;
 
-  const apiClient = useSessionApiClient(session);
+  const { apiClient } = useApiClient();
 
   const handleUpvote = async () => {
     if (session === null) return;

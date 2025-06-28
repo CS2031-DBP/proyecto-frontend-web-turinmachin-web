@@ -1,6 +1,6 @@
 'use client';
 
-import { useSessionApiClient } from '@/lib/auth/schemas/hooks/use-session-api-client';
+import { useApiClient } from '@/lib/api/hooks/use-api-client';
 import { Button } from '@/lib/common/components/Button';
 import { Form } from '@/lib/common/components/form/Form';
 import { FormTextArea } from '@/lib/common/components/form/FormTextArea';
@@ -35,7 +35,7 @@ export const CommentForm = ({
   ...props
 }: Props) => {
   const { mutate } = useSWRConfig();
-  const apiClient = useSessionApiClient(session);
+  const { apiClient } = useApiClient();
 
   const form = useForm({ resolver: zodResolver(FormSchema) });
 

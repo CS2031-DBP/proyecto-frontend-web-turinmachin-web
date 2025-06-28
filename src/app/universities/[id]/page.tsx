@@ -1,4 +1,4 @@
-import { apiClient } from '@/lib/api/util/client';
+import { createServerApiClient } from '@/lib/api/util/client';
 import { auth } from '@/lib/auth';
 import { Main } from '@/lib/common/components/layout/Main';
 import { quantify } from '@/lib/common/util/string';
@@ -18,12 +18,13 @@ export interface Props {
 
 const University = async ({ params }: Readonly<Props>) => {
   const session = await auth();
+  const apiClient = createServerApiClient(session);
 
   const { id: universityId } = await params;
 
   let university: UniversityWithStatsSchema;
   try {
-    university = await apiClient.getUniversityById({
+    university = await apiClient.getUniversityWithStatsById({
       params: { id: universityId },
     });
   } catch (err) {
@@ -44,7 +45,7 @@ const University = async ({ params }: Readonly<Props>) => {
             <LuPencil className="mr-2 mb-1 inline" />
             Editar
           </Link>
-          <DeleteUniversityButton session={session} university={university} />
+          <DeleteUniversityButton university={university} />
         </div>
       )}
       <div className="mt-10 mb-6">

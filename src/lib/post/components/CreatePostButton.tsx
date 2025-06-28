@@ -11,7 +11,6 @@ export interface Props {
 
 export const CreatePostButton = ({ session, ...props }: Props) => {
   const { openPopup } = usePopup();
-  console.log(session.user.hasUniversity);
 
   return (
     <>

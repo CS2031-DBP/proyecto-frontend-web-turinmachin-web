@@ -1,23 +1,23 @@
 'use client';
 
+import { createServerApiClient } from '@/lib/api/util/client';
 import { Spinner } from '@/lib/common/components/Spinner';
 import { Session } from 'next-auth';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { RiRobot2Line } from 'react-icons/ri';
-import { useSessionApiClient } from '../schemas/hooks/use-session-api-client';
+
+type Status = 'pending' | 'error';
 
 export interface Props {
   session: Session;
 }
 
-type Status = 'pending' | 'error';
-
 export const VerificationScreen = ({ session }: Props) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const apiClient = useSessionApiClient(session);
+  const apiClient = useMemo(() => createServerApiClient(session), [session]);
 
   const started = useRef(false);
   const [status, setStatus] = useState<Status>('pending');
@@ -27,6 +27,7 @@ export const VerificationScreen = ({ session }: Props) => {
   const doVerification = useCallback(
     async (verificationId: string) => {
       try {
+        // FIX: this request doesn't include Authorization for some reason
         await apiClient.verify({ verificationId });
         router.refresh();
       } catch (err) {

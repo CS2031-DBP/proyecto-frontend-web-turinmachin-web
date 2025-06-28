@@ -1,4 +1,4 @@
-import { sessionApiClient } from '@/lib/api/util/client';
+import { createServerApiClient } from '@/lib/api/util/client';
 import { auth } from '@/lib/auth';
 import { Main } from '@/lib/common/components/layout/Main';
 import { PageTitle } from '@/lib/common/components/layout/PageTitle';
@@ -20,7 +20,7 @@ const EditUser = async ({ params }: Readonly<Props>) => {
     return redirect(routes.home);
   }
 
-  const apiClient = sessionApiClient(session);
+  const apiClient = createServerApiClient(session);
   const user = await apiClient.getSelf();
 
   const availableDegrees = user.university

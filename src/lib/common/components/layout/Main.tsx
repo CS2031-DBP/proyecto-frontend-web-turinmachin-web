@@ -10,7 +10,7 @@ export const Main = ({ className, children, ...props }: Props) => (
     role="main"
     autoFocus
     className={twMerge(
-      'border-muted flex grow flex-col overflow-y-scroll border-x px-8 py-6 focus:outline-none',
+      'flex grow flex-col overflow-y-scroll px-8 py-6 focus:outline-none',
       className,
     )}
   >

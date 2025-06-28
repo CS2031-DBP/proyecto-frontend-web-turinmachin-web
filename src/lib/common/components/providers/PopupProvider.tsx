@@ -3,7 +3,6 @@
 import { LoginPopup } from '@/lib/auth/components/LoginPopup';
 import { RegisterPopup } from '@/lib/auth/components/RegisterPopup';
 import { VerificationPopup } from '@/lib/auth/components/VerificationPopup';
-import { Session } from 'next-auth';
 import { ReactNode, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { CreatePostPopup } from '../../../post/components/CreatePostPopup';
@@ -11,10 +10,9 @@ import { PopupContext, PopupType } from '../../context/popup-context';
 
 export interface Props {
   children?: ReactNode;
-  session: Session | null;
 }
 
-export const PopupProvider = ({ children, session }: Props) => {
+export const PopupProvider = ({ children }: Props) => {
   const [popup, setPopup] = useState<PopupType | null>(null);
 
   const openPopup = setPopup;
@@ -37,7 +35,7 @@ export const PopupProvider = ({ children, session }: Props) => {
       {popup !== null &&
         createPortal(
           popup === 'post' ? (
-            <CreatePostPopup session={session} />
+            <CreatePostPopup />
           ) : popup === 'login' ? (
             <LoginPopup />
           ) : popup === 'register' ? (
