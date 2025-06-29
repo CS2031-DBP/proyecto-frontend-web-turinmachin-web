@@ -2,11 +2,20 @@
 
 import { useApiClient } from '@/lib/api/hooks/use-api-client';
 import { usePendingCallback } from '@/lib/common/hooks/use-pending';
+import { isErrorFromAlias } from '@zodios/core';
 
 export const ResendVerificationButton = () => {
   const { apiClient } = useApiClient();
   const [pending, handleClick] = usePendingCallback(async () => {
-    await apiClient.resendVerificationEmail(undefined);
+    try {
+      await apiClient.resendVerificationEmail(undefined);
+    } catch (err) {
+      if (isErrorFromAlias(apiClient.api, 'resendVerificationEmail', err)) {
+        // aca haz q se muestre el mensaje
+        return;
+      }
+      throw err;
+    }
   }, []);
 
   return (
