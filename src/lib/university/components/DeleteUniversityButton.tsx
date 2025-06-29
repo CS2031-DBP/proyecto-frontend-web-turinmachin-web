@@ -25,8 +25,9 @@ export const DeleteUniversityButton = ({ university }: Props) => {
   }, [apiClient, university]);
 
   return (
-    <Button variant="outline" onClick={deleteSelf} disabled={pending}>
-      <LuTrash className="mr-2 mb-1 inline" /> Eliminar
+    <Button variant="error" onClick={deleteSelf} disabled={pending}>
+      <LuTrash className="mr-2 mb-1 inline" />
+      Eliminar
     </Button>
   );
 };
