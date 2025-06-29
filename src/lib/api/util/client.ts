@@ -47,6 +47,7 @@ export const api = makeApi([
     method: 'post',
     path: '/auth/verify-resend',
     response: z.void(),
+    errors: [{ status: 429, schema: DetailResponseSchema }],
   },
   {
     alias: 'verify',
