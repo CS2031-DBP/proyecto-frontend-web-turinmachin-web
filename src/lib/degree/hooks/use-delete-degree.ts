@@ -1,7 +1,7 @@
 import { useApiClient } from '@/lib/api/hooks/use-api-client';
 import { usePendingCallback } from '@/lib/common/hooks/use-pending';
 import { routes } from '@/lib/routes';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 export const useDeleteDegree = (degreeId: string) => {
   const router = useRouter();

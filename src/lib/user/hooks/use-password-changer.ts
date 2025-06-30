@@ -4,7 +4,7 @@ import { routes } from '@/lib/routes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { isErrorFromAlias } from '@zodios/core';
 import { Session } from 'next-auth';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { UpdatePasswordSchema } from '../schemas/update-password';
