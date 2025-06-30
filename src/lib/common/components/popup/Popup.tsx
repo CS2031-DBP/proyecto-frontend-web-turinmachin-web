@@ -1,8 +1,9 @@
 'use client';
 
-import { HTMLAttributes, useEffect } from 'react';
+import { HTMLAttributes } from 'react';
 import { LuX } from 'react-icons/lu';
 import { twMerge } from 'tailwind-merge';
+import { useOnClickOutside } from '../../hooks/use-on-click-outside';
 import { usePopup } from '../../hooks/use-popup';
 import { PopupFooter } from './PopupFooter';
 import { PopupTitle } from './PopupTitle';
@@ -12,18 +13,7 @@ export type Props = HTMLAttributes<HTMLDivElement>;
 const Popup = ({ className, children, ...props }: Props) => {
   const { closePopup } = usePopup();
 
-  useEffect(() => {
-    const clickHandler = (e: MouseEvent) => {
-      if (e.target instanceof Element && !e.target.closest('#popup')) {
-        closePopup();
-      }
-    };
-
-    document.addEventListener('click', clickHandler);
-    return () => {
-      document.removeEventListener('click', clickHandler);
-    };
-  }, [closePopup]);
+  useOnClickOutside('#popup', closePopup);
 
   return (
     <div

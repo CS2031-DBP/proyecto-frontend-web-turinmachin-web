@@ -1,13 +1,8 @@
 'use client';
 
-import {
-  useEffect,
-  useRef,
-  useState,
-  type HTMLAttributes,
-  type ReactNode,
-} from 'react';
+import { type HTMLAttributes, type ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
+import { useDropdown } from '../hooks/use-dropdown';
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   buttonProps?: HTMLAttributes<HTMLButtonElement>;
@@ -21,34 +16,14 @@ export const Dropdown = ({
   children,
   ...props
 }: Props) => {
-  const [open, setOpen] = useState(false);
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  const menuRef = useRef<HTMLUListElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (ev: MouseEvent) => {
-      if (
-        !menuRef.current?.contains(ev.target as Node) &&
-        !buttonRef.current?.contains(ev.target as Node)
-      ) {
-        setOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
-  const handleOpenerClick = () => {
-    setOpen((prevOpen) => !prevOpen);
-  };
+  const { open, toggleOpen, buttonRef, menuRef } = useDropdown();
 
   return (
     <span {...props} className={twMerge(className, 'relative')}>
       <button
         {...buttonProps}
         ref={buttonRef}
-        onClick={handleOpenerClick}
+        onClick={toggleOpen}
         aria-haspopup
         aria-expanded={open}
         aria-controls="dropdown-menu"

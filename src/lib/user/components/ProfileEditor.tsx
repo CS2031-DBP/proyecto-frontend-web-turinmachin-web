@@ -1,27 +1,18 @@
 'use client';
 
-import { useApiClient } from '@/lib/api/hooks/use-api-client';
 import { Button } from '@/lib/common/components/Button';
 import { Form } from '@/lib/common/components/form/Form';
 import { FormInput } from '@/lib/common/components/form/FormInput';
 import { FormTextArea } from '@/lib/common/components/form/FormTextArea';
 import { ResetButton } from '@/lib/common/components/form/ResetButton';
-import { usePendingCallback } from '@/lib/common/hooks/use-pending';
-import { pick } from '@/lib/common/util/object';
 import { DegreeSchema } from '@/lib/degree/schemas/degree';
-import { routes } from '@/lib/routes';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { Session } from 'next-auth';
-import { useSession } from 'next-auth/react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { ChangeEvent, useRef, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useRef } from 'react';
 import { LuInfo } from 'react-icons/lu';
 import { twJoin } from 'tailwind-merge';
-import { z } from 'zod';
-import { useUser } from '../hooks/use-user';
-import { UpdateUserSchema } from '../schemas/update-user';
+import { useProfileEditor } from '../hooks/use-profile-editor';
+import { useProfilePictureEditor } from '../hooks/use-profile-picture-editor';
 import { UserSchema } from '../schemas/user';
 import { DeleteAccountButton } from './DeleteAccountButton';
 import { EmailUniversityInfo } from './EmailUniversityInfo';
@@ -32,59 +23,15 @@ export interface Props {
   availableDegrees: DegreeSchema[] | null;
 }
 
-export const FormSchema = UpdateUserSchema;
-
-export type FormSchema = z.infer<typeof FormSchema>;
-
 export const ProfileEditor = ({ session, user, availableDegrees }: Props) => {
-  const { mutate: mutateUser } = useUser();
-  const { update: updateSession } = useSession();
   const pictureInputRef = useRef<HTMLInputElement>(null);
-  const [pictureUrl, setPictureUrl] = useState<string | null>(
-    user.profilePicture?.url ?? null,
-  );
-
-  const { apiClient } = useApiClient();
-
-  const router = useRouter();
-
-  const form = useForm({
-    resolver: zodResolver(FormSchema),
-    defaultValues: {
-      ...pick(user, 'email', 'username', 'displayName', 'bio'),
-      degreeId: user.degree?.id,
-    },
-  });
-
-  const [pending, handleSubmit] = usePendingCallback(
-    async (data: FormSchema) => {
-      const newUser = await apiClient.updateSelf(data);
-      await updateSession(newUser);
-      await mutateUser(newUser);
-      router.push(routes.users.byUsername(newUser.username));
-    },
-    [],
-  );
-
-  const [picturePending, handlePictureChange] = usePendingCallback(
-    async (e: ChangeEvent<HTMLInputElement>) => {
-      const picture = e.currentTarget.files?.[0];
-      if (!picture) return;
-
-      const newUser = await apiClient.updateSelfPicture({ picture });
-      await mutateUser(newUser);
-      setPictureUrl(newUser.profilePicture!.url);
-    },
-    [],
-  );
-
-  const [pictureDeletePending, deletePicture] = usePendingCallback(async () => {
-    await apiClient.deleteSelfPicture(undefined);
-    await mutateUser((prevUser) =>
-      prevUser ? { ...prevUser, profilePicture: undefined } : null,
-    );
-    setPictureUrl(null);
-  }, []);
+  const { form, pending, handleSubmit } = useProfileEditor({ user });
+  const {
+    pending: picturePending,
+    handleChange: handlePictureChange,
+    deletePicture,
+    pictureUrl,
+  } = useProfilePictureEditor({ user });
 
   const email = form.watch('email');
   const degreeId = form.watch('degreeId');
@@ -123,7 +70,7 @@ export const ProfileEditor = ({ session, user, availableDegrees }: Props) => {
         <Button
           onClick={deletePicture}
           variant="outline"
-          disabled={pictureDeletePending}
+          disabled={picturePending}
           className="mx-auto"
         >
           Borrar foto

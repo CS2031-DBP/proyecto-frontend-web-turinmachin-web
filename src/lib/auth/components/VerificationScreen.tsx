@@ -1,43 +1,11 @@
 'use client';
 
-import { useApiClient } from '@/lib/api/hooks/use-api-client';
 import { Spinner } from '@/lib/common/components/Spinner';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useEffect, useRef, useState } from 'react';
 import { RiRobot2Line } from 'react-icons/ri';
-
-type Status = 'pending' | 'error';
+import { useVerificationScreen } from '../hooks/use-verification-screen';
 
 export const VerificationScreen = () => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const { apiClient } = useApiClient();
-
-  const started = useRef(false);
-  const [status, setStatus] = useState<Status>('pending');
-
-  const verificationId = searchParams.get('vid');
-
-  const doVerification = useCallback(
-    async (verificationId: string) => {
-      try {
-        await apiClient.verify({ verificationId });
-        router.refresh();
-      } catch (err) {
-        console.error(err);
-        setStatus('error');
-      }
-    },
-    [apiClient, router],
-  );
-
-  useEffect(() => {
-    if (started.current || !verificationId) return;
-    started.current = true;
-
-    doVerification(verificationId);
-  }, [doVerification, verificationId]);
+  const { status, verificationId } = useVerificationScreen();
 
   if (!verificationId) {
     return (

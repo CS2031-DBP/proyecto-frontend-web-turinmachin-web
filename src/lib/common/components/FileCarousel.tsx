@@ -2,10 +2,10 @@
 
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
-import { useSearchParams } from 'next/navigation';
-import { useCallback, useEffect, useState, type HTMLAttributes } from 'react';
+import { type HTMLAttributes } from 'react';
 import { LuChevronLeft, LuChevronRight } from 'react-icons/lu';
 import { twJoin, twMerge } from 'tailwind-merge';
+import { useFileCarousel } from '../hooks/use-file-carousel';
 import { useHasMounted } from '../hooks/use-has-mounted';
 import type { FileInfoSchema } from '../schemas/file-info';
 import { MaybeLink } from './MaybeLink';
@@ -48,46 +48,15 @@ export const FileCarousel = ({
   className,
   ...props
 }: Props) => {
-  const searchParams = useSearchParams();
-  const initialIndex = Number(searchParams.get('file'));
-
-  const [currentIndex, setCurrentIndex] = useState(
-    initialIndex >= 0 && initialIndex < files.length ? initialIndex : 0,
-  );
-  const [direction, setDirection] = useState(0);
-
   const hasMounted = useHasMounted();
-
-  const slideLeft = useCallback(() => {
-    setDirection(-1);
-    setCurrentIndex(
-      (prevIndex) => (prevIndex - 1 + files.length) % files.length,
-    );
-  }, [files.length]);
-
-  const slideRight = useCallback(() => {
-    setDirection(1);
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % files.length);
-  }, [files.length]);
-
-  useEffect(() => {
-    if (!keyControls) return;
-
-    const handleKeyDown = (ev: KeyboardEvent) => {
-      if (ev.key === 'ArrowLeft') {
-        slideLeft();
-      } else if (ev.key === 'ArrowRight') {
-        slideRight();
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [keyControls, slideRight, slideLeft]);
-
-  const currentFile = files[currentIndex];
-
-  const openFileView = () => {};
+  const {
+    direction,
+    currentFile,
+    currentIndex,
+    setCurrentIndex,
+    slideLeft,
+    slideRight,
+  } = useFileCarousel({ files, keyControls });
 
   if (files.length === 0) return null;
 
@@ -95,7 +64,6 @@ export const FileCarousel = ({
     <div
       {...props}
       role="button"
-      onClick={openFileView}
       className={twMerge(
         className,
         'border-muted group relative h-64 min-h-64 overflow-hidden rounded-xl border sm:h-100 sm:min-h-100',

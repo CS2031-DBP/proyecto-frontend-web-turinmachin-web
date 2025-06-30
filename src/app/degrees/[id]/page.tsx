@@ -45,7 +45,7 @@ const Degree = async ({ params }: Readonly<Props>) => {
             <LuPencil className="mr-2 mb-1 inline" />
             Editar
           </Link>
-          <DeleteDegreeButton degree={degree} />
+          <DeleteDegreeButton degreeId={degree.id} />
         </div>
       )}
       <div className="my-8">

@@ -13,7 +13,7 @@ export interface Props {
 }
 
 export const UserCard = ({ session }: Props) => {
-  const { data: user } = useUser();
+  const { user } = useUser();
 
   return (
     <Link

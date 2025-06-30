@@ -1,17 +1,11 @@
 'use client';
 
-import { useApiClient } from '@/lib/api/hooks/use-api-client';
 import { Button } from '@/lib/common/components/Button';
 import { Form } from '@/lib/common/components/form/Form';
 import { FormTextArea } from '@/lib/common/components/form/FormTextArea';
-import { usePendingCallback } from '@/lib/common/hooks/use-pending';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { Session } from 'next-auth';
 import { type FormHTMLAttributes } from 'react';
-import { useForm } from 'react-hook-form';
-import { useSWRConfig } from 'swr';
-import { z } from 'zod';
-import { CreateCommentSchema } from '../schemas/create-comment';
+import { useCommentForm } from '../hooks/use-comment-form';
 
 export interface Props extends FormHTMLAttributes<HTMLFormElement> {
   postId: string;
@@ -22,9 +16,6 @@ export interface Props extends FormHTMLAttributes<HTMLFormElement> {
   session: Session | null;
 }
 
-const FormSchema = CreateCommentSchema;
-type FormSchema = z.infer<typeof CreateCommentSchema>;
-
 export const CommentForm = ({
   postId,
   parentId,
@@ -34,29 +25,11 @@ export const CommentForm = ({
   session,
   ...props
 }: Props) => {
-  const { mutate } = useSWRConfig();
-  const { apiClient } = useApiClient();
-
-  const form = useForm({ resolver: zodResolver(FormSchema) });
-
-  const [pending, handleSubmit] = usePendingCallback(
-    async (data: FormSchema) => {
-      if (parentId) {
-        await apiClient.createPostCommentReply(data, {
-          params: { id: postId, parentId },
-        });
-      } else {
-        await apiClient.createPostComment(data, {
-          params: { id: postId },
-        });
-      }
-
-      await mutate(['comments', postId]);
-      form.reset();
-      onCancel?.();
-    },
-    [],
-  );
+  const { form, pending, handleSubmit } = useCommentForm({
+    postId,
+    parentId,
+    onCancel,
+  });
 
   return (
     <Form {...props} form={form} onSubmit={handleSubmit}>

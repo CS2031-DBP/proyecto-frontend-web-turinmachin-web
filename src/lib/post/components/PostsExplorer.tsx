@@ -1,16 +1,11 @@
 'use client';
 
-import { useDebouncedEffect } from '@/lib/common/hooks/use-debounced-effect';
 import { DegreeSchema } from '@/lib/degree/schemas/degree';
 import { UniversitySchema } from '@/lib/university/schemas/university';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { Session } from 'next-auth';
-import { useSearchParams } from 'next/navigation';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { LuGraduationCap, LuUniversity } from 'react-icons/lu';
 import { twJoin } from 'tailwind-merge';
-import { z } from 'zod';
+import { usePostExplorer } from '../hooks/use-post-explorer';
 import { PostListing } from './PostListing';
 
 export interface Props {
@@ -19,44 +14,9 @@ export interface Props {
   degrees: DegreeSchema[];
 }
 
-const FormSchema = z.object({
-  query: z
-    .string()
-    .optional()
-    .transform((s) => (s?.length === 0 ? undefined : s)),
-  universityId: z
-    .string()
-    .optional()
-    .transform((s) => (s?.length === 0 ? undefined : s)),
-  degreeId: z
-    .string()
-    .optional()
-    .transform((s) => (s?.length === 0 ? undefined : s)),
-});
-
-type FormSchema = z.infer<typeof FormSchema>;
-
 export const PostsExplorer = ({ session, universities, degrees }: Props) => {
-  const searchParams = useSearchParams();
-  const [currentQueries, setCurrentQueries] = useState<FormSchema>({
-    query: searchParams.get('q') ?? '',
-  });
-
-  const form = useForm({
-    resolver: zodResolver(FormSchema),
-    defaultValues: currentQueries,
-  });
-
-  const onSubmit = (data: FormSchema) => {
-    setCurrentQueries(data);
-  };
-
+  const { form, currentQueries, onSubmit } = usePostExplorer();
   const formData = form.watch();
-  useDebouncedEffect(() => form.handleSubmit(onSubmit)(), 250, [
-    formData.query,
-    formData.degreeId,
-    formData.universityId,
-  ]);
 
   return (
     <>

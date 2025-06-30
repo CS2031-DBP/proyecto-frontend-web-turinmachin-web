@@ -1,5 +1,5 @@
-import { ChangeEvent, useState } from 'react';
 import { LuX } from 'react-icons/lu';
+import { useDegreeSelector } from '../hooks/use-degree-selector';
 import { DegreeSchema } from '../schemas/degree';
 
 export interface Item<T> {
@@ -15,22 +15,11 @@ export interface Props {
 }
 
 export const DegreeSelector = ({ options, degreeIds, setDegreeIds }: Props) => {
-  const [inputValue, setInputValue] = useState('');
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const typedDegree = options.find((deg) => deg.name === e.target.value);
-
-    if (!typedDegree) {
-      setInputValue(e.target.value);
-    } else if (!degreeIds.some((id) => id === typedDegree.id)) {
-      setDegreeIds([...degreeIds, typedDegree.id]);
-      setInputValue('');
-    }
-  };
-
-  const removeDegreeId = (degreeId: string) => {
-    setDegreeIds(degreeIds.filter((id) => id !== degreeId));
-  };
+  const { inputValue, handleChange, removeDegreeId } = useDegreeSelector({
+    options,
+    degreeIds,
+    setDegreeIds,
+  });
 
   return (
     <div className="my-4">

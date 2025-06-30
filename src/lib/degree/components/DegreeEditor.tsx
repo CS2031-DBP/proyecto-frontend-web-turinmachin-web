@@ -1,41 +1,18 @@
 'use client';
 
-import { useApiClient } from '@/lib/api/hooks/use-api-client';
 import { Button } from '@/lib/common/components/Button';
 import { Form } from '@/lib/common/components/form/Form';
 import { FormInput } from '@/lib/common/components/form/FormInput';
 import { ResetButton } from '@/lib/common/components/form/ResetButton';
-import { pick } from '@/lib/common/util/object';
-import { routes } from '@/lib/routes';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
-import z from 'zod';
+import { useDegreeEditor } from '../hooks/use-degree-editor';
 import { DegreeSchema } from '../schemas/degree';
-import { UpdateDegreeSchema } from '../schemas/update-degree';
 
 export interface Props {
   degree: DegreeSchema;
 }
 
-export const FormSchema = UpdateDegreeSchema;
-export type FormSchema = z.infer<typeof FormSchema>;
-
 export const DegreeEditor = ({ degree }: Props) => {
-  const router = useRouter();
-  const form = useForm({
-    resolver: zodResolver(FormSchema),
-    defaultValues: pick(degree, 'name', 'shortName'),
-  });
-
-  const { apiClient } = useApiClient();
-
-  const handleSubmit = async (data: FormSchema) => {
-    const createdDegree = await apiClient.updateDegree(data, {
-      params: { id: degree.id },
-    });
-    router.push(routes.degrees.byId(createdDegree.id));
-  };
+  const { form, pending, handleSubmit } = useDegreeEditor({ degree });
 
   return (
     <Form form={form} onSubmit={handleSubmit}>
@@ -48,7 +25,7 @@ export const DegreeEditor = ({ degree }: Props) => {
       />
       <div className="flex justify-end">
         <ResetButton form={form}>Restablecer</ResetButton>
-        <Button type="submit" variant="special">
+        <Button type="submit" variant="special" disabled={pending}>
           Guardar
         </Button>
       </div>

@@ -1,37 +1,15 @@
-import { useState } from 'react';
 import { LuX } from 'react-icons/lu';
+import { useTagInput } from '../../hooks/form/use-tag-input';
 
 export interface Props {
   value: string[];
   setValue: (tags: string[]) => void;
 }
 export const TagInput = ({ value, setValue }: Props) => {
-  const [tagInput, setTagInput] = useState('');
-
-  const addTag = (tag: string) => {
-    const clean = tag.trim().toLowerCase();
-    if (clean.length === 0 || value.includes(clean)) return;
-
-    setValue([...value, clean]);
-    setTagInput('');
-  };
-
-  const removeTag = (tag: string) => {
-    setValue(value.filter((t) => t !== tag));
-  };
-
-  const handleTagKeyDown = (ev: React.KeyboardEvent<HTMLInputElement>) => {
-    if (['Enter', ' '].includes(ev.key)) {
-      ev.preventDefault();
-      addTag(tagInput);
-    } else if (
-      value.length !== 0 &&
-      tagInput.length === 0 &&
-      ev.key === 'Backspace'
-    ) {
-      removeTag(value[value.length - 1]);
-    }
-  };
+  const { tagInput, setTagInput, handleKeyDown, removeTag } = useTagInput({
+    value,
+    setValue,
+  });
 
   return (
     <div className="my-4">
@@ -63,7 +41,7 @@ export const TagInput = ({ value, setValue }: Props) => {
                 .replace(/-+/, '-'),
             )
           }
-          onKeyDown={handleTagKeyDown}
+          onKeyDown={handleKeyDown}
           className="ml-2 grow py-0.5 outline-none"
         />
       </div>

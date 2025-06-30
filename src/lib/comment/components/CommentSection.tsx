@@ -1,12 +1,11 @@
 'use client';
 
-import { useApiClient } from '@/lib/api/hooks/use-api-client';
 import { Button } from '@/lib/common/components/Button';
 import { Spinner } from '@/lib/common/components/Spinner';
 import { Session } from 'next-auth';
 import type { HTMLAttributes } from 'react';
 import { LuMessageCircleDashed } from 'react-icons/lu';
-import useSWR from 'swr';
+import { usePostComments } from '../hooks/use-post-comments';
 import { Comment } from './Comment';
 import { CommentForm } from './CommentForm';
 
@@ -16,16 +15,7 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const CommentSection = ({ postId, session, ...props }: Props) => {
-  const { apiClient } = useApiClient();
-
-  const {
-    data: comments,
-    error,
-    isLoading,
-    mutate,
-  } = useSWR(['comments', postId], () =>
-    apiClient.getPostComments({ params: { id: postId } }),
-  );
+  const { comments, error, isLoading, mutate } = usePostComments(postId);
 
   return (
     <div {...props}>

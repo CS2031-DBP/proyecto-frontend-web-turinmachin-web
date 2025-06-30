@@ -1,23 +1,11 @@
-import { useApiClient } from '@/lib/api/hooks/use-api-client';
 import { Button } from '@/lib/common/components/Button';
 import { Popup } from '@/lib/common/components/popup/Popup';
 import { PopupComponent } from '@/lib/common/components/providers/PopupProvider';
-import { usePendingCallback } from '@/lib/common/hooks/use-pending';
-import { routes } from '@/lib/routes';
-import { signOut } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 import { LuTrash } from 'react-icons/lu';
+import { useDeleteSelfAccount } from '../hooks/use-delete-account';
 
 export const DeleteAccountPopup: PopupComponent = ({ onClose }) => {
-  const { apiClient } = useApiClient();
-  const router = useRouter();
-
-  const [pending, handleClick] = usePendingCallback(async () => {
-    await apiClient.deleteSelf(undefined);
-    await signOut({ redirect: false });
-    router.push(routes.home);
-    onClose();
-  }, [apiClient, router]);
+  const { pending, deleteSelfAccount } = useDeleteSelfAccount({ onClose });
 
   return (
     <Popup className="max-w-sm">
@@ -25,7 +13,7 @@ export const DeleteAccountPopup: PopupComponent = ({ onClose }) => {
       <p>¡Esta acción es irreversible!</p>
       <Button
         variant="error"
-        onClick={handleClick}
+        onClick={deleteSelfAccount}
         disabled={pending}
         className="mt-6 w-full"
       >

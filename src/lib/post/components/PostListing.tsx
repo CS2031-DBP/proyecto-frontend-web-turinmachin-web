@@ -1,16 +1,13 @@
 'use client';
 
-import { useApiClient } from '@/lib/api/hooks/use-api-client';
 import { api } from '@/lib/api/util/client';
 import { Spinner } from '@/lib/common/components/Spinner';
-import { useViewTrigger } from '@/lib/common/hooks/use-view-trigger';
 import { ZodiosQueryParamsByAlias } from '@zodios/core';
 import { Session } from 'next-auth';
-import { useEffect, useRef, useState, type HTMLAttributes } from 'react';
+import { useRef, type HTMLAttributes } from 'react';
 import { LuFileSearch, LuGhost } from 'react-icons/lu';
-import useSWRInfinite from 'swr/infinite';
 import { twJoin, twMerge } from 'tailwind-merge';
-import { PostPageSchema } from '../schemas/post';
+import { useInfinitePosts } from '../hooks/use-infinite-posts';
 import { PostCard } from './PostCard';
 
 export interface Props extends HTMLAttributes<HTMLUListElement> {
@@ -24,48 +21,13 @@ export const PostListing = ({
   className,
   ...props
 }: Props) => {
-  const [finished, setFinished] = useState(false);
-
-  const getKey = (
-    pageIndex: number,
-    previousPage: PostPageSchema | null,
-  ): [string, number] | null => {
-    if (previousPage && previousPage.content.length === 0) {
-      setFinished(true);
-      return null;
-    }
-
-    return ['posts', pageIndex];
-  };
-
-  const { apiClient } = useApiClient();
-  const {
-    data = [],
-    isLoading,
-    isValidating,
-    setSize,
-    mutate,
-  } = useSWRInfinite(getKey, ([, page]) =>
-    apiClient.getPosts({ queries: { size: 10, ...queries, page } }),
-  );
-
   const loaderRef = useRef<HTMLDivElement>(null);
-
-  useViewTrigger(loaderRef, !isLoading && !isValidating && !finished, () => {
-    setSize((prevSize) => prevSize + 1);
-  });
-
-  useEffect(() => {
-    setFinished(false);
-    mutate(undefined, { revalidate: true });
-  }, [queries, setSize, mutate]);
-
-  const allData = data.flatMap((page) => page.content);
+  const { posts, finished } = useInfinitePosts({ queries, loaderRef });
 
   return (
     <>
       <ul {...props} className={twMerge(className, 'mx-auto w-full max-w-lg')}>
-        {allData.map((post) => (
+        {posts.map((post) => (
           <PostCard
             key={post.id}
             post={post}
@@ -80,12 +42,12 @@ export const PostListing = ({
           ref={loaderRef}
           className={twJoin(
             'flex min-h-25 items-center justify-center',
-            data.length === 0 ? 'grow' : '',
+            posts.length === 0 && 'grow',
           )}
         >
           <Spinner />
         </div>
-      ) : allData.length === 0 ? (
+      ) : posts.length === 0 ? (
         <div className="text-foreground-muted my-8 flex grow flex-col justify-center text-center">
           <LuFileSearch size={54} className="mx-auto" />
           <p className="my-4 text-center text-lg">

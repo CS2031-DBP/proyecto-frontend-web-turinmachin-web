@@ -1,64 +1,28 @@
 'use client';
 
-import { useApiClient } from '@/lib/api/hooks/use-api-client';
 import { Button } from '@/lib/common/components/Button';
 import { Form } from '@/lib/common/components/form/Form';
 import { FormInput } from '@/lib/common/components/form/FormInput';
 import { ListInput } from '@/lib/common/components/form/ListInput';
 import { DegreeSelector } from '@/lib/degree/components/MultiSelectDropdown';
 import { DegreeSchema } from '@/lib/degree/schemas/degree';
-import { routes } from '@/lib/routes';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
-import z from 'zod';
-import { CreateUniversitySchema } from '../schemas/create-university';
+import { useUniversityCreator } from '../hooks/use-university-creator';
 
 export interface Props {
   availableDegrees: DegreeSchema[];
 }
 
-export const FormSchema = CreateUniversitySchema;
-export type FormSchema = z.infer<typeof FormSchema>;
-
 export const UniversityCreator = ({ availableDegrees }: Props) => {
-  const router = useRouter();
-  const form = useForm({
-    resolver: zodResolver(FormSchema),
-    defaultValues: {
-      name: '',
-      shortName: '',
-      websiteUrl: '',
-      emailDomains: [],
-      degreeIds: [],
-    },
-  });
-
-  const { apiClient } = useApiClient();
-
-  const handleSubmit = async (data: FormSchema) => {
-    const createdUniversity = await apiClient.createUniversity(data);
-    router.push(routes.universities.byId(createdUniversity.id));
-  };
-
-  const emailDomains = form.watch('emailDomains');
-
-  const addEmailDomain = (domain: string) => {
-    form.setValue('emailDomains', [...emailDomains, domain]);
-  };
-
-  const removeEmailDomain = (domain: string) => {
-    form.setValue(
-      'emailDomains',
-      emailDomains.filter((d) => d !== domain),
-    );
-  };
-
-  const degreeIds = form.watch('degreeIds');
-
-  const setDegreeIds = (degreeIds: string[]) => {
-    form.setValue('degreeIds', degreeIds);
-  };
+  const {
+    form,
+    pending,
+    handleSubmit,
+    emailDomains,
+    addEmailDomain,
+    removeEmailDomain,
+    degreeIds,
+    setDegreeIds,
+  } = useUniversityCreator();
 
   return (
     <Form form={form} onSubmit={handleSubmit}>
@@ -88,7 +52,7 @@ export const UniversityCreator = ({ availableDegrees }: Props) => {
       />
 
       <div className="flex justify-end">
-        <Button type="submit" variant="special">
+        <Button type="submit" variant="special" disabled={pending}>
           Añadir
         </Button>
       </div>

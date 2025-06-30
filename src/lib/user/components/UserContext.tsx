@@ -4,10 +4,13 @@ import { createContext } from 'react';
 import { SWRResponse } from 'swr';
 import { UserSchema } from '../schemas/user';
 
-export type UserContextValue = SWRResponse<UserSchema | null>;
+export interface UserContextValue
+  extends Omit<SWRResponse<UserSchema | null>, 'data'> {
+  user: UserSchema | null;
+}
 
 export const UserContext = createContext<UserContextValue>({
-  data: null,
+  user: null,
   error: null,
   isLoading: true,
   isValidating: true,

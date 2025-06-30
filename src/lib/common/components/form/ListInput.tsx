@@ -1,5 +1,5 @@
-import { KeyboardEvent, useState } from 'react';
 import { LuPlus, LuX } from 'react-icons/lu';
+import { useListInput } from '../../hooks/form/use-list-input';
 import { Button } from '../Button';
 
 export interface Props {
@@ -17,23 +17,8 @@ export const ListInput = ({
   addValue,
   removeValue,
 }: Props) => {
-  const [inputValue, setInputValue] = useState('');
-
-  const handleAddValue = () => {
-    if (!inputValue) return;
-
-    if (!values.includes(inputValue)) {
-      addValue(inputValue);
-      setInputValue('');
-    }
-  };
-
-  const handleKeyDown = (e: KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      handleAddValue();
-    }
-  };
+  const { inputValue, setInputValue, handleKeyDown, handleAddValue } =
+    useListInput({ values, addValue });
 
   return (
     <div className="my-4 block space-y-2">

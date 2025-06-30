@@ -3,43 +3,12 @@ import { Form } from '@/lib/common/components/form/Form';
 import { FormInput } from '@/lib/common/components/form/FormInput';
 import { Popup } from '@/lib/common/components/popup/Popup';
 import { PopupComponent } from '@/lib/common/components/providers/PopupProvider';
-import { usePendingCallback } from '@/lib/common/hooks/use-pending';
 import { usePopup } from '@/lib/common/hooks/use-popup';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { LoginRequestSchema } from '../schemas/login-request';
-
-export const FormSchema = LoginRequestSchema;
-export type FormSchema = z.infer<typeof FormSchema>;
+import { useLoginForm } from '../hooks/use-login-form';
 
 export const LoginPopup: PopupComponent = ({ onClose }) => {
-  const router = useRouter();
   const { openPopup } = usePopup();
-
-  const form = useForm({
-    resolver: zodResolver(FormSchema),
-    defaultValues: {
-      username: '',
-      password: '',
-    },
-  });
-
-  const [pending, handleSubmit] = usePendingCallback(
-    async (data: FormSchema) => {
-      const res = await signIn('credentials', { redirect: false, ...data });
-
-      if (res.error) {
-        throw res.code ?? 'Algo salió mal :(';
-      }
-
-      onClose();
-      router.refresh();
-    },
-    [],
-  );
+  const { form, pending, handleSubmit } = useLoginForm({ onClose });
 
   return (
     <Popup className="max-w-sm">

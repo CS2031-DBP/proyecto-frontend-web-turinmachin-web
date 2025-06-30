@@ -1,8 +1,7 @@
 'use client';
 
-import { useApiClient } from '@/lib/api/hooks/use-api-client';
 import { Session } from 'next-auth';
-import { HTMLAttributes, useState } from 'react';
+import { HTMLAttributes } from 'react';
 import {
   BiDownArrow,
   BiSolidDownArrow,
@@ -10,6 +9,7 @@ import {
   BiUpArrow,
 } from 'react-icons/bi';
 import { twJoin, twMerge } from 'tailwind-merge';
+import { useVoteButtons } from '../hooks/use-vote-buttons';
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   postId: string;
@@ -26,38 +26,14 @@ export const VoteButtons = ({
   session,
   ...props
 }: Props) => {
-  const [localCurrentVote, setLocalCurrentVote] = useState(originalVote ?? 0);
-
+  const { displayScore, localCurrentVote, upvote, downvote } = useVoteButtons({
+    postId,
+    originalVote,
+    postScore,
+    session,
+  });
   const UpvoteIcon = localCurrentVote === 1 ? BiSolidUpArrow : BiUpArrow;
   const DownvoteIcon = localCurrentVote === -1 ? BiSolidDownArrow : BiDownArrow;
-
-  const displayScore = postScore - (originalVote ?? 0) + localCurrentVote;
-
-  const { apiClient } = useApiClient();
-
-  const handleUpvote = async () => {
-    if (session === null) return;
-
-    if (localCurrentVote === 1) {
-      await apiClient.removePostVote(undefined, { params: { id: postId } });
-      setLocalCurrentVote(0);
-    } else {
-      await apiClient.upvotePost(undefined, { params: { id: postId } });
-      setLocalCurrentVote(1);
-    }
-  };
-
-  const handleDownvote = async () => {
-    if (session === null) return;
-
-    if (localCurrentVote === -1) {
-      await apiClient.removePostVote(undefined, { params: { id: postId } });
-      setLocalCurrentVote(0);
-    } else {
-      await apiClient.downvotePost(undefined, { params: { id: postId } });
-      setLocalCurrentVote(-1);
-    }
-  };
 
   return (
     <div
@@ -73,7 +49,7 @@ export const VoteButtons = ({
           localCurrentVote === 1 && 'text-upvote',
         )}
         title="Upvote"
-        onClick={handleUpvote}
+        onClick={upvote}
         disabled={session === null || !session.user.verified}
       >
         <UpvoteIcon className="inline" size={22} />
@@ -85,7 +61,7 @@ export const VoteButtons = ({
           localCurrentVote === -1 && 'text-downvote',
         )}
         title="Downvote"
-        onClick={handleDownvote}
+        onClick={downvote}
         disabled={session === null || !session.user.verified}
       >
         <DownvoteIcon className="inline" size={22} />

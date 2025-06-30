@@ -1,30 +1,18 @@
 'use client';
 
-import { useApiClient } from '@/lib/api/hooks/use-api-client';
 import { Button } from '@/lib/common/components/Button';
-import { usePendingCallback } from '@/lib/common/hooks/use-pending';
-import { routes } from '@/lib/routes';
-import { useRouter } from 'next/navigation';
 import { LuTrash } from 'react-icons/lu';
-import { DegreeSchema } from '../schemas/degree';
+import { useDeleteDegree } from '../hooks/use-delete-degree';
 
 export interface Props {
-  degree: DegreeSchema;
+  degreeId: string;
 }
 
-export const DeleteDegreeButton = ({ degree }: Props) => {
-  const router = useRouter();
-  const { apiClient } = useApiClient();
-
-  const [pending, deleteSelf] = usePendingCallback(async () => {
-    await apiClient.removeDegree(undefined, {
-      params: { id: degree.id },
-    });
-    router.push(routes.degrees.root);
-  }, [apiClient, degree]);
+export const DeleteDegreeButton = ({ degreeId }: Props) => {
+  const { pending, deleteDegree } = useDeleteDegree(degreeId);
 
   return (
-    <Button variant="error" onClick={deleteSelf} disabled={pending}>
+    <Button variant="error" onClick={deleteDegree} disabled={pending}>
       <LuTrash className="mr-2 mb-1 inline" /> Eliminar
     </Button>
   );
