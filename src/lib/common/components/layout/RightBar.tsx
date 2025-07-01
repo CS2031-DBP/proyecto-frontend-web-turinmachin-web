@@ -18,16 +18,16 @@ export const RightBar = ({ universities, degrees, ...props }: Props) => {
   return (
     <aside
       {...props}
-      className="border-muted flex w-60 min-w-60 flex-col space-y-10 overflow-y-scroll border-l px-6 py-4 lg:w-68 lg:min-w-68"
+      className="border-muted flex w-60 min-w-60 flex-col space-y-10 overflow-y-scroll border-l px-6 py-4 not-sm:hidden lg:w-68 lg:min-w-68"
     >
       <section>
         <h2 className="mb-4 flex flex-nowrap items-center text-xl font-semibold">
           <Link href={routes.universities.root} className="hover:text-special">
             <LuUniversity className="mr-2 inline" />
-            Universidades
+            <span className="not-sm:hidden">Universidades</span>
           </Link>
         </h2>
-        <ul className="text-foreground-muted space-y-3 pl-4">
+        <ul className="text-foreground-muted space-y-3 pl-4 not-sm:hidden">
           {universities.map((university) => {
             const href = routes.universities.byId(university.id);
 

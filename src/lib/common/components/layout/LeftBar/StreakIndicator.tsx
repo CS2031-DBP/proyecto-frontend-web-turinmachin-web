@@ -14,7 +14,7 @@ const getStreakColor = (streak: number): string => {
 };
 
 export const StreakIndicator = ({ streak }: Props) => (
-  <div className="flex items-center">
+  <div className="flex items-center not-sm:hidden">
     <LuFlame className={getStreakColor(streak)} size={36} />
     <span className="pl-1 text-lg font-extrabold">{streak}</span>
   </div>

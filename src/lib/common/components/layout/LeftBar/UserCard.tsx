@@ -37,7 +37,7 @@ export const UserCard = ({ session }: Props) => {
           <LuUser size={36} />
         )}
 
-        <div>
+        <div className="not-sm:hidden">
           <p className="font-semibold">
             {session.user.displayName ?? session.user.username}
           </p>
