@@ -17,7 +17,7 @@ export const LoginButton = ({ className, ...props }: Props) => {
       onClick={() => openPopup('login')}
       variant="special"
       className={twMerge(
-        'flex items-center justify-center py-3 text-xl not-sm:px-0',
+        'flex items-center justify-center px-1 py-3 text-xl not-sm:px-0',
         className,
       )}
     >
