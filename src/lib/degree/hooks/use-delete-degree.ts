@@ -3,16 +3,23 @@ import { usePendingCallback } from '@/lib/common/hooks/use-pending';
 import { routes } from '@/lib/routes';
 import { useRouter } from 'next/navigation';
 
-export const useDeleteDegree = (degreeId: string) => {
+interface UseDeleteDegreeOptions {
+  degreeId: string;
+  onClose: () => void;
+}
+
+export const useDeleteDegree = ({
+  degreeId,
+  onClose,
+}: UseDeleteDegreeOptions) => {
   const router = useRouter();
   const { apiClient } = useApiClient();
 
   const [pending, deleteDegree] = usePendingCallback(async () => {
-    await apiClient.removeDegree(undefined, {
-      params: { id: degreeId },
-    });
+    await apiClient.removeDegree(undefined, { params: { id: degreeId } });
+    onClose();
     router.push(routes.degrees.root);
-  }, [apiClient, degreeId]);
+  }, [apiClient, degreeId, onClose]);
 
   return { pending, deleteDegree };
 };

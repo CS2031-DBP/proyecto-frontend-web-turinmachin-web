@@ -3,7 +3,15 @@ import { usePendingCallback } from '@/lib/common/hooks/use-pending';
 import { routes } from '@/lib/routes';
 import { useRouter } from 'next/navigation';
 
-export const useDeleteUniversity = (universityId: string) => {
+interface UseDeleteUniversityOptions {
+  universityId: string;
+  onClose: () => void;
+}
+
+export const useDeleteUniversity = ({
+  universityId,
+  onClose,
+}: UseDeleteUniversityOptions) => {
   const router = useRouter();
   const { apiClient } = useApiClient();
 
@@ -11,8 +19,9 @@ export const useDeleteUniversity = (universityId: string) => {
     await apiClient.removeUniversity(undefined, {
       params: { id: universityId },
     });
+    onClose();
     router.push(routes.universities.root);
-  }, [apiClient, universityId]);
+  }, [apiClient, universityId, onClose]);
 
   return { pending, deleteUniversity };
 };

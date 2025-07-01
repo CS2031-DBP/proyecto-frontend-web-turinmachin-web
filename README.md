@@ -26,3 +26,12 @@ pnpm install
 pnpm run build
 pnpm run start
 ```
+
+## Versión en línea
+
+Puedes encontrar la app desplegada en: [https://unilife.lat](https://unilife.lat)
+
+> [!WARNING]
+> Puede que el servidor se encuentre **temporalmente apagado** debido a los límites gratuitos del servidor EC2.
+
+Para una mejor experiencia, se recomienda probar la aplicación desde una **laptop o computadora de escritorio**.

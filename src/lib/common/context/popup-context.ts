@@ -14,6 +14,8 @@ export type PopupType =
   | 'post'
   | 'deleteAccount'
   | 'modDeleteAccount'
+  | 'deleteUniversity'
+  | 'deleteDegree'
   | 'toxicityPost'
   | 'toxicityComment';
 
@@ -21,6 +23,12 @@ export type PopupType =
 export interface PopupArgs extends Record<PopupType, {}> {
   modDeleteAccount: {
     user: UserSchema;
+  };
+  deleteUniversity: {
+    universityId: string;
+  };
+  deleteDegree: {
+    degreeId: string;
   };
 }
 

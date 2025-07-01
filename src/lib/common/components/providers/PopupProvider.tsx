@@ -5,9 +5,11 @@ import { LoginPopup } from '@/lib/auth/components/LoginPopup';
 import { RegisterPopup } from '@/lib/auth/components/RegisterPopup';
 import { VerificationPopup } from '@/lib/auth/components/VerificationPopup';
 import { ToxicityCommentPopup } from '@/lib/comment/components/ToxicityCommentPopup';
+import { DeleteDegreePopup } from '@/lib/degree/components/DeleteDegreePopup';
 import { NoUniversityPopup } from '@/lib/post/components/NoUniversityPopup';
 import { ToxicityPostPopup } from '@/lib/post/components/ToxicityPostPopup';
 import { UnverifiedPopup } from '@/lib/post/components/UnverifiedPopup';
+import { DeleteUniversityPopup } from '@/lib/university/components/DeleteUniversityPopup';
 import { ModDeleteAccountPopup } from '@/lib/user/components/ModDeleteAccountPopup';
 import { VerificationResendCooldownPopup } from '@/lib/user/components/VerificationResendCooldownPopup';
 import { VerificationResendPopup } from '@/lib/user/components/VerificationResendPopup';
@@ -47,6 +49,8 @@ const PopupComponents: { [P in PopupType]: PopupComponent<P> } = {
   noUniversity: NoUniversityPopup,
   deleteAccount: DeleteAccountPopup,
   modDeleteAccount: ModDeleteAccountPopup,
+  deleteUniversity: DeleteUniversityPopup,
+  deleteDegree: DeleteDegreePopup,
   toxicityPost: ToxicityPostPopup,
   toxicityComment: ToxicityCommentPopup,
 };
