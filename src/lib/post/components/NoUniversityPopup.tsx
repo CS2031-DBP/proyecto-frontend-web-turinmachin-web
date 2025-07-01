@@ -1,5 +1,3 @@
-'use client';
-
 import { AlertPopup } from '@/lib/common/components/popup/AlertPopup';
 import type { PopupComponent } from '@/lib/common/components/providers/PopupProvider';
 import { LuUniversity } from 'react-icons/lu';
