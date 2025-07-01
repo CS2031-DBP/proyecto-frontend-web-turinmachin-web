@@ -23,7 +23,6 @@ const EditDegree = async ({ params }: Readonly<Props>) => {
     return redirect(routes.degrees.byId(degreeId));
   }
 
-  // TODO: clean up
   let degree: DegreeSchema;
   try {
     degree = await apiClient.getDegreeById({

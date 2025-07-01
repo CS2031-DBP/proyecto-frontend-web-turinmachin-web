@@ -23,7 +23,6 @@ const EditUniversity = async ({ params }: Readonly<Props>) => {
     return redirect(routes.universities.byId(universityId));
   }
 
-  // TODO: clean up
   let university: UniversitySchema;
   try {
     university = await apiClient.getUniversityById({

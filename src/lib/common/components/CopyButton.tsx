@@ -15,13 +15,17 @@ export const CopyButton = ({ text, label, className, ...props }: Props) => {
   const handleClick = () => {
     navigator.clipboard?.writeText(text);
     setCopied(true);
+    setTimeout(() => setCopied(false), 1000);
   };
 
   return (
     <button
       {...props}
       onClick={handleClick}
-      className={twMerge(className, copied && 'bg-green-800/10 text-green-200')} // TODO: use palette
+      className={twMerge(
+        className,
+        copied && 'bg-success-background text-success-foreground',
+      )}
     >
       <LuLink className="mr-2 inline" />
       {copied ? '¡Copiado!' : label}

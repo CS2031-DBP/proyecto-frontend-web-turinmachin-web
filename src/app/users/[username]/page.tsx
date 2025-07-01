@@ -111,8 +111,7 @@ const User = async ({ params }: Readonly<Props>) => {
         </li>
         {user.role !== 'USER' &&
           (user.role === 'ADMIN' ? (
-            // TODO: use palette
-            <li className="flex items-center text-yellow-200">
+            <li className="text-important flex items-center">
               <LuStar className="mr-2 shrink-0" />
               Administrador
             </li>
