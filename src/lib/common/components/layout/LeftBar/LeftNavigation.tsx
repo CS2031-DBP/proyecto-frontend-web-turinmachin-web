@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { HTMLAttributes } from 'react';
 import { IconType } from 'react-icons';
-import { LuHouse, LuSearch, LuUser } from 'react-icons/lu';
+import { LuGraduationCap, LuHouse, LuSearch, LuUniversity, LuUser } from 'react-icons/lu';
 import { twJoin, twMerge } from 'tailwind-merge';
 
 type Link =
@@ -43,6 +43,18 @@ const links: Link[] = [
     to: routes.posts.root,
     label: 'Explorar',
     Icon: LuSearch,
+    exact: true,
+  },
+  {
+    to: routes.universities.root,
+    label: 'Universidades',
+    Icon: LuUniversity,
+    exact: true,
+  },
+  {
+    to: routes.degrees.root,
+    label: 'Carreras',
+    Icon: LuGraduationCap,
     exact: true,
   },
   {
