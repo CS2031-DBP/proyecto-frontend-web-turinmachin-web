@@ -15,11 +15,8 @@ export const useVoteButtons = ({
   postScore,
   session,
 }: UseVoteButtonsOptions) => {
-  const [localCurrentVote, setLocalCurrentVote] = useState(originalVote ?? 0);
-
-  const displayScore = postScore - (originalVote ?? 0) + localCurrentVote;
-
   const { apiClient } = useApiClient();
+  const [localCurrentVote, setLocalCurrentVote] = useState(originalVote ?? 0);
 
   const upvote = async () => {
     if (session === null) return;
@@ -44,6 +41,8 @@ export const useVoteButtons = ({
       setLocalCurrentVote(-1);
     }
   };
+
+  const displayScore = postScore - (originalVote ?? 0) + localCurrentVote;
 
   return { displayScore, localCurrentVote, upvote, downvote };
 };

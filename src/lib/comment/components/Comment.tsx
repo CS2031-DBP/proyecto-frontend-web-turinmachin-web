@@ -50,7 +50,7 @@ export const Comment = ({
         )}
       </div>
       <div className="pl-8">
-        <p className="text-lg">{comment.content}</p>
+        <p className="my-1 text-lg">{comment.content}</p>
         {!replying ? (
           <button
             onClick={() => setReplying(true)}
