@@ -7,7 +7,7 @@ import { usePopup } from '@/lib/common/hooks/use-popup';
 import { EmailUniversityInfo } from '@/lib/user/components/EmailUniversityInfo';
 import { useRegisterForm } from '../hooks/use-register-form';
 
-export const RegisterPopup: PopupComponent = ({ onClose }) => {
+export const RegisterPopup: PopupComponent<'register'> = ({ onClose }) => {
   const { openPopup } = usePopup();
   const { form, pending, handleSubmit } = useRegisterForm({ onClose });
   const email = form.watch('email');
@@ -51,7 +51,7 @@ export const RegisterPopup: PopupComponent = ({ onClose }) => {
       <Popup.Footer>
         ¿Ya tienes una cuenta?{' '}
         <button
-          onClick={() => openPopup('login')}
+          onClick={() => openPopup('login', {})}
           className="text-special font-bold hover:underline"
         >
           Iniciar sesión

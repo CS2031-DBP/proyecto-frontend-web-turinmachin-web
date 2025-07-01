@@ -17,7 +17,7 @@ export const CreatePostButton = ({ session, ...props }: Props) => {
       <Button
         {...props}
         variant="special"
-        onClick={() => openPopup('post')}
+        onClick={() => openPopup('post', {})}
         disabled={!session.user.verified || !session.user.hasUniversity}
         // TODO: change for a more obvious message. This doesn't work as well on mobile
         title={

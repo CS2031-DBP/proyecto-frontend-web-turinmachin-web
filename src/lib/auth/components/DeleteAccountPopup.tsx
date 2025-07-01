@@ -4,7 +4,9 @@ import { PopupComponent } from '@/lib/common/components/providers/PopupProvider'
 import { LuTrash } from 'react-icons/lu';
 import { useDeleteSelfAccount } from '../hooks/use-delete-account';
 
-export const DeleteAccountPopup: PopupComponent = ({ onClose }) => {
+export const DeleteAccountPopup: PopupComponent<'deleteAccount'> = ({
+  onClose,
+}) => {
   const { pending, deleteSelfAccount } = useDeleteSelfAccount({ onClose });
 
   return (

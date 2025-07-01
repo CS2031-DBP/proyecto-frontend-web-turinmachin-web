@@ -10,7 +10,7 @@ export const DeleteAccountButton = () => {
     <Button
       type="button"
       variant="error"
-      onClick={() => openPopup('deleteAccount')}
+      onClick={() => openPopup('deleteAccount', {})}
     >
       <LuTrash className="mr-2 mb-1 inline" />
       Eliminar cuenta

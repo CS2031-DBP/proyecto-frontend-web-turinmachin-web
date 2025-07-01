@@ -54,7 +54,7 @@ export const useCreatePost = ({ onClose }: UseCreatePost) => {
         onClose();
       } catch (err) {
         if (isErrorFromAlias(apiClient.api, 'createPost', err)) {
-          openPopup('toxicityPost');
+          openPopup('toxicityPost', {});
         } else {
           throw err;
         }

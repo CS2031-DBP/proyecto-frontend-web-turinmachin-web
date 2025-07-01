@@ -6,7 +6,7 @@ import { PopupComponent } from '@/lib/common/components/providers/PopupProvider'
 import { usePopup } from '@/lib/common/hooks/use-popup';
 import { useLoginForm } from '../hooks/use-login-form';
 
-export const LoginPopup: PopupComponent = ({ onClose }) => {
+export const LoginPopup: PopupComponent<'login'> = ({ onClose }) => {
   const { openPopup } = usePopup();
   const { form, pending, handleSubmit } = useLoginForm({ onClose });
 
@@ -35,7 +35,7 @@ export const LoginPopup: PopupComponent = ({ onClose }) => {
       <Popup.Footer>
         ¿No tienes una cuenta?{' '}
         <button
-          onClick={() => openPopup('register')}
+          onClick={() => openPopup('register', {})}
           className="text-special font-semibold hover:underline"
         >
           ¡Regístrate!

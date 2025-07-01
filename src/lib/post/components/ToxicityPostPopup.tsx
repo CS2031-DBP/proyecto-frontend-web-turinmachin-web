@@ -1,5 +1,6 @@
 import { Button } from '@/lib/common/components/Button';
 import { Popup } from '@/lib/common/components/popup/Popup';
+import { PopupComponent } from '@/lib/common/components/providers/PopupProvider';
 import { usePopup } from '@/lib/common/hooks/use-popup';
 import { LuTriangleAlert } from 'react-icons/lu';
 
@@ -7,12 +8,14 @@ export interface Props {
   onClose: () => void;
 }
 
-export const ToxicityPostPopup = ({ onClose }: Props) => {
+export const ToxicityPostPopup: PopupComponent<'toxicityPost'> = ({
+  onClose,
+}: Props) => {
   const { openPopup } = usePopup();
 
   const handleContinue = () => {
     onClose();
-    openPopup('post');
+    openPopup('post', {});
   };
 
   return (

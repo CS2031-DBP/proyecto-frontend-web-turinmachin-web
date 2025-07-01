@@ -48,7 +48,7 @@ export const useCommentForm = ({
           isErrorFromAlias(apiClient.api, 'createPostComment', err) ||
           isErrorFromAlias(apiClient.api, 'createPostCommentReply', err)
         ) {
-          openPopup('toxicityComment');
+          openPopup('toxicityComment', {});
         } else {
           throw err;
         }

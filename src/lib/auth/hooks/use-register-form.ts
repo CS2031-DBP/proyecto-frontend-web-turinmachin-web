@@ -42,7 +42,7 @@ export const useRegisterForm = ({ onClose }: UseRegisterFormOptions) => {
       }
 
       onClose();
-      openPopup('verification');
+      openPopup('verification', {});
       router.refresh();
     },
     [router],

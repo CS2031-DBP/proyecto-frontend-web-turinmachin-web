@@ -13,9 +13,12 @@ export type PopupType =
   | 'toxicityPost'
   | 'toxicityComment';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface PopupArgs extends Record<PopupType, {}> {}
+
 export interface PopupContextValue {
   popup: PopupType | null;
-  openPopup: (popup: PopupType) => void;
+  openPopup: <P extends PopupType>(popup: P, args: PopupArgs[P]) => void;
   closePopup: () => void;
 }
 

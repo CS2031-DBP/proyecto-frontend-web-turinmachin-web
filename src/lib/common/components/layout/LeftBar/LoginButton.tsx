@@ -14,7 +14,7 @@ export const LoginButton = ({ className, ...props }: Props) => {
   return (
     <Button
       {...props}
-      onClick={() => openPopup('login')}
+      onClick={() => openPopup('login', {})}
       variant="special"
       className={twMerge(
         'flex items-center justify-center px-1 py-3 text-xl not-sm:px-0',

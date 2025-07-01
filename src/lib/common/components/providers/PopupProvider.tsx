@@ -8,23 +8,32 @@ import { ToxicityCommentPopup } from '@/lib/comment/components/ToxicityCommentPo
 import { ToxicityPostPopup } from '@/lib/post/components/ToxicityPostPopup';
 import { VerificationResendCooldownPopup } from '@/lib/user/components/VerificationResendCooldownPopup';
 import { VerificationResendPopup } from '@/lib/user/components/VerificationResendPopup';
+import { UnionToIntersection } from '@zodios/core/lib/utils.types';
 import { ReactNode, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { JSX } from 'react/jsx-runtime';
 import { CreatePostPopup } from '../../../post/components/CreatePostPopup';
-import { PopupContext, PopupType } from '../../context/popup-context';
+import {
+  PopupArgs,
+  PopupContext,
+  PopupType,
+} from '../../context/popup-context';
 
 export interface Props {
   children?: ReactNode;
 }
 
-export interface PopupProps {
+export type PopupProps<P extends PopupType> = (P extends keyof PopupArgs
+  ? PopupArgs[P]
+  : unknown) & {
   onClose: () => void;
-}
+};
 
-export type PopupComponent = (props: PopupProps) => JSX.Element;
+export type PopupComponent<P extends PopupType> = (
+  props: PopupProps<P>,
+) => JSX.Element;
 
-const PopupComponents: Record<PopupType, PopupComponent> = {
+const PopupComponents: { [P in PopupType]: PopupComponent<P> } = {
   login: LoginPopup,
   register: RegisterPopup,
   post: CreatePostPopup,
@@ -38,8 +47,14 @@ const PopupComponents: Record<PopupType, PopupComponent> = {
 
 export const PopupProvider = ({ children }: Props) => {
   const [popup, setPopup] = useState<PopupType | null>(null);
+  const [args, setArgs] = useState<PopupArgs[keyof PopupArgs]>({});
 
-  const openPopup = setPopup;
+  const openPopup = <P extends PopupType>(popup: P, args: PopupArgs[P]) => {
+    setPopup(popup);
+    if (args) {
+      setArgs(args);
+    }
+  };
   const closePopup = () => setPopup(null);
 
   useEffect(() => {
@@ -59,7 +74,13 @@ export const PopupProvider = ({ children }: Props) => {
     <PopupContext value={{ popup, openPopup, closePopup }}>
       {children}
       {CurrentPopup &&
-        createPortal(<CurrentPopup onClose={closePopup} />, document.body)}
+        createPortal(
+          <CurrentPopup
+            onClose={closePopup}
+            {...(args as UnionToIntersection<PopupArgs[keyof PopupArgs]>)}
+          />,
+          document.body,
+        )}
     </PopupContext>
   );
 };
