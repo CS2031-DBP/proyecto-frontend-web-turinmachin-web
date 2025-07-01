@@ -46,7 +46,8 @@ pnpm run start
 La aplicación está disponible en:
 🔗 [https://unilife.lat](https://unilife.lat)
 
-> ⚠️ **Aviso:** el servidor puede estar **temporalmente inactivo** por los límites gratuitos del servicio EC2 de AWS.
+> [!WARNING]
+> El servidor puede estar **temporalmente inactivo** por los límites gratuitos del servicio EC2 de AWS.
 
 📌 Se recomienda el uso desde una **laptop o computadora de escritorio** para una mejor experiencia.
 
