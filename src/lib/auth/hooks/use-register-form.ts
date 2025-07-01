@@ -1,4 +1,5 @@
 import { usePendingCallback } from '@/lib/common/hooks/use-pending';
+import { usePopup } from '@/lib/common/hooks/use-popup';
 import { removeUndefined } from '@/lib/common/util/object';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signIn } from 'next-auth/react';
@@ -16,6 +17,7 @@ export interface UseRegisterFormOptions {
 
 export const useRegisterForm = ({ onClose }: UseRegisterFormOptions) => {
   const router = useRouter();
+  const { openPopup } = usePopup();
 
   const form = useForm({
     resolver: zodResolver(FormSchema),
@@ -40,6 +42,7 @@ export const useRegisterForm = ({ onClose }: UseRegisterFormOptions) => {
       }
 
       onClose();
+      openPopup('verification');
       router.refresh();
     },
     [router],

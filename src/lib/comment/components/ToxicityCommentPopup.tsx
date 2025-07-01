@@ -1,3 +1,4 @@
+import { Button } from '@/lib/common/components/Button';
 import { Popup } from '@/lib/common/components/popup/Popup';
 import { LuMessageCircleWarning } from 'react-icons/lu';
 
@@ -17,11 +18,12 @@ export const ToxicityCommentPopup = ({ onClose }: Props) => (
       Tu comentario podría contener contenido inapropiado. Por favor, revísala
       antes de comentar nuevamente.
     </p>
-    <button
+    <Button
       onClick={onClose}
-      className="bg-special hover:bg-special-muted my-3 w-full rounded py-2 font-bold text-white transition-colors ease-in-out"
+      variant="special"
+      className="my-3 w-full rounded font-bold text-white transition-colors ease-in-out"
     >
       Continuar
-    </button>
+    </Button>
   </Popup>
 );

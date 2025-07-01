@@ -1,3 +1,4 @@
+import { Button } from '@/lib/common/components/Button';
 import { Popup } from '@/lib/common/components/popup/Popup';
 import { usePopup } from '@/lib/common/hooks/use-popup';
 import { LuTriangleAlert } from 'react-icons/lu';
@@ -28,12 +29,13 @@ export const ToxicityPostPopup = ({ onClose }: Props) => {
         Tu publicación podría contener contenido inapropiado. Por favor,
         revísala antes de publicarla nuevamente.
       </p>
-      <button
-        onClick={handleContinue}
-        className="bg-special hover:bg-special-muted my-3 w-full rounded py-2 font-bold text-white transition-colors ease-in-out"
+      <Button
+        onClick={onClose}
+        variant="special"
+        className="my-3 w-full rounded font-bold text-white transition-colors ease-in-out"
       >
         Continuar
-      </button>
+      </Button>
     </Popup>
   );
 };
