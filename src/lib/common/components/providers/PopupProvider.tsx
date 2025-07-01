@@ -8,6 +8,7 @@ import { ToxicityCommentPopup } from '@/lib/comment/components/ToxicityCommentPo
 import { NoUniversityPopup } from '@/lib/post/components/NoUniversityPopup';
 import { ToxicityPostPopup } from '@/lib/post/components/ToxicityPostPopup';
 import { UnverifiedPopup } from '@/lib/post/components/UnverifiedPopup';
+import { ModDeleteAccountPopup } from '@/lib/user/components/ModDeleteAccountPopup';
 import { VerificationResendCooldownPopup } from '@/lib/user/components/VerificationResendCooldownPopup';
 import { VerificationResendPopup } from '@/lib/user/components/VerificationResendPopup';
 import { UnionToIntersection } from '@zodios/core/lib/utils.types';
@@ -45,6 +46,7 @@ const PopupComponents: { [P in PopupType]: PopupComponent<P> } = {
   unverified: UnverifiedPopup,
   noUniversity: NoUniversityPopup,
   deleteAccount: DeleteAccountPopup,
+  modDeleteAccount: ModDeleteAccountPopup,
   toxicityPost: ToxicityPostPopup,
   toxicityComment: ToxicityCommentPopup,
 };

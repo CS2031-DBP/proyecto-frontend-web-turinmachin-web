@@ -136,6 +136,12 @@ export const api = makeApi([
     response: UserSchema,
   },
   {
+    alias: 'deleteUser',
+    method: 'delete',
+    path: '/users/:id',
+    response: z.void(),
+  },
+  {
     alias: 'getPosts',
     method: 'get',
     path: '/posts',

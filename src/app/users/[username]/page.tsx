@@ -5,6 +5,7 @@ import { Main } from '@/lib/common/components/layout/Main';
 import { day } from '@/lib/common/util/dayjs';
 import { PostListing } from '@/lib/post/components/PostListing';
 import { routes } from '@/lib/routes';
+import { ModDeleteAccountButton } from '@/lib/user/components/ModDeleteAccountButton';
 import { ResendVerificationButton } from '@/lib/user/components/ResendVerificationButton';
 import { RoleSelector } from '@/lib/user/components/RoleSelector';
 import { UserSchema } from '@/lib/user/schemas/user';
@@ -48,8 +49,9 @@ const User = async ({ params }: Readonly<Props>) => {
 
   return (
     <Main>
-      {isSessionAdmin(session) && (
-        <div className="flex justify-end">
+      {isSessionAdmin(session) && !isSelf && (
+        <div className="flex justify-end space-x-4">
+          <ModDeleteAccountButton user={user} />
           <RoleSelector user={user} />
         </div>
       )}

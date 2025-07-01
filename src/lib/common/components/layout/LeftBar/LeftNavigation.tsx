@@ -6,7 +6,13 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { HTMLAttributes } from 'react';
 import { IconType } from 'react-icons';
-import { LuGraduationCap, LuHouse, LuSearch, LuUniversity, LuUser } from 'react-icons/lu';
+import {
+  LuGraduationCap,
+  LuHouse,
+  LuSearch,
+  LuUniversity,
+  LuUser,
+} from 'react-icons/lu';
 import { twJoin, twMerge } from 'tailwind-merge';
 
 type Link =
