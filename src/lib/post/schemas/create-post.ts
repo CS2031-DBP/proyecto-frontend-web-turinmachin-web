@@ -12,6 +12,7 @@ export const CreatePostSchema = z.object({
   files: z
     .instanceof(File)
     .array()
+    .max(10)
     .optional()
     .transform((arr) => (arr?.length === 0 ? undefined : arr)),
 });
