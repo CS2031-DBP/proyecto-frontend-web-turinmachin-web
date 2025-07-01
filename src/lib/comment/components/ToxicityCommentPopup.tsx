@@ -7,7 +7,7 @@ export interface Props {
 
 export const ToxicityCommentPopup = ({ onClose }: Props) => (
   <Popup className="bg-surface border-background-alt relative w-full max-w-sm rounded-xl border px-4 py-6">
-    <div className="mb-2 flex justify-center text-yellow-300">
+    <div className="text-warn mb-2 flex justify-center">
       <LuMessageCircleWarning className="h-10 w-10" />
     </div>
 
