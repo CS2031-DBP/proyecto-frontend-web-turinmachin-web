@@ -16,7 +16,7 @@
 
 UniLife es una plataforma web universitaria construida con **Next.js**, que permite a los estudiantes explorar universidades y carreras, publicar contenido, y personalizar su perfil.  
 El frontend incluye un “mini backend” para aprovechar funcionalidades de **SSR (Server Side Rendering)**.  
-Se utiliza [`pnpm`](https://pnpm.io) como gestor de paquetes por su eficiencia y velocidad frente a `npm` o `yarn`.
+Se utiliza [`pnpm`](https://pnpm.io) como gestor de paquetes por su eficiencia y velocidad.
 
 ---
 
@@ -24,12 +24,12 @@ Se utiliza [`pnpm`](https://pnpm.io) como gestor de paquetes por su eficiencia y
 
 Crea un archivo `.env.local` basado en `.env.example`, y define las siguientes variables:
 
-| Variable                     | Descripción                                                               |
-| ---------------------------- | ------------------------------------------------------------------------- |
-| `NEXT_PUBLIC_API_URL`        | URL pública del backend                                                   |
-| `NEXT_PUBLIC_DEPLOYMENT_URL` | URL del frontend desplegado                                               |
-| `API_URL_INTERNAL`           | URL del backend para uso interno del servidor (ej. `http://backend:8080`) |
-| `AUTH_SECRET`                | Clave secreta para autenticación JWT                                      |
+| Variable                     | Descripción                                                                                                                                                                                                               |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_API_URL`        | URL pública del backend                                                                                                                                                                                                   |
+| `NEXT_PUBLIC_DEPLOYMENT_URL` | URL del frontend desplegado                                                                                                                                                                                               |
+| `API_URL_INTERNAL`           | URL del backend para uso interno del servidor. Se hace la distinción porque usamos Docker Compose en el deployment, así que esta variable se setea como http://backend:8080 para usar la red interna de los contenedores. |
+| `AUTH_SECRET`                | Clave secreta para autenticación JWT                                                                                                                                                                                      |
 
 ### ▶️ Instalación y ejecución
 
@@ -57,7 +57,6 @@ La aplicación está disponible en:
 ### 🧩 Frontend
 
 - [Next.js](https://nextjs.org/)
-- [React Native](https://reactnative.dev/)
 - [TailwindCSS](https://tailwindcss.com/)
 - [Auth.js (NextAuth)](https://authjs.dev/)
 - [SWR](https://swr.vercel.app/)
