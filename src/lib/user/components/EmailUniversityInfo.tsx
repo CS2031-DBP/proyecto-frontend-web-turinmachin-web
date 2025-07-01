@@ -1,6 +1,5 @@
 'use client';
 import { LuInfo } from 'react-icons/lu';
-import { twJoin } from 'tailwind-merge';
 import { useUniversityEmailInfo } from '../hooks/use-email-university-info';
 
 export interface Props {
@@ -13,11 +12,7 @@ export const EmailUniversityInfo = ({ email }: Props) => {
   if (!emailDomain) return null;
 
   return (
-    <p
-      className={twJoin(
-        university ? 'text-foreground-muted' : 'text-yellow-200',
-      )}
-    >
+    <p className="text-foreground-muted">
       <LuInfo className="mr-2 mb-1 inline" />
       {pending ? (
         'Buscando...'
@@ -30,7 +25,7 @@ export const EmailUniversityInfo = ({ email }: Props) => {
           .
         </>
       ) : (
-        'Este correo no le pertenece a alguna universidad que conozcamos!'
+        'Este correo no le pertenece a alguna universidad que conozcamos, pero igual te puedes registrar :)'
       )}
     </p>
   );
