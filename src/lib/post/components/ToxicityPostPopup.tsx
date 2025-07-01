@@ -30,7 +30,7 @@ export const ToxicityPostPopup = ({ onClose }: Props) => {
         revísala antes de publicarla nuevamente.
       </p>
       <Button
-        onClick={onClose}
+        onClick={handleContinue}
         variant="special"
         className="my-3 w-full rounded font-bold text-white transition-colors ease-in-out"
       >
