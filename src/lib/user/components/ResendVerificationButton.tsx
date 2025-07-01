@@ -12,10 +12,10 @@ export const ResendVerificationButton = () => {
   const [pending, handleClick] = usePendingCallback(async () => {
     try {
       await apiClient.resendVerificationEmail(undefined);
-      openPopup('verificationResend');
+      openPopup('verificationResend', {});
     } catch (err) {
       if (isErrorFromAlias(apiClient.api, 'resendVerificationEmail', err)) {
-        openPopup('verificationResendCooldown');
+        openPopup('verificationResendCooldown', {});
         return;
       }
       throw err;

@@ -8,6 +8,8 @@ export type PopupType =
   | 'verification'
   | 'verificationResend'
   | 'verificationResendCooldown'
+  | 'unverified'
+  | 'noUniversity'
   | 'post'
   | 'deleteAccount'
   | 'toxicityPost'

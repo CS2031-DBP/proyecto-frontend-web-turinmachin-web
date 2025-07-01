@@ -5,7 +5,9 @@ import { LoginPopup } from '@/lib/auth/components/LoginPopup';
 import { RegisterPopup } from '@/lib/auth/components/RegisterPopup';
 import { VerificationPopup } from '@/lib/auth/components/VerificationPopup';
 import { ToxicityCommentPopup } from '@/lib/comment/components/ToxicityCommentPopup';
+import { NoUniversityPopup } from '@/lib/post/components/NoUniversityPopup';
 import { ToxicityPostPopup } from '@/lib/post/components/ToxicityPostPopup';
+import { UnverifiedPopup } from '@/lib/post/components/UnverifiedPopup';
 import { VerificationResendCooldownPopup } from '@/lib/user/components/VerificationResendCooldownPopup';
 import { VerificationResendPopup } from '@/lib/user/components/VerificationResendPopup';
 import { UnionToIntersection } from '@zodios/core/lib/utils.types';
@@ -40,6 +42,8 @@ const PopupComponents: { [P in PopupType]: PopupComponent<P> } = {
   verification: VerificationPopup,
   verificationResend: VerificationResendPopup,
   verificationResendCooldown: VerificationResendCooldownPopup,
+  unverified: UnverifiedPopup,
+  noUniversity: NoUniversityPopup,
   deleteAccount: DeleteAccountPopup,
   toxicityPost: ToxicityPostPopup,
   toxicityComment: ToxicityCommentPopup,

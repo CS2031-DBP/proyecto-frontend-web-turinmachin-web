@@ -12,21 +12,22 @@ export interface Props {
 export const CreatePostButton = ({ session, ...props }: Props) => {
   const { openPopup } = usePopup();
 
+  const handleClick = () => {
+    if (!session.user.verified) {
+      openPopup('unverified', {});
+    } else if (!session.user.hasUniversity) {
+      openPopup('noUniversity', {});
+    } else {
+      openPopup('post', {});
+    }
+  };
+
   return (
     <>
       <Button
         {...props}
         variant="special"
-        onClick={() => openPopup('post', {})}
-        disabled={!session.user.verified || !session.user.hasUniversity}
-        // TODO: change for a more obvious message. This doesn't work as well on mobile
-        title={
-          !session.user.verified
-            ? '¡Debes verificar tu cuenta primero!'
-            : !session.user.hasUniversity
-              ? 'Debes estar asociado a una universidad para publicar.'
-              : undefined
-        }
+        onClick={handleClick}
         className="flex items-center justify-center py-3 text-xl not-sm:px-0"
       >
         <LuPlus size={24} />
