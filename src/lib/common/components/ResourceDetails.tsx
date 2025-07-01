@@ -62,7 +62,7 @@ export const ResourceDetails = ({
             <div>
               <Link
                 href={routes.universities.byId(university.id)}
-                className="hover:underline"
+                className="text-foreground-muted hover:underline"
               >
                 {universityName}
               </Link>
@@ -71,7 +71,7 @@ export const ResourceDetails = ({
                   ,{' '}
                   <Link
                     href={routes.degrees.byId(degree.id)}
-                    className="hover:underline"
+                    className="text-foreground-muted hover:underline"
                   >
                     {degree.name}
                   </Link>
