@@ -7,7 +7,9 @@ export type PopupType =
   | 'register'
   | 'verification'
   | 'post'
-  | 'deleteAccount';
+  | 'deleteAccount'
+  | 'toxicityPost'
+  | 'toxicityComment';
 
 export interface PopupContextValue {
   popup: PopupType | null;

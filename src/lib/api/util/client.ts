@@ -168,6 +168,7 @@ export const api = makeApi([
       { type: 'Body', name: 'body', schema: z.instanceof(FormData) },
     ],
     response: PostSchema,
+    errors: [{ status: 403, schema: DetailResponseSchema }],
   },
   {
     alias: 'updatePost',
@@ -188,6 +189,7 @@ export const api = makeApi([
     path: '/posts/:id/comments',
     parameters: [{ type: 'Body', name: 'body', schema: CreateCommentSchema }],
     response: CommentSchema,
+    errors: [{ status: 403, schema: DetailResponseSchema }],
   },
   {
     alias: 'createPostCommentReply',
@@ -195,6 +197,7 @@ export const api = makeApi([
     path: '/posts/:id/comments/:parentId/replies',
     parameters: [{ type: 'Body', name: 'body', schema: CreateCommentSchema }],
     response: CommentSchema,
+    errors: [{ status: 403, schema: DetailResponseSchema }],
   },
   {
     alias: 'deletePostComment',

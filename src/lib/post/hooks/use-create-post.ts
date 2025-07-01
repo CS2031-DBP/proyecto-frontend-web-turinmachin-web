@@ -1,7 +1,9 @@
 import { useApiClient } from '@/lib/api/hooks/use-api-client';
 import { usePendingCallback } from '@/lib/common/hooks/use-pending';
+import { usePopup } from '@/lib/common/hooks/use-popup';
 import { routes } from '@/lib/routes';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { isErrorFromAlias } from '@zodios/core';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -21,6 +23,7 @@ export interface UseCreatePost {
 export const useCreatePost = ({ onClose }: UseCreatePost) => {
   const router = useRouter();
   const { apiClient } = useApiClient();
+  const { openPopup } = usePopup();
 
   const form = useForm({
     resolver: zodResolver(FormSchema),
@@ -44,10 +47,18 @@ export const useCreatePost = ({ onClose }: UseCreatePost) => {
       data.tags.forEach((t) => formData.append('tags', t));
       data.files.forEach((f) => formData.append('files', f));
 
-      const createdPost = await apiClient.createPost(formData);
+      try {
+        const createdPost = await apiClient.createPost(formData);
 
-      router.push(routes.posts.byId(createdPost.id));
-      onClose();
+        router.push(routes.posts.byId(createdPost.id));
+        onClose();
+      } catch (err) {
+        if (isErrorFromAlias(apiClient.api, 'createPost', err)) {
+          openPopup('toxicityPost');
+        } else {
+          throw err;
+        }
+      }
     },
     [apiClient, router],
   );
