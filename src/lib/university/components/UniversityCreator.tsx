@@ -2,10 +2,12 @@
 
 import { Button } from '@/lib/common/components/Button';
 import { Form } from '@/lib/common/components/form/Form';
+import { FormError } from '@/lib/common/components/form/FormError';
 import { FormInput } from '@/lib/common/components/form/FormInput';
 import { ListInput } from '@/lib/common/components/form/ListInput';
 import { DegreeSelector } from '@/lib/degree/components/MultiSelectDropdown';
 import { DegreeSchema } from '@/lib/degree/schemas/degree';
+import { ErrorMessage } from '@hookform/error-message';
 import { useUniversityCreator } from '../hooks/use-university-creator';
 
 export interface Props {
@@ -39,12 +41,19 @@ export const UniversityCreator = ({ availableDegrees }: Props) => {
         label="Página web"
         required={false}
       />
+
       <ListInput
         values={emailDomains}
         addValue={addEmailDomain}
         removeValue={removeEmailDomain}
         label="Dominios de correo"
       />
+      <ErrorMessage
+        name="emailDomains"
+        errors={form.formState.errors}
+        render={FormError}
+      />
+
       <DegreeSelector
         options={availableDegrees}
         degreeIds={degreeIds}
