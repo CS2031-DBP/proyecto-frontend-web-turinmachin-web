@@ -1,16 +1,13 @@
-import { Button } from '@/lib/common/components/Button';
-import { Popup } from '@/lib/common/components/popup/Popup';
-import { PopupComponent } from '@/lib/common/components/providers/PopupProvider';
+'use client';
+
+import { AlertPopup } from '@/lib/common/components/popup/AlertPopup';
+import type { PopupComponent } from '@/lib/common/components/providers/PopupProvider';
 import { usePopup } from '@/lib/common/hooks/use-popup';
 import { LuTriangleAlert } from 'react-icons/lu';
 
-export interface Props {
-  onClose: () => void;
-}
-
 export const ToxicityPostPopup: PopupComponent<'toxicityPost'> = ({
   onClose,
-}: Props) => {
+}) => {
   const { openPopup } = usePopup();
 
   const handleContinue = () => {
@@ -19,26 +16,11 @@ export const ToxicityPostPopup: PopupComponent<'toxicityPost'> = ({
   };
 
   return (
-    <Popup className="bg-surface border-background-alt relative w-full max-w-sm rounded-xl border px-4 py-6">
-      <div className="text-warn mb-2 flex justify-center">
-        <LuTriangleAlert className="h-10 w-10" />
-      </div>
-
-      <h2 className="mb-2 text-center text-xl font-bold">
-        Contenido no seguro
-      </h2>
-
-      <p className="text-center">
-        Tu publicación podría contener contenido inapropiado. Por favor,
-        revísala antes de publicarla nuevamente.
-      </p>
-      <Button
-        onClick={handleContinue}
-        variant="special"
-        className="my-3 w-full rounded font-bold text-white transition-colors ease-in-out"
-      >
-        Continuar
-      </Button>
-    </Popup>
+    <AlertPopup
+      title="Contenido no seguro"
+      message="Tu publicación podría contener contenido inapropiado. Por favor, revísala antes de publicarla nuevamente."
+      Icon={LuTriangleAlert}
+      onClose={handleContinue}
+    />
   );
 };
