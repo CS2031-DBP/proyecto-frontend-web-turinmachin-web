@@ -1,24 +1,22 @@
 import { Button } from '@/lib/common/components/Button';
 import { Popup } from '@/lib/common/components/popup/Popup';
-import { LuMailCheck } from 'react-icons/lu';
+import { LuMailQuestion } from 'react-icons/lu';
 
 export interface Props {
   onClose: () => void;
 }
 
-export const VerificationPopup = ({ onClose }: Props) => (
+export const VerificationResendCooldownPopup = ({ onClose }: Props) => (
   <Popup className="bg-surface border-background-alt relative w-full max-w-sm rounded-xl border px-4 py-6">
     <div className="text-special mb-2 flex justify-center">
-      <LuMailCheck className="h-10 w-10" />
+      <LuMailQuestion className="h-10 w-10" />
     </div>
 
-    <h2 className="mb-2 text-center text-xl font-bold">
-      Correo de verificación
-    </h2>
+    <h2 className="mb-2 text-center text-xl font-bold">Correo ya enviado</h2>
 
     <p className="text-center">
-      Te hemos enviado un correo de verificación. ¡Hasta que te verifiques, no
-      podrás interactuar todavía!
+      Ya te hemos reenviado el correo de verificación. Revisa tu bandeja de
+      entrada o carpeta de spam.
     </p>
     <Button
       onClick={onClose}

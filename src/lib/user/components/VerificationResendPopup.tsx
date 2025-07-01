@@ -6,19 +6,17 @@ export interface Props {
   onClose: () => void;
 }
 
-export const VerificationPopup = ({ onClose }: Props) => (
+export const VerificationResendPopup = ({ onClose }: Props) => (
   <Popup className="bg-surface border-background-alt relative w-full max-w-sm rounded-xl border px-4 py-6">
     <div className="text-special mb-2 flex justify-center">
       <LuMailCheck className="h-10 w-10" />
     </div>
 
-    <h2 className="mb-2 text-center text-xl font-bold">
-      Correo de verificación
-    </h2>
+    <h2 className="mb-2 text-center text-xl font-bold">Correo reenviado</h2>
 
     <p className="text-center">
-      Te hemos enviado un correo de verificación. ¡Hasta que te verifiques, no
-      podrás interactuar todavía!
+      Te hemos reenviado el correo de verificación. Revisa tu bandeja de entrada
+      o carpeta de spam.
     </p>
     <Button
       onClick={onClose}

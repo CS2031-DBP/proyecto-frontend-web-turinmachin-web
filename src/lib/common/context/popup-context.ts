@@ -6,6 +6,8 @@ export type PopupType =
   | 'login'
   | 'register'
   | 'verification'
+  | 'verificationResend'
+  | 'verificationResendCooldown'
   | 'post'
   | 'deleteAccount'
   | 'toxicityPost'

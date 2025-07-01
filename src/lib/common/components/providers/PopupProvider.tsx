@@ -6,6 +6,8 @@ import { RegisterPopup } from '@/lib/auth/components/RegisterPopup';
 import { VerificationPopup } from '@/lib/auth/components/VerificationPopup';
 import { ToxicityCommentPopup } from '@/lib/comment/components/ToxicityCommentPopup';
 import { ToxicityPostPopup } from '@/lib/post/components/ToxicityPostPopup';
+import { VerificationResendCooldownPopup } from '@/lib/user/components/VerificationResendCooldownPopup';
+import { VerificationResendPopup } from '@/lib/user/components/VerificationResendPopup';
 import { ReactNode, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { JSX } from 'react/jsx-runtime';
@@ -27,6 +29,8 @@ const PopupComponents: Record<PopupType, PopupComponent> = {
   register: RegisterPopup,
   post: CreatePostPopup,
   verification: VerificationPopup,
+  verificationResend: VerificationResendPopup,
+  verificationResendCooldown: VerificationResendCooldownPopup,
   deleteAccount: DeleteAccountPopup,
   toxicityPost: ToxicityPostPopup,
   toxicityComment: ToxicityCommentPopup,
