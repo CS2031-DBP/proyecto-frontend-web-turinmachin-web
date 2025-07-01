@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const RegisterRequestSchema = z.object({
-  email: z.string().email('Correo inválido.'),
+  email: z.string().trim().email('Correo inválido.'),
   username: z
     .string()
     .trim()
