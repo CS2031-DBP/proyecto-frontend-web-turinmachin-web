@@ -7,7 +7,7 @@ export const Spinner = ({ className, ...props }: Props) => (
   <span
     {...props}
     className={twMerge(
-      'border-foreground h-12 w-12 animate-spin rounded-full border-6 border-l-transparent',
+      'border-foreground size-12 animate-spin rounded-full border-6 border-l-transparent',
       className,
     )}
   ></span>
