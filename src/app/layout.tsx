@@ -1,10 +1,11 @@
 import { ApiClientProvider } from '@/lib/api/context/ApiClientProvider';
 import { createServerApiClient } from '@/lib/api/util/client';
 import { auth } from '@/lib/auth';
+import { Chat } from '@/lib/chat/components/Chat';
 import { LeftBar } from '@/lib/common/components/layout/LeftBar/LeftBar';
 import { RightBar } from '@/lib/common/components/layout/RightBar';
 import { PopupProvider } from '@/lib/common/components/providers/PopupProvider';
-import { UserProvider } from '@/lib/user/components/UserProvider';
+import { SessionUserProvider } from '@/lib/user/components/SessionUserProvider';
 import type { Metadata } from 'next';
 import { SessionProvider } from 'next-auth/react';
 import { Inter } from 'next/font/google';
@@ -42,13 +43,14 @@ const RootLayout = async ({ children }: Readonly<Props>) => {
         <div className="flex max-h-screen grow justify-items-stretch">
           <SessionProvider>
             <ApiClientProvider session={session}>
-              <UserProvider session={session}>
+              <SessionUserProvider session={session}>
                 <PopupProvider>
+                  {session && <Chat session={session} />}
                   <LeftBar session={session} />
                   {children}
                   <RightBar universities={universities} degrees={degrees} />
                 </PopupProvider>
-              </UserProvider>
+              </SessionUserProvider>
             </ApiClientProvider>
           </SessionProvider>
         </div>

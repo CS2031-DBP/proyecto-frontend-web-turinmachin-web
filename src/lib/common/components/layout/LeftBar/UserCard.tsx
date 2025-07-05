@@ -1,7 +1,7 @@
 'use client';
 
 import { routes } from '@/lib/routes';
-import { useUser } from '@/lib/user/hooks/use-user';
+import { useSessionUser } from '@/lib/user/hooks/use-session-user';
 import { Session } from 'next-auth';
 import Link from 'next/dist/client/link';
 import Image from 'next/image';
@@ -13,7 +13,7 @@ export interface Props {
 }
 
 export const UserCard = ({ session }: Props) => {
-  const { user } = useUser();
+  const { user } = useSessionUser();
 
   return (
     <Link

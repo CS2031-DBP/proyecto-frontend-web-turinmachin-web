@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { UpdateUserSchema } from '../schemas/update-user';
 import { UserSchema } from '../schemas/user';
-import { useUser } from './use-user';
+import { useSessionUser } from './use-session-user';
 
 export const FormSchema = UpdateUserSchema;
 export type FormSchema = z.infer<typeof FormSchema>;
@@ -19,7 +19,7 @@ export interface UseProfileEditorOptions {
 }
 
 export const useProfileEditor = ({ user }: UseProfileEditorOptions) => {
-  const { mutate: mutateUser } = useUser();
+  const { mutate: mutateUser } = useSessionUser();
   const { apiClient } = useApiClient();
   const { update: updateSession } = useSession();
   const router = useRouter();

@@ -1,8 +1,8 @@
 import { useApiClient } from '@/lib/api/hooks/use-api-client';
 import { usePendingCallback } from '@/lib/common/hooks/use-pending';
 import { ChangeEvent, useState } from 'react';
-import { useUser } from '../hooks/use-user';
 import { UserSchema } from '../schemas/user';
+import { useSessionUser } from './use-session-user';
 
 export interface UseProfilePictureEditorOptions {
   user: UserSchema;
@@ -11,7 +11,7 @@ export interface UseProfilePictureEditorOptions {
 export const useProfilePictureEditor = ({
   user,
 }: UseProfilePictureEditorOptions) => {
-  const { mutate: mutateUser } = useUser();
+  const { mutate: mutateUser } = useSessionUser();
   const { apiClient } = useApiClient();
   const [pictureUrl, setPictureUrl] = useState<string | null>(
     user.profilePicture?.url ?? null,

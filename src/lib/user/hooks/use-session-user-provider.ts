@@ -3,11 +3,13 @@ import { Session } from 'next-auth';
 import useSWR from 'swr';
 import { UserSchema } from '../schemas/user';
 
-export interface UseUserProviderOptions {
+export interface UseSessionUserProviderOptions {
   session: Session | null;
 }
 
-export const useUserProvider = ({ session }: UseUserProviderOptions) => {
+export const useSessionUserProvider = ({
+  session,
+}: UseSessionUserProviderOptions) => {
   const { apiClient } = useApiClient();
 
   const key = session ? ['user', session.user.username] : null;
