@@ -1,3 +1,4 @@
+import { AIMessageResponseSchema } from '@/lib/ai/schemas/ai-message-response';
 import { LoginRequestSchema } from '@/lib/auth/schemas/login-request';
 import { LoginResponseSchema } from '@/lib/auth/schemas/login-response';
 import { RegisterRequestSchema } from '@/lib/auth/schemas/register-request';
@@ -378,6 +379,31 @@ export const api = makeApi([
     alias: 'removeDegree',
     method: 'delete',
     path: '/degrees/:id',
+    response: z.void(),
+  },
+  {
+    alias: 'getConversation',
+    method: 'get',
+    path: '/ai/conversation',
+    response: AIMessageResponseSchema.array(),
+  },
+  {
+    alias: 'sendMessage',
+    method: 'post',
+    path: '/ai/message',
+    parameters: [
+      {
+        name: 'body',
+        type: 'Body',
+        schema: z.object({ content: z.string() }),
+      },
+    ],
+    response: AIMessageResponseSchema,
+  },
+  {
+    alias: 'resetConversation',
+    method: 'delete',
+    path: '/ai/conversation',
     response: z.void(),
   },
 ]);

@@ -1,6 +1,7 @@
 import { useApiClient } from '@/lib/api/hooks/use-api-client';
+import { SessionUserContext } from '@/lib/user/components/SessionUserContext';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 
 export type Status = 'pending' | 'error';
 
@@ -15,10 +16,13 @@ export const useVerificationScreen = () => {
   const started = useRef(false);
   const [status, setStatus] = useState<Status>('pending');
 
+  const { mutate } = useContext(SessionUserContext);
+
   const doVerification = useCallback(
     async (verificationId: string) => {
       try {
         await apiClient.verify({ verificationId });
+        await mutate();
         router.refresh();
       } catch (err) {
         console.error(err);

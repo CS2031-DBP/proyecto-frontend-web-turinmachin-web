@@ -19,7 +19,8 @@ export type PopupType =
   | 'deleteUniversity'
   | 'deleteDegree'
   | 'toxicityPost'
-  | 'toxicityComment';
+  | 'toxicityComment'
+  | 'resetConversationAI';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface PopupArgs extends Record<PopupType, {}> {
@@ -31,6 +32,9 @@ export interface PopupArgs extends Record<PopupType, {}> {
   };
   deleteDegree: {
     degreeId: string;
+  };
+  resetConversationAI: {
+    resetConversation: () => Promise<void>;
   };
 }
 

@@ -1,5 +1,6 @@
 'use client';
 
+import { ResetConversationAIPopup } from '@/lib/ai/components/ResetConversationPopup';
 import { DeleteAccountPopup } from '@/lib/auth/components/DeleteAccountPopup';
 import { LoginPopup } from '@/lib/auth/components/LoginPopup';
 import { RegisterPopup } from '@/lib/auth/components/RegisterPopup';
@@ -57,6 +58,7 @@ const PopupComponents: { [P in PopupType]: PopupComponent<P> } = {
   deleteDegree: DeleteDegreePopup,
   toxicityPost: ToxicityPostPopup,
   toxicityComment: ToxicityCommentPopup,
+  resetConversationAI: ResetConversationAIPopup,
 };
 
 export const PopupProvider = ({ children }: Props) => {

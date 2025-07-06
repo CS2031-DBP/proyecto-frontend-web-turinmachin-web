@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation';
 import { HTMLAttributes } from 'react';
 import { IconType } from 'react-icons';
 import {
+  LuBotMessageSquare,
   LuGraduationCap,
   LuHouse,
   LuSearch,
@@ -61,6 +62,12 @@ const links: Link[] = [
     to: routes.degrees.root,
     label: 'Carreras',
     Icon: LuGraduationCap,
+    exact: true,
+  },
+  {
+    to: '/niva',
+    label: 'Niva',
+    Icon: LuBotMessageSquare,
     exact: true,
   },
   {

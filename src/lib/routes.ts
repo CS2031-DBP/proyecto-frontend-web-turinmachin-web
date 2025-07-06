@@ -26,4 +26,5 @@ export const routes = {
     byId: (id: string) => `/degrees/${id}`,
     editById: (id: string) => `/degrees/${id}/edit`,
   },
+  niva: '/niva',
 } as const;
