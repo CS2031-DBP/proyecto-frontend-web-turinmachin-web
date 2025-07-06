@@ -37,7 +37,7 @@ const RootLayout = async ({ children }: Readonly<Props>) => {
       <body
         className={twJoin(
           inter.className,
-          'bg-background text-foreground font-main flex min-h-screen flex-col antialiased',
+          'bg-background textientforeground font-main flex min-h-screen flex-col antialiased',
         )}
       >
         <div className="flex max-h-screen grow justify-items-stretch">
