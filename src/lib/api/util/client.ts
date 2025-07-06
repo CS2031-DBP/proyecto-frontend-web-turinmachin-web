@@ -1,8 +1,10 @@
 import { AIMessageResponseSchema } from '@/lib/ai/schemas/ai-message-response';
+import { ResetPasswordSchema } from '@/lib/auth/hooks/use-reset-password-screen';
 import { LoginRequestSchema } from '@/lib/auth/schemas/login-request';
 import { LoginResponseSchema } from '@/lib/auth/schemas/login-response';
 import { RegisterRequestSchema } from '@/lib/auth/schemas/register-request';
-import { ResetPasswordSchema } from '@/lib/auth/schemas/reset-password';
+import { ChatMessageSchema } from '@/lib/chat/schemas/chat-message';
+import { CreateChatMessageSchema } from '@/lib/chat/schemas/create-chat-message';
 import { CommentSchema } from '@/lib/comment/schemas/comment';
 import { CreateCommentSchema } from '@/lib/comment/schemas/create-comment';
 import { CreateDegreeSchema } from '@/lib/degree/schemas/create-degree';
@@ -380,6 +382,15 @@ export const api = makeApi([
     method: 'delete',
     path: '/degrees/:id',
     response: z.void(),
+  },
+  {
+    alias: 'createChatMessage',
+    method: 'post',
+    path: '/chat',
+    parameters: [
+      { type: 'Body', name: 'body', schema: CreateChatMessageSchema },
+    ],
+    response: ChatMessageSchema,
   },
   {
     alias: 'getConversation',
