@@ -7,7 +7,7 @@ import { Spinner } from '@/lib/common/components/Spinner';
 import { useResetPasswordScreen } from '../hooks/use-reset-password-screen';
 
 export const ResetPasswordScreen = () => {
-  const { token, status, form, onSubmit, pending } = useResetPasswordScreen();
+  const { status, form, onSubmit, pending } = useResetPasswordScreen();
 
   if (status === 'invalid') {
     return (
