@@ -1,8 +1,8 @@
 import { AIMessageResponseSchema } from '@/lib/ai/schemas/ai-message-response';
-import { ResetPasswordSchema } from '@/lib/auth/hooks/use-reset-password-screen';
 import { LoginRequestSchema } from '@/lib/auth/schemas/login-request';
 import { LoginResponseSchema } from '@/lib/auth/schemas/login-response';
 import { RegisterRequestSchema } from '@/lib/auth/schemas/register-request';
+import { ResetPasswordSchema } from '@/lib/auth/schemas/reset-password';
 import { ChatMessageSchema } from '@/lib/chat/schemas/chat-message';
 import { CreateChatMessageSchema } from '@/lib/chat/schemas/create-chat-message';
 import { CommentSchema } from '@/lib/comment/schemas/comment';

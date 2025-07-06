@@ -9,12 +9,9 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { LuArrowDown, LuSend } from 'react-icons/lu';
 import { twJoin } from 'tailwind-merge';
 import { useChatForm } from '../hooks/use-chat-form';
-import { AnyChatMessage } from '../schemas/any-chat-message';
 import { ChatMessageSchema } from '../schemas/chat-message';
 import { DeletedChatMessageSchema } from '../schemas/deleted-chat-message';
 import { Database } from '../types/supabase';
-import { isMessageResolved } from '../utils/is-message-resolved';
-import { MessageItem } from './MessageItem';
 
 export type ChatStatus = 'connecting' | 'loading' | 'connected';
 
@@ -25,12 +22,12 @@ export interface Props {
 
 export const Chat = ({ session, pageSize = 5 }: Props) => {
   const [showReturn, setShowReturn] = useState(false);
-  const [messages, setMessages] = useState<AnyChatMessage[]>([]);
+  const [, setMessages] = useState<ChatMessageSchema[]>([]);
   const [status, setStatus] = useState<ChatStatus>('connecting');
   const messagesRef = useRef<HTMLUListElement>(null);
   const supabase = useRef<SupabaseClient<Database, 'public'>>(null);
 
-  const { form, pending, handleSubmit } = useChatForm({ session, setMessages });
+  const { form, handleSubmit } = useChatForm();
 
   if (supabase.current === null) {
     supabase.current = createClient<Database>(
@@ -54,16 +51,14 @@ export const Chat = ({ session, pageSize = 5 }: Props) => {
   const handleMessageDelete = useCallback(
     (message: DeletedChatMessageSchema) => {
       setMessages((prevMessages) => {
-        const index = prevMessages.findLastIndex(
-          (m) => isMessageResolved(m) && m.id === message.id,
-        );
+        const index = prevMessages.findLastIndex((m) => m.id === message.id);
         if (index === -1) return prevMessages;
 
         const newMessages = [...prevMessages];
         if (newMessages[index].author_id !== session.user.id) {
           newMessages.splice(index, 1);
         } else {
-          newMessages[index].deleted = true;
+          // newMessages[index].deleted = true;
         }
         return newMessages;
       });
@@ -124,24 +119,24 @@ export const Chat = ({ session, pageSize = 5 }: Props) => {
     }
   }, [messagesRef]);
 
-  const fetchOlderMessages = async () => {
-    if (!supabase.current) return;
-
-    const res = await supabase.current
-      .from('messages')
-      .select()
-      .lt('created_at', messages[0].created_at.toISOString())
-      .order('created_at', { ascending: false })
-      .limit(pageSize);
-
-    if (res.data) {
-      const parsedMessages = res.data.map((m) => ChatMessageSchema.parse(m));
-      setMessages((prevMessages) => [
-        ...parsedMessages.toReversed(),
-        ...prevMessages,
-      ]);
-    }
-  };
+  // const fetchOlderMessages = async () => {
+  //   if (!supabase.current) return;
+  //
+  //   const res = await supabase.current
+  //     .from('messages')
+  //     .select()
+  //     .lt('created_at', messages[0].created_at.toISOString())
+  //     .order('created_at', { ascending: false })
+  //     .limit(pageSize);
+  //
+  //   if (res.data) {
+  //     const parsedMessages = res.data.map((m) => ChatMessageSchema.parse(m));
+  //     setMessages((prevMessages) => [
+  //       ...parsedMessages.toReversed(),
+  //       ...prevMessages,
+  //     ]);
+  //   }
+  // };
 
   useEffect(() => {
     const messages = messagesRef.current;
@@ -181,14 +176,14 @@ export const Chat = ({ session, pageSize = 5 }: Props) => {
             <div className="my-4 flex justify-center">
               <Spinner className="size-6 border-3" />
             </div>
-            {messages.map((message, index) => (
-              <MessageItem
-                key={message.id}
-                message={message}
-                prevMessage={messages[index - 1] ?? null}
-                scrollToBottom={scrollToBottom}
-              />
-            ))}
+            {/* {messages.map((message, index) => ( */}
+            {/*   <MessageItem */}
+            {/*     key={message.id} */}
+            {/*     message={message} */}
+            {/*     prevMessage={messages[index - 1] ?? null} */}
+            {/*     scrollToBottom={scrollToBottom} */}
+            {/*   /> */}
+            {/* ))} */}
           </>
         )}
       </ul>

@@ -7,14 +7,11 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { ResetPasswordSchema } from '../schemas/reset-password';
 
-export const ResetPasswordSchema = z.object({
-  newPassword: z
-    .string()
-    .min(4, 'Tu contraseña debe tener al menos 4 caracteres.'),
-});
+export const FormSchema = ResetPasswordSchema.pick({ newPassword: true });
 
-export type ResetPasswordSchema = z.infer<typeof ResetPasswordSchema>;
+export type FormSchema = z.infer<typeof FormSchema>;
 
 export type ResetStatus = 'verifying' | 'valid' | 'invalid';
 
@@ -29,8 +26,8 @@ export const useResetPasswordScreen = () => {
   const [pending, setPending] = useState(false);
   const verified = useRef(false);
 
-  const form = useForm<ResetPasswordSchema>({
-    resolver: zodResolver(ResetPasswordSchema),
+  const form = useForm({
+    resolver: zodResolver(FormSchema),
     defaultValues: {
       newPassword: '',
     },
@@ -58,7 +55,7 @@ export const useResetPasswordScreen = () => {
   }, [verifyToken]);
 
   const onSubmit = useCallback(
-    async (data: ResetPasswordSchema) => {
+    async (data: FormSchema) => {
       if (!token) return;
       setPending(true);
       try {

@@ -29,7 +29,7 @@ export const useVerificationScreen = () => {
         setStatus('error');
       }
     },
-    [apiClient, router],
+    [apiClient, router, mutate],
   );
 
   useEffect(() => {
