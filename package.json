@@ -47,7 +47,6 @@
     "prettier-plugin-organize-imports": "^4.1.0",
     "prettier-plugin-tailwindcss": "^0.6.12",
     "tailwindcss": "^4",
-    "typescript": "beta",
-    "unilife-lib": "github:Grazen0/unilife-lib#main"
+    "typescript": "beta"
   }
 }

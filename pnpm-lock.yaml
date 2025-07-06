@@ -105,9 +105,6 @@ importers:
       typescript:
         specifier: beta
         version: 5.8.3
-      unilife-lib:
-        specifier: github:Grazen0/unilife-lib#main
-        version: https://codeload.github.com/Grazen0/unilife-lib/tar.gz/6f48f72aa35dd327bb67068ccbc18d9e7d46ea0e(axios@1.10.0)
 
 packages:
 
@@ -2115,12 +2112,6 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
 
-  react-hook-form@7.59.0:
-    resolution: {integrity: sha512-kmkek2/8grqarTJExFNjy+RXDIP8yM+QTl3QL6m6Q8b2bih4ltmiXxH7T9n+yXNK477xPh5yZT/6vD8sYGzJTA==}
-    engines: {node: '>=18.0.0'}
-    peerDependencies:
-      react: ^16.8.0 || ^17 || ^18 || ^19
-
   react-icons@5.5.0:
     resolution: {integrity: sha512-MEFcXdkP3dLo8uumGI5xN3lDFNsRtrjbOEKDLD7yv76v4wpnEq2Lt2qeHaQOr34I/wPN3s3+N08WkQ+CW37Xiw==}
     peerDependencies:
@@ -2358,11 +2349,6 @@ packages:
     peerDependencies:
       react: ^16.11.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
-  swr@2.3.4:
-    resolution: {integrity: sha512-bYd2lrhc+VarcpkgWclcUi92wYCpOgMws9Sd1hG1ntAu0NEy+14CbotuFjshBU2kt9rYj9TSmDcybpxpeTU1fg==}
-    peerDependencies:
-      react: ^16.11.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-
   tailwind-merge@3.3.1:
     resolution: {integrity: sha512-gBXpgUm/3rp1lMZZrM/w7D8GKqshif0zAymAhbCyIt8KMe+0v9DQ7cdYLR4FHH/cKpdTXb+A/tKKU3eolfsI+g==}
 
@@ -2385,14 +2371,14 @@ packages:
     resolution: {integrity: sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==}
     engines: {node: '>=8.0'}
 
+  tr46@0.0.3:
+    resolution: {integrity: sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==}
+
   trim-lines@3.0.1:
     resolution: {integrity: sha512-kRj8B+YHZCc9kQYdWfJB2/oUl9rA99qbowYYBtr4ui4mZyAQ2JpvVBd/6U2YloATfqBhBTSMhTpgBHtU0Mf3Rg==}
 
   trough@2.2.0:
     resolution: {integrity: sha512-tmMpK00BjZiUyVyvrBK7knerNgmgvcV/KLVyuma/SC+TQN167GrMRciANTz09+k3zW8L8t60jWO1GpfkZdjTaw==}
-
-  tr46@0.0.3:
-    resolution: {integrity: sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==}
 
   ts-api-utils@2.1.0:
     resolution: {integrity: sha512-CUgTZL1irw8u29bzrOD/nH85jqyc74D6SshFgujOIA7osm2Rz7dYH77agkx7H4FBNxDq7Cjf+IjaX/8zwFW+ZQ==}
@@ -2455,10 +2441,6 @@ packages:
 
   unist-util-visit@5.0.0:
     resolution: {integrity: sha512-MR04uvD+07cwl/yhVuVWAtw+3GOR/knlL55Nd/wAdblk27GCVt3lqpTivy/tkJcZoNPzTwS1Y+KMojlLDhoTzg==}
-
-  unilife-lib@https://codeload.github.com/Grazen0/unilife-lib/tar.gz/6f48f72aa35dd327bb67068ccbc18d9e7d46ea0e:
-    resolution: {tarball: https://codeload.github.com/Grazen0/unilife-lib/tar.gz/6f48f72aa35dd327bb67068ccbc18d9e7d46ea0e}
-    version: 0.1.0
 
   unrs-resolver@1.9.0:
     resolution: {integrity: sha512-wqaRu4UnzBD2ABTC1kLfBjAqIDZ5YUTr/MLGa7By47JV1bJDSW7jq/ZSLigB7enLe7ubNaJhtnBXgrc/50cEhg==}
@@ -2542,9 +2524,6 @@ packages:
 
   zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
-
-  zod@3.25.69:
-    resolution: {integrity: sha512-cjUx+boz8dfYGssYKLGNTF5VUF6NETpcZCDTN3knhUUXQTAAvErzRhV3pgeCZm2YsL4HOwtEHPonlsshPu2I0A==}
 
 snapshots:
 
@@ -2637,11 +2616,6 @@ snapshots:
     dependencies:
       '@standard-schema/utils': 0.3.0
       react-hook-form: 7.58.1(react@19.1.0)
-
-  '@hookform/resolvers@5.1.1(react-hook-form@7.59.0(react@19.1.0))':
-    dependencies:
-      '@standard-schema/utils': 0.3.0
-      react-hook-form: 7.59.0(react@19.1.0)
 
   '@humanfs/core@0.19.1': {}
 
@@ -3146,11 +3120,6 @@ snapshots:
     dependencies:
       axios: 1.10.0
       zod: 3.25.67
-
-  '@zodios/core@10.9.6(axios@1.10.0)(zod@3.25.69)':
-    dependencies:
-      axios: 1.10.0
-      zod: 3.25.69
 
   acorn-jsx@5.3.2(acorn@8.15.0):
     dependencies:
@@ -4719,10 +4688,6 @@ snapshots:
     dependencies:
       react: 19.1.0
 
-  react-hook-form@7.59.0(react@19.1.0):
-    dependencies:
-      react: 19.1.0
-
   react-icons@5.5.0(react@19.1.0):
     dependencies:
       react: 19.1.0
@@ -5051,12 +5016,6 @@ snapshots:
       react: 19.1.0
       use-sync-external-store: 1.5.0(react@19.1.0)
 
-  swr@2.3.4(react@19.1.0):
-    dependencies:
-      dequal: 2.0.3
-      react: 19.1.0
-      use-sync-external-store: 1.5.0(react@19.1.0)
-
   tailwind-merge@3.3.1: {}
 
   tailwindcss@4.1.10: {}
@@ -5081,11 +5040,11 @@ snapshots:
     dependencies:
       is-number: 7.0.0
 
+  tr46@0.0.3: {}
+
   trim-lines@3.0.1: {}
 
   trough@2.2.0: {}
-
-  tr46@0.0.3: {}
 
   ts-api-utils@2.1.0(typescript@5.8.3):
     dependencies:
@@ -5180,18 +5139,6 @@ snapshots:
       '@types/unist': 3.0.3
       unist-util-is: 6.0.0
       unist-util-visit-parents: 6.0.1
-
-  unilife-lib@https://codeload.github.com/Grazen0/unilife-lib/tar.gz/6f48f72aa35dd327bb67068ccbc18d9e7d46ea0e(axios@1.10.0):
-    dependencies:
-      '@hookform/resolvers': 5.1.1(react-hook-form@7.59.0(react@19.1.0))
-      '@zodios/core': 10.9.6(axios@1.10.0)(zod@3.25.69)
-      dayjs: 1.11.13
-      react: 19.1.0
-      react-hook-form: 7.59.0(react@19.1.0)
-      swr: 2.3.4(react@19.1.0)
-      zod: 3.25.69
-    transitivePeerDependencies:
-      - axios
 
   unrs-resolver@1.9.0:
     dependencies:
@@ -5306,5 +5253,3 @@ snapshots:
   zod@3.25.67: {}
 
   zwitch@2.0.4: {}
-
-  zod@3.25.69: {}
