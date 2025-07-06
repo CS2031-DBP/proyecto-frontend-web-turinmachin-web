@@ -1,6 +1,7 @@
 export const routes = {
   home: '/',
   verify: '/verify',
+  resetPassword: '/reset-password',
   users: {
     root: '/users',
     byUsername: (username: string) => `/users/${username}`,

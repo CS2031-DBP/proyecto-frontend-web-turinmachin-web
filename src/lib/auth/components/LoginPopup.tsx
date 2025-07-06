@@ -22,6 +22,19 @@ export const LoginPopup: PopupComponent<'login'> = ({ onClose }) => {
           name="password"
           type="password"
         />
+        <div className="mb-4 text-sm">
+          <button
+            type="button"
+            onClick={() => {
+              onClose();
+              openPopup('resetPassword', {});
+            }}
+            className="text-foreground-muted font-semibold hover:underline"
+          >
+            ¿Olvidaste tu contraseña?
+          </button>
+        </div>
+
         <Button
           type="submit"
           variant="special"

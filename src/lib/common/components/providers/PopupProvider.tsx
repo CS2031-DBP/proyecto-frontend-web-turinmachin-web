@@ -3,6 +3,8 @@
 import { DeleteAccountPopup } from '@/lib/auth/components/DeleteAccountPopup';
 import { LoginPopup } from '@/lib/auth/components/LoginPopup';
 import { RegisterPopup } from '@/lib/auth/components/RegisterPopup';
+import { ResetPasswordConfirmationPopup } from '@/lib/auth/components/ResetPasswordConfirmationPopup';
+import { ResetPasswordPopup } from '@/lib/auth/components/ResetPasswordPopup';
 import { VerificationPopup } from '@/lib/auth/components/VerificationPopup';
 import { ToxicityCommentPopup } from '@/lib/comment/components/ToxicityCommentPopup';
 import { DeleteDegreePopup } from '@/lib/degree/components/DeleteDegreePopup';
@@ -45,6 +47,8 @@ const PopupComponents: { [P in PopupType]: PopupComponent<P> } = {
   verification: VerificationPopup,
   verificationResend: VerificationResendPopup,
   verificationResendCooldown: VerificationResendCooldownPopup,
+  resetPassword: ResetPasswordPopup,
+  resetPasswordConfirmation: ResetPasswordConfirmationPopup,
   unverified: UnverifiedPopup,
   noUniversity: NoUniversityPopup,
   deleteAccount: DeleteAccountPopup,

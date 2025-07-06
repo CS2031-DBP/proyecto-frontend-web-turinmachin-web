@@ -1,6 +1,7 @@
 import { LoginRequestSchema } from '@/lib/auth/schemas/login-request';
 import { LoginResponseSchema } from '@/lib/auth/schemas/login-response';
 import { RegisterRequestSchema } from '@/lib/auth/schemas/register-request';
+import { ResetPasswordSchema } from '@/lib/auth/schemas/reset-password';
 import { CommentSchema } from '@/lib/comment/schemas/comment';
 import { CreateCommentSchema } from '@/lib/comment/schemas/create-comment';
 import { CreateDegreeSchema } from '@/lib/degree/schemas/create-degree';
@@ -61,6 +62,50 @@ export const api = makeApi([
       },
     ],
     response: UserSchema,
+  },
+  {
+    alias: 'requestPasswordReset',
+    method: 'post',
+    path: '/auth/request-password-reset',
+    parameters: [
+      {
+        name: 'body',
+        type: 'Body',
+        schema: z.object({ email: z.string() }),
+      },
+    ],
+    response: z.void(),
+    errors: [
+      { status: 404, schema: DetailResponseSchema },
+      { status: 409, schema: DetailResponseSchema },
+    ],
+  },
+  {
+    alias: 'verifyResetToken',
+    method: 'post',
+    path: '/auth/verify-reset-token',
+    parameters: [
+      {
+        name: 'body',
+        type: 'Body',
+        schema: z.object({ token: z.string() }),
+      },
+    ],
+    response: z.object({ valid: z.boolean() }),
+  },
+  {
+    alias: 'resetPassword',
+    method: 'post',
+    path: '/auth/reset-password',
+    parameters: [
+      {
+        name: 'body',
+        type: 'Body',
+        schema: ResetPasswordSchema,
+      },
+    ],
+    errors: [{ status: 404, schema: DetailResponseSchema }],
+    response: z.void(),
   },
   {
     alias: 'getSelf',

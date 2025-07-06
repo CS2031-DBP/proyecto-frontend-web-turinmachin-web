@@ -9,6 +9,8 @@ export type PopupType =
   | 'verification'
   | 'verificationResend'
   | 'verificationResendCooldown'
+  | 'resetPassword'
+  | 'resetPasswordConfirmation'
   | 'unverified'
   | 'noUniversity'
   | 'post'
