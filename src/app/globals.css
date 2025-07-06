@@ -24,6 +24,10 @@
     @apply transition-colors;
   }
 
+  body {
+    @apply text-foreground;
+  }
+
   button,
   a {
     @apply enabled:cursor-pointer;
