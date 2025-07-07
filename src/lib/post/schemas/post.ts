@@ -15,7 +15,7 @@ export const PostSchema = z.object({
   degree: DegreeSchema.optional(),
   tags: z.string().array(),
   score: z.number(),
-  totalComments: z.number(),
+  totalComments: z.number().default(0),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
   currentVote: PostVoteSchema.optional(),
