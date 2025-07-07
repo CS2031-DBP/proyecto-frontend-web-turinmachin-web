@@ -1,25 +1,58 @@
 'use client';
 
+import { useApiClient } from '@/lib/api/hooks/use-api-client';
 import { DegreeSchema } from '@/lib/degree/schemas/degree';
 import { routes } from '@/lib/routes';
 import { UniversitySchema } from '@/lib/university/schemas/university';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { LuGraduationCap, LuUniversity } from 'react-icons/lu';
 
-export interface Props {
-  universities: UniversitySchema[];
-  degrees: DegreeSchema[];
-}
+const PAGE_SIZE = 5;
 
-export const RightBar = ({ universities, degrees, ...props }: Props) => {
+export const RightBar = () => {
+  const { apiClient } = useApiClient();
   const pathname = usePathname();
 
+  const [universities, setUniversities] = useState<UniversitySchema[]>([]);
+  const [uniPage, setUniPage] = useState(0);
+  const [uniTotalPages, setUniTotalPages] = useState<number | null>(null);
+
+  const [degrees, setDegrees] = useState<DegreeSchema[]>([]);
+  const [degPage, setDegPage] = useState(0);
+  const [degTotalPages, setDegTotalPages] = useState<number | null>(null);
+
+  useEffect(() => {
+    loadMoreUniversities();
+    loadMoreDegrees();
+  }, []);
+
+  const loadMoreUniversities = async () => {
+    const res = await apiClient.getUniversities({
+      queries: { page: uniPage, size: PAGE_SIZE },
+    });
+    setUniversities((prev) => [...prev, ...res.content]);
+    setUniPage((prev) => prev + 1);
+    setUniTotalPages(res.page.totalPages);
+  };
+
+  const loadMoreDegrees = async () => {
+    const res = await apiClient.getDegrees({
+      queries: { page: degPage, size: PAGE_SIZE },
+    });
+    setDegrees((prev) => [...prev, ...res.content]);
+    setDegPage((prev) => prev + 1);
+    setDegTotalPages(res.page.totalPages);
+  };
+
+  const canLoadMoreUniversities =
+    uniTotalPages === null || uniPage < uniTotalPages;
+
+  const canLoadMoreDegrees = degTotalPages === null || degPage < degTotalPages;
+
   return (
-    <aside
-      {...props}
-      className="border-muted flex w-60 min-w-60 flex-col space-y-10 overflow-y-scroll border-l px-6 py-4 not-lg:hidden lg:w-68 lg:min-w-68"
-    >
+    <aside className="border-muted flex w-60 min-w-60 flex-col space-y-10 overflow-y-scroll border-l px-6 py-4 not-lg:hidden lg:w-68 lg:min-w-68">
       <section>
         <h2 className="mb-4 flex flex-nowrap items-center text-xl font-semibold">
           <Link href={routes.universities.root} className="hover:text-special">
@@ -30,7 +63,6 @@ export const RightBar = ({ universities, degrees, ...props }: Props) => {
         <ul className="text-foreground-muted space-y-3 pl-4 not-sm:hidden">
           {universities.map((university) => {
             const href = routes.universities.byId(university.id);
-
             return (
               <li key={university.id}>
                 <Link
@@ -47,7 +79,16 @@ export const RightBar = ({ universities, degrees, ...props }: Props) => {
             );
           })}
         </ul>
+        {canLoadMoreUniversities && (
+          <button
+            onClick={loadMoreUniversities}
+            className="text-special mt-2 text-sm not-sm:hidden hover:underline"
+          >
+            Ver más universidades
+          </button>
+        )}
       </section>
+
       <section>
         <h2 className="mb-4 flex items-center text-xl font-semibold">
           <Link href={routes.degrees.root} className="hover:text-special">
@@ -67,6 +108,14 @@ export const RightBar = ({ universities, degrees, ...props }: Props) => {
             </li>
           ))}
         </ul>
+        {canLoadMoreDegrees && (
+          <button
+            onClick={loadMoreDegrees}
+            className="text-special mt-2 text-sm hover:underline"
+          >
+            Ver más carreras
+          </button>
+        )}
       </section>
     </aside>
   );

@@ -42,7 +42,7 @@ const RootLayout = async ({ children }: Readonly<Props>) => {
                   {/* {session && <Chat session={session} />} */}
                   <LeftBar session={session} />
                   {children}
-                  {/* <RightBar universities={universities} degrees={degrees} /> */}
+                  <RightBar />
                 </PopupProvider>
               </SessionUserProvider>
             </ApiClientProvider>
