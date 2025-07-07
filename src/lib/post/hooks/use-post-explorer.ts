@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-const FormSchema = z.object({
+export const FormSchema = z.object({
   query: z
     .string()
     .optional()
@@ -20,7 +20,7 @@ const FormSchema = z.object({
     .transform((s) => (s?.length === 0 ? undefined : s)),
 });
 
-type FormSchema = z.infer<typeof FormSchema>;
+export type FormSchema = z.infer<typeof FormSchema>;
 
 export const usePostExplorer = () => {
   const searchParams = useSearchParams();
