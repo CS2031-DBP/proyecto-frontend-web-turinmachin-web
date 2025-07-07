@@ -5,8 +5,8 @@ RUN apk add --no-cache git
 RUN apk add --no-cache openssh
 RUN apk add --no-cache libc6-compat
 
-ARG GIT_ACCESS_TOKEN
-RUN git config --global url."https://${GIT_ACCESS_TOKEN}@github.com".insteadOf "ssh://git@github.com"
+ARG GITHUB_PASSWORD
+RUN git config --global url."https://${GITHUB_PASSWORD}:x-oauth-basic@github.com/".insteadOf "git@github.com:"
 
 RUN corepack enable pnpm
 
