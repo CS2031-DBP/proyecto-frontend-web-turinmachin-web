@@ -1,16 +1,13 @@
-import { createServerApiClient } from '@/lib/api/util/client';
 import { auth } from '@/lib/auth';
 import { Main } from '@/lib/common/components/layout/Main';
 import { routes } from '@/lib/routes';
+import { UniversityExplorer } from '@/lib/university/components/UniversityExplorer';
 import { isSessionAdmin } from '@/lib/user/util';
 import Link from 'next/link';
 import { LuPlus } from 'react-icons/lu';
 
 const Universities = async () => {
   const session = await auth();
-  const apiClient = createServerApiClient(session);
-
-  const universities = await apiClient.getUniversities();
 
   return (
     <Main>
@@ -23,19 +20,7 @@ const Universities = async () => {
           </Link>
         </div>
       )}
-
-      <ul className="space-y-6">
-        {universities.map((university) => (
-          <li key={university.id}>
-            <Link
-              href={routes.universities.byId(university.id)}
-              className="border-muted hover:border-special block rounded-2xl border px-8 py-4 text-lg"
-            >
-              {university.name}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <UniversityExplorer />
     </Main>
   );
 };

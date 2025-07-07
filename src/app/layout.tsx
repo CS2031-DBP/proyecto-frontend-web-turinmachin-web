@@ -1,9 +1,7 @@
 import { ApiClientProvider } from '@/lib/api/context/ApiClientProvider';
-import { createServerApiClient } from '@/lib/api/util/client';
 import { auth } from '@/lib/auth';
 // import { Chat } from '@/lib/chat/components/Chat';
 import { LeftBar } from '@/lib/common/components/layout/LeftBar/LeftBar';
-import { RightBar } from '@/lib/common/components/layout/RightBar';
 import { PopupProvider } from '@/lib/common/components/providers/PopupProvider';
 import { SessionUserProvider } from '@/lib/user/components/SessionUserProvider';
 import type { Metadata } from 'next';
@@ -27,10 +25,6 @@ export interface Props {
 
 const RootLayout = async ({ children }: Readonly<Props>) => {
   const session = await auth();
-  const apiClient = createServerApiClient(session);
-
-  const universities = await apiClient.getUniversities();
-  const degrees = await apiClient.getDegrees();
 
   return (
     <html lang="es" suppressHydrationWarning>
@@ -48,7 +42,7 @@ const RootLayout = async ({ children }: Readonly<Props>) => {
                   {/* {session && <Chat session={session} />} */}
                   <LeftBar session={session} />
                   {children}
-                  <RightBar universities={universities} degrees={degrees} />
+                  {/* <RightBar universities={universities} degrees={degrees} /> */}
                 </PopupProvider>
               </SessionUserProvider>
             </ApiClientProvider>

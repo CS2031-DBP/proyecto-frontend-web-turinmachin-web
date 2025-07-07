@@ -1,7 +1,7 @@
 import { createServerApiClient } from '@/lib/api/util/client';
 import { auth } from '@/lib/auth';
 import { Main } from '@/lib/common/components/layout/Main';
-import { PostsExplorer } from '@/lib/post/components/PostsExplorer';
+import { PostExplorer } from '@/lib/post/components/PostExplorer';
 
 const Posts = async () => {
   const session = await auth();
@@ -12,7 +12,7 @@ const Posts = async () => {
 
   return (
     <Main className="p-0">
-      <PostsExplorer
+      <PostExplorer
         session={session}
         universities={universities}
         degrees={degrees}

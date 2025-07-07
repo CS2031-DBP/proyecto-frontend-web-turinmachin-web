@@ -8,7 +8,7 @@ import { CreateChatMessageSchema } from '@/lib/chat/schemas/create-chat-message'
 import { CommentSchema } from '@/lib/comment/schemas/comment';
 import { CreateCommentSchema } from '@/lib/comment/schemas/create-comment';
 import { CreateDegreeSchema } from '@/lib/degree/schemas/create-degree';
-import { DegreeSchema } from '@/lib/degree/schemas/degree';
+import { DegreePageSchema, DegreeSchema } from '@/lib/degree/schemas/degree';
 import { DegreeWithStatsSchema } from '@/lib/degree/schemas/degree-with-stats';
 import { UpdateDegreeSchema } from '@/lib/degree/schemas/update-degree';
 import { PostPageSchema, PostSchema } from '@/lib/post/schemas/post';
@@ -370,7 +370,7 @@ export const api = makeApi([
         schema: z.string().optional(),
       },
     ],
-    response: DegreeSchema.array(),
+    response: DegreePageSchema,
   },
   {
     alias: 'getDegreeById',
