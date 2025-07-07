@@ -5,7 +5,6 @@ import { DegreeSchema } from '@/lib/degree/schemas/degree';
 import { routes } from '@/lib/routes';
 import { UniversitySchema } from '@/lib/university/schemas/university';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { LuGraduationCap, LuUniversity } from 'react-icons/lu';
 
@@ -13,7 +12,6 @@ const PAGE_SIZE = 5;
 
 export const RightBar = () => {
   const { apiClient } = useApiClient();
-  const pathname = usePathname();
 
   const [universities, setUniversities] = useState<UniversitySchema[]>([]);
   const [uniPage, setUniPage] = useState(0);
@@ -60,25 +58,28 @@ export const RightBar = () => {
             <span className="not-sm:hidden">Universidades</span>
           </Link>
         </h2>
-        <ul className="text-foreground-muted space-y-3 pl-4 not-sm:hidden">
+        <div className="flex flex-col gap-2 not-sm:hidden">
           {universities.map((university) => {
             const href = routes.universities.byId(university.id);
+
             return (
-              <li key={university.id}>
-                <Link
-                  href={href}
-                  className={
-                    pathname === href
-                      ? 'text-special font-semibold'
-                      : 'hover:text-foreground'
-                  }
-                >
-                  {university.shortName ?? university.name}
-                </Link>
-              </li>
+              <Link
+                key={university.id}
+                href={href}
+                className="bg-background hover:bg-background-alt rounded-xl px-4 py-2 transition-colors"
+              >
+                <div className="truncate overflow-hidden text-sm leading-tight font-medium whitespace-nowrap">
+                  {university.name}
+                </div>
+                {university.shortName && (
+                  <div className="text-foreground-muted truncate text-xs">
+                    {university.shortName}
+                  </div>
+                )}
+              </Link>
             );
           })}
-        </ul>
+        </div>
         {canLoadMoreUniversities && (
           <button
             onClick={loadMoreUniversities}
@@ -96,18 +97,23 @@ export const RightBar = () => {
             Carreras
           </Link>
         </h2>
-        <ul className="text-foreground-muted space-y-3 pl-4">
-          {degrees.map((degree) => (
-            <li key={degree.id}>
+        <div className="flex flex-col gap-2">
+          {degrees.map((degree) => {
+            const href = routes.degrees.byId(degree.id);
+
+            return (
               <Link
-                href={routes.degrees.byId(degree.id)}
-                className="hover:text-foreground"
+                key={degree.id}
+                href={href}
+                className="bg-background hover:bg-background-alt rounded-xl px-4 py-2 transition-colors"
               >
-                {degree.name}
+                <div className="truncate overflow-hidden text-sm leading-tight font-medium whitespace-nowrap">
+                  {degree.name}
+                </div>
               </Link>
-            </li>
-          ))}
-        </ul>
+            );
+          })}
+        </div>
         {canLoadMoreDegrees && (
           <button
             onClick={loadMoreDegrees}
