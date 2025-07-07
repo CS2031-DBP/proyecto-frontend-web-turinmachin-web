@@ -1,3 +1,4 @@
+import { createPageSchema } from '@/lib/api/schemas/page';
 import { z } from 'zod';
 
 export const DegreeSchema = z.object({
@@ -7,3 +8,6 @@ export const DegreeSchema = z.object({
 });
 
 export type DegreeSchema = z.infer<typeof DegreeSchema>;
+
+export const DegreePageSchema = createPageSchema(DegreeSchema);
+export type DegreePageSchema = z.infer<typeof DegreePageSchema>;

@@ -14,7 +14,10 @@ import { UpdateDegreeSchema } from '@/lib/degree/schemas/update-degree';
 import { PostPageSchema, PostSchema } from '@/lib/post/schemas/post';
 import { UpdatePostSchema } from '@/lib/post/schemas/update-post';
 import { CreateUniversitySchema } from '@/lib/university/schemas/create-university';
-import { UniversitySchema } from '@/lib/university/schemas/university';
+import {
+  UniversityPageSchema,
+  UniversitySchema,
+} from '@/lib/university/schemas/university';
 import { UniversityWithStatsSchema } from '@/lib/university/schemas/university-with-stats';
 import { UpdateUniversitySchema } from '@/lib/university/schemas/update-university';
 import { RoleSchema } from '@/lib/user/schemas/role';
@@ -287,7 +290,16 @@ export const api = makeApi([
     alias: 'getUniversities',
     method: 'get',
     path: '/universities',
-    response: UniversitySchema.array(),
+    parameters: [
+      { name: 'page', type: 'Query', schema: z.number().optional() },
+      { name: 'size', type: 'Query', schema: z.number().optional() },
+      {
+        name: 'query',
+        type: 'Query',
+        schema: z.string().optional(),
+      },
+    ],
+    response: UniversityPageSchema,
   },
   {
     alias: 'getUniversityById',
@@ -345,8 +357,15 @@ export const api = makeApi([
     method: 'get',
     path: '/degrees',
     parameters: [
+      { name: 'page', type: 'Query', schema: z.number().optional() },
+      { name: 'size', type: 'Query', schema: z.number().optional() },
       {
         name: 'universityId',
+        type: 'Query',
+        schema: z.string().optional(),
+      },
+      {
+        name: 'query',
         type: 'Query',
         schema: z.string().optional(),
       },

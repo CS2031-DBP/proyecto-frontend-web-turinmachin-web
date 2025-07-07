@@ -1,3 +1,4 @@
+import { createPageSchema } from '@/lib/api/schemas/page';
 import { z } from 'zod';
 
 export const UniversitySchema = z.object({
@@ -9,3 +10,6 @@ export const UniversitySchema = z.object({
 });
 
 export type UniversitySchema = z.infer<typeof UniversitySchema>;
+
+export const UniversityPageSchema = createPageSchema(UniversitySchema);
+export type UniversityPageSchema = z.infer<typeof UniversityPageSchema>;
