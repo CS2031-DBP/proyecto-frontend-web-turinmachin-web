@@ -2,6 +2,7 @@ import { ApiClientProvider } from '@/lib/api/context/ApiClientProvider';
 import { auth } from '@/lib/auth';
 // import { Chat } from '@/lib/chat/components/Chat';
 import { LeftBar } from '@/lib/common/components/layout/LeftBar/LeftBar';
+import { RightBar } from '@/lib/common/components/layout/RightBar';
 import { PopupProvider } from '@/lib/common/components/providers/PopupProvider';
 import { SessionUserProvider } from '@/lib/user/components/SessionUserProvider';
 import type { Metadata } from 'next';

@@ -24,7 +24,7 @@ const EditUser = async ({ params }: Readonly<Props>) => {
   const user = await apiClient.getSelf();
 
   const availableDegrees = user.university
-    ? await apiClient.getDegrees({
+    ? await apiClient.getAllDegrees({
         queries: { universityId: user.university?.id },
       })
     : null;

@@ -373,6 +373,19 @@ export const api = makeApi([
     response: DegreePageSchema,
   },
   {
+    alias: 'getAllDegrees',
+    method: 'get',
+    path: '/degrees/all',
+    parameters: [
+      {
+        name: 'universityId',
+        type: 'Query',
+        schema: z.string().optional(),
+      },
+    ],
+    response: DegreeSchema.array(),
+  },
+  {
     alias: 'getDegreeById',
     method: 'get',
     path: '/degrees/:id',

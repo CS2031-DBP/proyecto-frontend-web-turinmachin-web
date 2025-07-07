@@ -20,7 +20,7 @@ const AddUniversity = async ({ params }: Readonly<Props>) => {
     return redirect(routes.universities.byId(universityId));
   }
 
-  const availableDegrees = await apiClient.getDegrees();
+  const availableDegrees = await apiClient.getAllDegrees();
 
   return (
     <Main>

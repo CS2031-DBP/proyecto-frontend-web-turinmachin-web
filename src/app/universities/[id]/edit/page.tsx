@@ -35,10 +35,10 @@ const EditUniversity = async ({ params }: Readonly<Props>) => {
     throw err;
   }
 
-  const universityDegrees = await apiClient.getDegrees({
+  const universityDegrees = await apiClient.getAllDegrees({
     queries: { universityId },
   });
-  const availableDegrees = await apiClient.getDegrees();
+  const availableDegrees = await apiClient.getAllDegrees();
 
   return (
     <Main>
