@@ -1,5 +1,4 @@
 import { ApiClientProvider } from '@/lib/api/context/ApiClientProvider';
-import { createServerApiClient } from '@/lib/api/util/client';
 import { auth } from '@/lib/auth';
 // import { Chat } from '@/lib/chat/components/Chat';
 import { LeftBar } from '@/lib/common/components/layout/LeftBar/LeftBar';
@@ -27,10 +26,6 @@ export interface Props {
 
 const RootLayout = async ({ children }: Readonly<Props>) => {
   const session = await auth();
-  const apiClient = createServerApiClient(session);
-
-  const universities = await apiClient.getUniversities();
-  const degrees = await apiClient.getDegrees();
 
   return (
     <html lang="es" suppressHydrationWarning>
@@ -48,7 +43,7 @@ const RootLayout = async ({ children }: Readonly<Props>) => {
                   {/* {session && <Chat session={session} />} */}
                   <LeftBar session={session} />
                   {children}
-                  <RightBar universities={universities} degrees={degrees} />
+                  <RightBar />
                 </PopupProvider>
               </SessionUserProvider>
             </ApiClientProvider>
