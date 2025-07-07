@@ -13,9 +13,16 @@ export const FormSchema = z.object({
 
 export type FormSchema = z.infer<typeof FormSchema>;
 
-export const useQueryExplorer = () => {
+export interface UseQueryExplorerOptions {
+  defaultValues?: Partial<FormSchema>;
+}
+
+export const useQueryExplorer = ({
+  defaultValues,
+}: UseQueryExplorerOptions = {}) => {
   const [currentQueries, setCurrentQueries] = useState<FormSchema>({
     query: '',
+    ...defaultValues,
   });
 
   const form = useForm({

@@ -6,8 +6,10 @@ import { RefObject, useEffect, useState } from 'react';
 import useSWRInfinite from 'swr/infinite';
 import { DegreePageSchema } from '../schemas/degree';
 
+export type Queries = ZodiosQueryParamsByAlias<Api, 'getDegrees'>;
+
 export interface UseUniversities {
-  queries?: ZodiosQueryParamsByAlias<Api, 'getDegrees'>;
+  queries?: Queries;
   loaderRef: RefObject<Element | null>;
 }
 
@@ -17,9 +19,9 @@ export const useDegrees = ({ queries, loaderRef }: UseUniversities) => {
   const [finished, setFinished] = useState(false);
 
   const getKey = (
-    pageIndex: number,
+    page: number,
     previousPage: DegreePageSchema | null,
-  ): [string, number] | null => {
+  ): [string, Queries] | null => {
     if (
       previousPage &&
       previousPage.page.number >= previousPage.page.totalPages - 1
@@ -28,7 +30,7 @@ export const useDegrees = ({ queries, loaderRef }: UseUniversities) => {
       return null;
     }
 
-    return ['universities', pageIndex];
+    return ['degrees', { ...queries, page, size: 1 }];
   };
 
   const {
@@ -37,8 +39,8 @@ export const useDegrees = ({ queries, loaderRef }: UseUniversities) => {
     isValidating,
     setSize,
     mutate,
-  } = useSWRInfinite(getKey, ([, page]) =>
-    apiClient.getDegrees({ queries: { ...queries, page } }),
+  } = useSWRInfinite(getKey, ([, queries]) =>
+    apiClient.getDegrees({ queries }),
   );
 
   useEffect(() => {

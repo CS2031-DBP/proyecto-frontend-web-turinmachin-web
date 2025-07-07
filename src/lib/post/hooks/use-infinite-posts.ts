@@ -6,8 +6,10 @@ import { RefObject, useEffect, useState } from 'react';
 import useSWRInfinite from 'swr/infinite';
 import { PostPageSchema } from '../schemas/post';
 
+export type Queries = ZodiosQueryParamsByAlias<Api, 'getPosts'>;
+
 export interface UsePostsOptions {
-  queries?: ZodiosQueryParamsByAlias<Api, 'getPosts'>;
+  queries?: Queries;
   loaderRef: RefObject<Element | null>;
 }
 
@@ -17,9 +19,9 @@ export const useInfinitePosts = ({ queries, loaderRef }: UsePostsOptions) => {
   const [finished, setFinished] = useState(false);
 
   const getKey = (
-    pageIndex: number,
+    page: number,
     previousPage: PostPageSchema | null,
-  ): [string, number] | null => {
+  ): [string, Queries] | null => {
     if (
       previousPage &&
       previousPage.page.number >= previousPage.page.totalPages - 1
@@ -28,7 +30,7 @@ export const useInfinitePosts = ({ queries, loaderRef }: UsePostsOptions) => {
       return null;
     }
 
-    return ['posts', pageIndex];
+    return ['posts', { ...queries, page }];
   };
 
   const {
@@ -37,9 +39,7 @@ export const useInfinitePosts = ({ queries, loaderRef }: UsePostsOptions) => {
     isValidating,
     setSize,
     mutate,
-  } = useSWRInfinite(getKey, ([, page]) =>
-    apiClient.getPosts({ queries: { ...queries, page } }),
-  );
+  } = useSWRInfinite(getKey, ([, queries]) => apiClient.getPosts({ queries }));
 
   useEffect(() => {
     setFinished(false);

@@ -1,6 +1,7 @@
 'use client';
 import { useQueryExplorer } from '@/lib/common/hooks/use-university-explorer';
 import { Session } from 'next-auth';
+import { useSearchParams } from 'next/navigation';
 import { PostListing } from './PostListing';
 
 export interface Props {
@@ -8,7 +9,12 @@ export interface Props {
 }
 
 export const PostExplorer = ({ session }: Props) => {
-  const { form, currentQueries, onSubmit } = useQueryExplorer();
+  const searchParams = useSearchParams();
+  const initialQuery = searchParams.get('q') ?? '';
+
+  const { form, currentQueries, onSubmit } = useQueryExplorer({
+    defaultValues: { query: initialQuery },
+  });
 
   return (
     <>

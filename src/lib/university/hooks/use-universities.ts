@@ -6,8 +6,10 @@ import { RefObject, useEffect, useState } from 'react';
 import useSWRInfinite from 'swr/infinite';
 import { UniversityPageSchema } from '../schemas/university';
 
+export type Queries = ZodiosQueryParamsByAlias<Api, 'getUniversities'>;
+
 export interface UseUniversities {
-  queries?: ZodiosQueryParamsByAlias<Api, 'getUniversities'>;
+  queries?: Queries;
   loaderRef: RefObject<Element | null>;
 }
 
@@ -17,9 +19,9 @@ export const useUniversities = ({ queries, loaderRef }: UseUniversities) => {
   const [finished, setFinished] = useState(false);
 
   const getKey = (
-    pageIndex: number,
+    page: number,
     previousPage: UniversityPageSchema | null,
-  ): [string, number] | null => {
+  ): [string, Queries] | null => {
     if (
       previousPage &&
       previousPage.page.number >= previousPage.page.totalPages - 1
@@ -28,7 +30,7 @@ export const useUniversities = ({ queries, loaderRef }: UseUniversities) => {
       return null;
     }
 
-    return ['universities', pageIndex];
+    return ['universities', { ...queries, page }];
   };
 
   const {
@@ -37,8 +39,8 @@ export const useUniversities = ({ queries, loaderRef }: UseUniversities) => {
     isValidating,
     setSize,
     mutate,
-  } = useSWRInfinite(getKey, ([, page]) =>
-    apiClient.getUniversities({ queries: { ...queries, page } }),
+  } = useSWRInfinite(getKey, ([, queries]) =>
+    apiClient.getUniversities({ queries }),
   );
 
   useEffect(() => {
@@ -47,6 +49,7 @@ export const useUniversities = ({ queries, loaderRef }: UseUniversities) => {
   }, [queries, setSize, mutate]);
 
   useViewTrigger(loaderRef, !isLoading && !isValidating && !finished, () => {
+    console.log('sizing');
     setSize((prevSize) => prevSize + 1);
   });
 

@@ -1,4 +1,3 @@
-import { useInView } from 'framer-motion';
 import { RefObject, useEffect } from 'react';
 
 export const useViewTrigger = (
@@ -6,11 +5,19 @@ export const useViewTrigger = (
   triggerCondition: boolean,
   cb: () => void,
 ) => {
-  const inView = useInView(ref);
-
   useEffect(() => {
-    if (inView && triggerCondition) {
-      cb();
-    }
-  }, [inView, triggerCondition, cb]);
+    if (!ref.current) return;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && triggerCondition) {
+        cb();
+      }
+    });
+
+    observer.observe(ref.current);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [triggerCondition, cb, ref]);
 };
