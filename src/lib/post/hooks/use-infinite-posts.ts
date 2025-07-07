@@ -20,7 +20,10 @@ export const useInfinitePosts = ({ queries, loaderRef }: UsePostsOptions) => {
     pageIndex: number,
     previousPage: PostPageSchema | null,
   ): [string, number] | null => {
-    if (previousPage && previousPage.content.length === 0) {
+    if (
+      previousPage &&
+      previousPage.page.number >= previousPage.page.totalPages - 1
+    ) {
       setFinished(true);
       return null;
     }
