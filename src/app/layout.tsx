@@ -5,7 +5,7 @@ import { SupabaseProvider } from '@/chat/context/SupabaseProvider';
 import { LeftBar } from '@/common/components/layout/LeftBar/LeftBar';
 import { RightBar } from '@/common/components/layout/RightBar';
 import { PopupProvider } from '@/common/components/providers/PopupProvider';
-import { SessionUserProvider } from '@/user/components/SessionUserProvider';
+import { SessionUserProvider } from '@/user/context/SessionUserProvider';
 import type { Metadata } from 'next';
 import { SessionProvider } from 'next-auth/react';
 import { Inter } from 'next/font/google';

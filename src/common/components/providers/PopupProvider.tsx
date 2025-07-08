@@ -21,11 +21,7 @@ import { ReactNode, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { JSX } from 'react/jsx-runtime';
 import { CreatePostPopup } from '../../../post/components/CreatePostPopup';
-import {
-  PopupArgs,
-  PopupContext,
-  PopupType,
-} from '../../context/popup-context';
+import { PopupArgs, PopupContext, PopupType } from '../../context/PopupContext';
 
 export interface Props {
   children?: ReactNode;

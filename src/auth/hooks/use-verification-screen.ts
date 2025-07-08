@@ -1,5 +1,5 @@
 import { useApiClient } from '@/api/hooks/use-api-client';
-import { SessionUserContext } from '@/user/components/SessionUserContext';
+import { SessionUserContext } from '@/user/context/SessionUserContext';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 
