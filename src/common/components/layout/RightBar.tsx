@@ -50,7 +50,7 @@ export const RightBar = () => {
   const canLoadMoreDegrees = degTotalPages === null || degPage < degTotalPages;
 
   return (
-    <aside className="border-muted flex w-60 min-w-60 flex-col space-y-10 overflow-y-scroll border-l px-6 py-4 not-lg:hidden lg:w-68 lg:min-w-68">
+    <aside className="border-muted flex w-60 min-w-60 flex-col space-y-10 overflow-y-auto border-l px-6 py-4 not-lg:hidden lg:w-68 lg:min-w-68">
       <section>
         <h2 className="mb-4 flex flex-nowrap items-center text-xl font-semibold">
           <Link href={routes.universities.root} className="hover:text-special">
