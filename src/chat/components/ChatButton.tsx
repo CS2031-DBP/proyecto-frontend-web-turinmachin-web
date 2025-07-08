@@ -2,7 +2,7 @@
 import { Button } from '@/common/components/Button';
 import { Session } from 'next-auth';
 import { useState } from 'react';
-import { LuFeather } from 'react-icons/lu';
+import { LuMessageSquare } from 'react-icons/lu';
 import { ChatWindow } from './ChatWindow';
 
 export interface Props {
@@ -19,7 +19,7 @@ export const ChatButton = ({ session }: Props) => {
         className="fixed right-0 bottom-0 z-5 m-6 size-12 rounded-full"
         onClick={() => setShowChat(true)}
       >
-        <LuFeather className="absolute top-1/2 left-1/2 inline size-6 -translate-1/2" />
+        <LuMessageSquare className="absolute top-1/2 left-1/2 inline size-6 -translate-1/2" />
       </Button>
     );
   }

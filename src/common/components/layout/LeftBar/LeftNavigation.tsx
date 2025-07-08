@@ -65,7 +65,7 @@ const links: Link[] = [
     exact: true,
   },
   {
-    to: '/niva',
+    to: routes.niva,
     label: 'Niva',
     Icon: LuBotMessageSquare,
     exact: true,
