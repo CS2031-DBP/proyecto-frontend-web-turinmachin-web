@@ -17,11 +17,11 @@ export const useChatForm = () => {
   });
 
   const [pending, handleSubmit] = usePendingCallback(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async (message: FormSchema) => {
       if (pending) return;
 
       form.reset();
-      await apiClient.createChatMessage(message);
     },
     [apiClient],
   );

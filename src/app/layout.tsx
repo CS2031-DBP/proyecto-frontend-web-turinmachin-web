@@ -1,6 +1,6 @@
 import { ApiClientProvider } from '@/api/context/ApiClientProvider';
 import { auth } from '@/auth';
-import { Chat } from '@/chat/components/Chat';
+// import { Chat } from '@/chat/components/Chat';
 import { LeftBar } from '@/common/components/layout/LeftBar/LeftBar';
 import { RightBar } from '@/common/components/layout/RightBar';
 import { PopupProvider } from '@/common/components/providers/PopupProvider';
@@ -40,7 +40,7 @@ const RootLayout = async ({ children }: Readonly<Props>) => {
             <ApiClientProvider session={session}>
               <SessionUserProvider session={session}>
                 <PopupProvider>
-                  {session && <Chat session={session} />}
+                  {/* {session && <Chat session={session} />} */}
                   <LeftBar session={session} />
                   {children}
                   <RightBar />
