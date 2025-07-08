@@ -3,6 +3,7 @@ import { Button } from '@/common/components/Button';
 import { Form } from '@/common/components/form/Form';
 import { FormInput } from '@/common/components/form/FormInput';
 import { Spinner } from '@/common/components/Spinner';
+import { clientEnv } from '@/common/env/client';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { Session } from 'next-auth';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -31,8 +32,8 @@ export const Chat = ({ session, pageSize = 5 }: Props) => {
 
   if (supabase.current === null) {
     supabase.current = createClient<Database>(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      clientEnv.NEXT_PUBLIC_SUPABASE_URL,
+      clientEnv.NEXT_PUBLIC_SUPABASE_KEY,
       {
         auth: { persistSession: false },
         global: {

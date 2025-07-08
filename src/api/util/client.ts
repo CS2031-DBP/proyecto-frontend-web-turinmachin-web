@@ -22,8 +22,7 @@ import { RoleSchema } from '@/user/schemas/role';
 import { UpdatePasswordSchema } from '@/user/schemas/update-password';
 import { UpdateUserSchema } from '@/user/schemas/update-user';
 import { UserSchema } from '@/user/schemas/user';
-import { makeApi, Zodios, ZodiosInstance } from '@zodios/core';
-import { Session } from 'next-auth';
+import { makeApi, ZodiosInstance } from '@zodios/core';
 import { z } from 'zod';
 import { DetailResponseSchema } from '../schemas/detail-response';
 
@@ -439,20 +438,3 @@ export const api = makeApi([
     response: z.void(),
   },
 ]);
-
-export const createServerApiClient = (session: Session | null) => {
-  const apiUrl = process.env.API_URL_INTERNAL;
-  if (!apiUrl) {
-    throw new Error('API_URL_INTERNAL environment variable is missing.');
-  }
-
-  return new Zodios(apiUrl, api, {
-    axiosConfig: {
-      headers: {
-        Authorization: session?.accessToken
-          ? `Bearer ${session.accessToken}`
-          : undefined,
-      },
-    },
-  });
-};

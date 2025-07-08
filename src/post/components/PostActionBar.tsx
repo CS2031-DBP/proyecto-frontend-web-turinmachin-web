@@ -1,3 +1,4 @@
+import { clientEnv } from '@/common/env/client';
 import { routes } from '@/common/util/routes';
 import { Session } from 'next-auth';
 import Link from 'next/link';
@@ -44,7 +45,7 @@ export const PostActionBar = ({
       items={[
         <CopyButton
           key={0}
-          text={`${process.env.NEXT_PUBLIC_DEPLOYMENT_URL}/posts/${post.id}`}
+          text={`${clientEnv.NEXT_PUBLIC_DEPLOYMENT_URL}/posts/${post.id}`}
           label="Copiar link"
         />,
       ]}

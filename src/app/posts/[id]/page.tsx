@@ -1,4 +1,4 @@
-import { createServerApiClient } from '@/api/util/client';
+import { createServerApiClient } from '@/api/util/create-server-api-client';
 import { auth } from '@/auth';
 import { CommentSection } from '@/comment/components/CommentSection';
 import { Dropdown } from '@/common/components/Dropdown';

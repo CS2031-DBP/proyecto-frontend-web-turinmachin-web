@@ -3,7 +3,7 @@ import NextAuth, { CredentialsSignin } from 'next-auth';
 import 'next-auth/jwt'; // Required to augment JWT interface
 import Credentials from 'next-auth/providers/credentials';
 import { ZodError } from 'zod';
-import { createServerApiClient } from '../api/util/client';
+import { createServerApiClient } from '../api/util/create-server-api-client';
 import { pick } from '../common/util/object';
 import { LoginRequestSchema } from './schemas/login-request';
 import { LoginResponseSchema } from './schemas/login-response';

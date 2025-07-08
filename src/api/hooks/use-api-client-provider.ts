@@ -1,3 +1,4 @@
+import { clientEnv } from '@/common/env/client';
 import { Zodios } from '@zodios/core';
 import { Session } from 'next-auth';
 import { useSession } from 'next-auth/react';
@@ -29,12 +30,7 @@ export const useApiClientProvider = ({
   // Avoids recreating the ref on every render
   // See https://react.dev/reference/react/useRef#avoiding-recreating-the-ref-contents
   if (!apiClient.current) {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-    if (!apiUrl) {
-      throw new Error('NEXT_PUBLIC_API_URL environment variable not set');
-    }
-
-    apiClient.current = new Zodios(apiUrl, api);
+    apiClient.current = new Zodios(clientEnv.NEXT_PUBLIC_API_URL, api);
     if (session) {
       setToken(session.accessToken);
     }

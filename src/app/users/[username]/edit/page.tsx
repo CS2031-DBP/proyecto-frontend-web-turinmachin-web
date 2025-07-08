@@ -1,4 +1,4 @@
-import { createServerApiClient } from '@/api/util/client';
+import { createServerApiClient } from '@/api/util/create-server-api-client';
 import { auth } from '@/auth';
 import { Main } from '@/common/components/layout/Main';
 import { PageTitle } from '@/common/components/layout/PageTitle';

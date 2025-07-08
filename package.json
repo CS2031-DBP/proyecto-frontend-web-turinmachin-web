@@ -17,6 +17,7 @@
     "@hookform/error-message": "^2.0.1",
     "@hookform/resolvers": "^5.1.1",
     "@supabase/supabase-js": "^2.50.2",
+    "@t3-oss/env-nextjs": "^0.13.8",
     "@zodios/core": "^10.9.6",
     "dayjs": "^1.11.13",
     "framer-motion": "^12.18.1",
@@ -29,8 +30,8 @@
     "react-markdown": "^10.1.0",
     "swr": "^2.3.3",
     "tailwind-merge": "^3.3.1",
-    "zod": "^3.25.67",
-    "unilife-shared-lib": "github:CS2031-DBP/proyecto-turinmachin-shared-lib"
+    "unilife-shared-lib": "github:CS2031-DBP/proyecto-turinmachin-shared-lib",
+    "zod": "^3.25.67"
   },
   "devDependencies": {
     "@eslint/eslintrc": "latest",
