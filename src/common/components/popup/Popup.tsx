@@ -34,7 +34,7 @@ const Popup = ({ className, children, ...props }: Props) => {
         >
           <LuX className="h-6 w-6" />
         </button>
-        <div className="max-h-[90vh] overflow-y-scroll px-4">{children}</div>
+        <div className="max-h-[90vh] overflow-y-auto px-4">{children}</div>
       </div>
     </div>
   );
