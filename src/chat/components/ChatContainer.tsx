@@ -9,7 +9,7 @@ export interface Props {
   session: Session;
 }
 
-export const ChatButton = ({ session }: Props) => {
+export const ChatContainer = ({ session }: Props) => {
   const [showChat, setShowChat] = useState(false);
 
   if (!showChat) {

@@ -23,7 +23,7 @@ export const ChatWindow = ({ session, onClose }: Props) => {
   const [chatState, setChatState] = useState<ChatState>({ kind: 'home' });
 
   return (
-    <div className="bg-background-alt fixed right-0 bottom-0 z-10 m-4 flex h-110 max-h-110 w-80 max-w-80 flex-col rounded-lg px-4 py-3">
+    <div className="bg-background-alt fixed right-0 bottom-0 z-10 m-4 flex h-120 max-h-120 w-100 max-w-100 flex-col rounded-lg px-4 py-3 not-sm:h-110 not-sm:min-h-110 not-sm:w-80 not-sm:max-w-80">
       <button
         onClick={onClose}
         className="text-foreground-muted hover:text-foreground absolute top-0 right-0 m-3 flex"
@@ -32,10 +32,15 @@ export const ChatWindow = ({ session, onClose }: Props) => {
       </button>
       {chatState.kind === 'home' ? (
         <ChatHome
+          session={session}
           onUserSelect={(user) => setChatState({ kind: 'chat', user })}
+          goToSearch={() => setChatState({ kind: 'search' })}
         />
       ) : chatState.kind === 'search' ? (
-        <ChatSearcher />
+        <ChatSearcher
+          onGoBack={() => setChatState({ kind: 'home' })}
+          onUserSelect={(user) => setChatState({ kind: 'chat', user })}
+        />
       ) : (
         <ChatConversation
           session={session}

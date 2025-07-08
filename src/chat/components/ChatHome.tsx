@@ -1,47 +1,77 @@
+import { useApiClient } from '@/api/hooks/use-api-client';
 import { Button } from '@/common/components/Button';
 import { Spinner } from '@/common/components/Spinner';
-import { useQueryExplorer } from '@/common/hooks/use-query-explorer';
 import { ProfilePicture } from '@/user/components/ProfilePicture';
-import { useUsers } from '@/user/hooks/use-users';
 import { UserSchema } from '@/user/schemas/user';
+import { Session } from 'next-auth';
+import { useCallback, useEffect, useState } from 'react';
+import { LuPlus } from 'react-icons/lu';
+import { useSupabase } from '../hooks/use-supabase';
 
 export interface Props {
+  session: Session;
   onUserSelect: (user: UserSchema) => void;
+  goToSearch: () => void;
 }
 
-export const ChatHome = ({ onUserSelect }: Props) => {
-  const { currentQueries, form, onSubmit } = useQueryExplorer();
-  const { users, isLoading, error, retry } = useUsers({
-    queries: currentQueries,
-  });
+export const ChatHome = ({ session, onUserSelect, goToSearch }: Props) => {
+  const { apiClient } = useApiClient();
+  const { supabase } = useSupabase();
+  const [recentUsers, setRecentUsers] = useState<UserSchema[] | null>(null);
+
+  const fetchRecentUsers = useCallback(async () => {
+    const res = await supabase
+      .from('messages')
+      .select('from_id, to_id')
+      .or(`from_id.eq.${session.user.id},to_id.eq.${session.user.id}`)
+      .order('created_at', { ascending: false });
+
+    if (!res.data) throw new Error('Could not fetch recent chats');
+
+    const userIds = res.data.map((data) =>
+      data.from_id === session.user.id ? data.to_id : data.from_id,
+    );
+
+    const dedupedIds = [...new Set(userIds)];
+    const userPromises = dedupedIds.map((id) =>
+      apiClient.getUserById({ params: { id } }),
+    );
+    const users = await Promise.allSettled(userPromises);
+    setRecentUsers(
+      users
+        .map((result) => (result.status === 'fulfilled' ? result.value : null))
+        .filter((user) => user !== null),
+    );
+  }, [supabase, session.user.id, apiClient]);
+
+  useEffect(() => {
+    fetchRecentUsers();
+  }, [fetchRecentUsers]);
 
   return (
     <>
       <p className="mb-2 text-xl font-semibold">Chat</p>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <input
-          placeholder="Busca a alguien..."
-          {...form.register('query')}
-          className="form-input w-full"
-        />
-      </form>
+      <Button
+        onClick={goToSearch}
+        className="my-4 flex items-center justify-center"
+      >
+        <LuPlus className="mr-2" />
+        Nueva conversación
+      </Button>
 
-      {isLoading ? (
+      {recentUsers === null ? (
         <div className="flex grow items-center justify-center">
           <Spinner className="size-8 border-4" />
         </div>
-      ) : error || users === undefined ? (
-        <div className="flex grow flex-col items-center justify-center">
-          <div className="mb-3 text-center text-lg font-semibold">
-            Algo salió mal :(
-          </div>
-          <Button variant="outline" onClick={retry}>
-            Reintentar
-          </Button>
+      ) : recentUsers.length === 0 ? (
+        <div className="border-muted flex grow items-center justify-center rounded border">
+          <p className="text-foreground-muted">
+            ¡No tienes conversaciones recientes!
+          </p>
         </div>
       ) : (
-        <ul className="border-muted my-4 grow overflow-y-auto rounded border">
-          {users.content.map((user) => (
+        <ul className="border-muted grow overflow-y-auto rounded border">
+          {recentUsers.map((user) => (
             <li
               key={user.id}
               onClick={() => onUserSelect(user)}

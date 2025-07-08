@@ -1,6 +1,6 @@
 import { ApiClientProvider } from '@/api/context/ApiClientProvider';
 import { auth } from '@/auth';
-import { ChatButton } from '@/chat/components/ChatButton';
+import { ChatContainer } from '@/chat/components/ChatContainer';
 import { SupabaseProvider } from '@/chat/context/SupabaseProvider';
 import { LeftBar } from '@/common/components/layout/LeftBar/LeftBar';
 import { RightBar } from '@/common/components/layout/RightBar';
@@ -42,7 +42,7 @@ const RootLayout = async ({ children }: Readonly<Props>) => {
               <SessionUserProvider session={session}>
                 {session?.user.verified && (
                   <SupabaseProvider session={session}>
-                    <ChatButton session={session} />
+                    <ChatContainer session={session} />
                   </SupabaseProvider>
                 )}
                 <PopupProvider>
