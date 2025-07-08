@@ -1,6 +1,6 @@
 'use client';
 import { Spinner } from '@/lib/common/components/Spinner';
-import { useQueryExplorer } from '@/lib/common/hooks/use-university-explorer';
+import { useQueryExplorer } from '@/lib/common/hooks/use-query-explorer';
 import { routes } from '@/lib/routes';
 import Link from 'next/link';
 import { useRef } from 'react';
@@ -29,7 +29,7 @@ export const DegreeExplorer = () => {
         {degrees.map((degree) => (
           <li key={degree.id}>
             <Link
-              href={routes.universities.byId(degree.id)}
+              href={routes.degrees.byId(degree.id)}
               className="border-muted hover:border-special block rounded-2xl border px-8 py-4 text-lg"
             >
               {degree.name}

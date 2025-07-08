@@ -1,5 +1,5 @@
 'use client';
-import { useQueryExplorer } from '@/lib/common/hooks/use-university-explorer';
+import { useQueryExplorer } from '@/lib/common/hooks/use-query-explorer';
 import { Session } from 'next-auth';
 import { useSearchParams } from 'next/navigation';
 import { PostListing } from './PostListing';

@@ -3,7 +3,7 @@ import { Spinner } from '@/lib/common/components/Spinner';
 import { routes } from '@/lib/routes';
 import Link from 'next/link';
 import { useRef } from 'react';
-import { useQueryExplorer } from '../../common/hooks/use-university-explorer';
+import { useQueryExplorer } from '../../common/hooks/use-query-explorer';
 import { useUniversities } from '../hooks/use-universities';
 
 export const UniversityExplorer = () => {
