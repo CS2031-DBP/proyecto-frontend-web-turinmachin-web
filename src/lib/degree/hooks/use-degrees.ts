@@ -30,7 +30,7 @@ export const useDegrees = ({ queries, loaderRef }: UseUniversities) => {
       return null;
     }
 
-    return ['degrees', { ...queries, page, size: 1 }];
+    return ['degrees', { ...queries, page }];
   };
 
   const {
