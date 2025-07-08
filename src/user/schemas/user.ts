@@ -1,3 +1,4 @@
+import { createPageSchema } from '@/api/schemas/page';
 import { z } from 'zod';
 import { FileInfoSchema } from '../../common/schemas/file-info';
 import { DegreeSchema } from '../../degree/schemas/degree';
@@ -21,3 +22,6 @@ export const UserSchema = z.object({
 });
 
 export type UserSchema = z.infer<typeof UserSchema>;
+
+export const UserPageSchema = createPageSchema(UserSchema);
+export type UserPageSchema = z.infer<typeof UserPageSchema>;

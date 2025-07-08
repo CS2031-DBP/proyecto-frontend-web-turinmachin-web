@@ -4,11 +4,17 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { CreateChatMessageSchema } from '../schemas/create-chat-message';
+import { useSupabase } from './use-supabase';
+
+export interface UseChatFormOptions {
+  recipientId: string;
+}
 
 export const FormSchema = CreateChatMessageSchema;
 export type FormSchema = z.infer<typeof FormSchema>;
 
-export const useChatForm = () => {
+export const useChatForm = ({ recipientId }: UseChatFormOptions) => {
+  const { supabase } = useSupabase();
   const { apiClient } = useApiClient();
 
   const form = useForm({
@@ -17,11 +23,15 @@ export const useChatForm = () => {
   });
 
   const [pending, handleSubmit] = usePendingCallback(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async (message: FormSchema) => {
       if (pending) return;
 
       form.reset();
+
+      await supabase.from('messages').insert({
+        content: message.content,
+        to_id: recipientId,
+      });
     },
     [apiClient],
   );

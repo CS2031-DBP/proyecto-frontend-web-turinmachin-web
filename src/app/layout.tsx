@@ -1,6 +1,7 @@
 import { ApiClientProvider } from '@/api/context/ApiClientProvider';
 import { auth } from '@/auth';
-// import { Chat } from '@/chat/components/Chat';
+import { ChatButton } from '@/chat/components/ChatButton';
+import { SupabaseProvider } from '@/chat/context/SupabaseProvider';
 import { LeftBar } from '@/common/components/layout/LeftBar/LeftBar';
 import { RightBar } from '@/common/components/layout/RightBar';
 import { PopupProvider } from '@/common/components/providers/PopupProvider';
@@ -39,8 +40,12 @@ const RootLayout = async ({ children }: Readonly<Props>) => {
           <SessionProvider>
             <ApiClientProvider session={session}>
               <SessionUserProvider session={session}>
+                {session && (
+                  <SupabaseProvider session={session}>
+                    <ChatButton session={session} />
+                  </SupabaseProvider>
+                )}
                 <PopupProvider>
-                  {/* {session && <Chat session={session} />} */}
                   <LeftBar session={session} />
                   {children}
                   <RightBar />

@@ -21,7 +21,7 @@ import { UpdateUniversitySchema } from '@/university/schemas/update-university';
 import { RoleSchema } from '@/user/schemas/role';
 import { UpdatePasswordSchema } from '@/user/schemas/update-password';
 import { UpdateUserSchema } from '@/user/schemas/update-user';
-import { UserSchema } from '@/user/schemas/user';
+import { UserPageSchema, UserSchema } from '@/user/schemas/user';
 import { makeApi, ZodiosInstance } from '@zodios/core';
 import { z } from 'zod';
 import { DetailResponseSchema } from '../schemas/detail-response';
@@ -156,6 +156,21 @@ export const api = makeApi([
     method: 'delete',
     path: '/users/@self',
     response: z.void(),
+  },
+  {
+    alias: 'getUsers',
+    method: 'get',
+    path: '/users',
+    parameters: [
+      { name: 'page', type: 'Query', schema: z.number().optional() },
+      { name: 'size', type: 'Query', schema: z.number().optional() },
+      {
+        name: 'query',
+        type: 'Query',
+        schema: z.string().optional(),
+      },
+    ],
+    response: UserPageSchema,
   },
   {
     alias: 'getUserById',
