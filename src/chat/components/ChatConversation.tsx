@@ -69,16 +69,20 @@ export const ChatConversation = ({ session, otherUser, onGoBack }: Props) => {
       .subscribe(async () => {
         if (!supabase) return;
 
-        const res = await supabase
-          .from('messages')
-          .select()
-          .or(chatFilter)
-          .order('created_at', { ascending: false });
+        try {
+          const res = await supabase
+            .from('messages')
+            .select()
+            .or(chatFilter)
+            .order('created_at', { ascending: false });
 
-        if (res.data) {
-          setMessages(
-            res.data.toReversed().map((m) => ChatMessageSchema.parse(m)),
-          );
+          if (res.data) {
+            setMessages(
+              res.data.toReversed().map((m) => ChatMessageSchema.parse(m)),
+            );
+          }
+        } catch (err) {
+          console.error(err);
         }
       });
 
