@@ -16,7 +16,7 @@ export const ChatButton = ({ session }: Props) => {
     return (
       <Button
         variant="special"
-        className="fixed right-0 bottom-0 m-6 size-12 rounded-full"
+        className="fixed right-0 bottom-0 z-5 m-6 size-12 rounded-full"
         onClick={() => setShowChat(true)}
       >
         <LuFeather className="absolute top-1/2 left-1/2 inline size-6 -translate-1/2" />
