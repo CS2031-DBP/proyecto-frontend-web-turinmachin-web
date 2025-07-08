@@ -56,9 +56,6 @@ importers:
       tailwind-merge:
         specifier: ^3.3.1
         version: 3.3.1
-      unilife-shared-lib:
-        specifier: github:CS2031-DBP/proyecto-turinmachin-shared-lib
-        version: git+https://git@github.com:CS2031-DBP/proyecto-turinmachin-shared-lib.git#a7126b745447145f7efffb300bc461507d2847ca(axios@1.10.0)
       zod:
         specifier: ^3.25.67
         version: 3.25.67
@@ -2152,12 +2149,6 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
 
-  react-hook-form@7.60.0:
-    resolution: {integrity: sha512-SBrYOvMbDB7cV8ZfNpaiLcgjH/a1c7aK0lK+aNigpf4xWLO8q+o4tcvVurv3c4EOyzn/3dCsYt4GKD42VvJ/+A==}
-    engines: {node: '>=18.0.0'}
-    peerDependencies:
-      react: ^16.8.0 || ^17 || ^18 || ^19
-
   react-icons@5.5.0:
     resolution: {integrity: sha512-MEFcXdkP3dLo8uumGI5xN3lDFNsRtrjbOEKDLD7yv76v4wpnEq2Lt2qeHaQOr34I/wPN3s3+N08WkQ+CW37Xiw==}
     peerDependencies:
@@ -2395,11 +2386,6 @@ packages:
     peerDependencies:
       react: ^16.11.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
-  swr@2.3.4:
-    resolution: {integrity: sha512-bYd2lrhc+VarcpkgWclcUi92wYCpOgMws9Sd1hG1ntAu0NEy+14CbotuFjshBU2kt9rYj9TSmDcybpxpeTU1fg==}
-    peerDependencies:
-      react: ^16.11.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-
   tailwind-merge@3.3.1:
     resolution: {integrity: sha512-gBXpgUm/3rp1lMZZrM/w7D8GKqshif0zAymAhbCyIt8KMe+0v9DQ7cdYLR4FHH/cKpdTXb+A/tKKU3eolfsI+g==}
 
@@ -2477,10 +2463,6 @@ packages:
 
   unified@11.0.5:
     resolution: {integrity: sha512-xKvGhPWw3k84Qjh8bI3ZeJjqnyadK+GEFtazSfZv/rKeTkTjOJho6mFqh2SM96iIcZokxiOpg78GazTSg8+KHA==}
-
-  unilife-shared-lib@git+https://git@github.com:CS2031-DBP/proyecto-turinmachin-shared-lib.git#a7126b745447145f7efffb300bc461507d2847ca:
-    resolution: {commit: a7126b745447145f7efffb300bc461507d2847ca, repo: git@github.com:CS2031-DBP/proyecto-turinmachin-shared-lib.git, type: git}
-    version: 0.1.0
 
   unist-util-is@6.0.0:
     resolution: {integrity: sha512-2qCTHimwdxLfz+YzdGfkqNlH0tLi9xjTnHddPmJwtIG9MGsdbutfTc4P+haPD7l7Cjxf/WZj+we5qfVPvvxfYw==}
@@ -2577,9 +2559,6 @@ packages:
   zod@3.25.67:
     resolution: {integrity: sha512-idA2YXwpCdqUSKRCACDE6ItZD9TZzy3OZMtpfLoh6oPR47lipysRrJfjzMqFxQ3uJuUPyUeWe1r9vLH33xO/Qw==}
 
-  zod@3.25.75:
-    resolution: {integrity: sha512-OhpzAmVzabPOL6C3A3gpAifqr9MqihV/Msx3gor2b2kviCgcb+HM9SEOpMWwwNp9MRunWnhtAKUoo0AHhjyPPg==}
-
   zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
 
@@ -2674,11 +2653,6 @@ snapshots:
     dependencies:
       '@standard-schema/utils': 0.3.0
       react-hook-form: 7.58.1(react@19.1.0)
-
-  '@hookform/resolvers@5.1.1(react-hook-form@7.60.0(react@19.1.0))':
-    dependencies:
-      '@standard-schema/utils': 0.3.0
-      react-hook-form: 7.60.0(react@19.1.0)
 
   '@humanfs/core@0.19.1': {}
 
@@ -3195,11 +3169,6 @@ snapshots:
     dependencies:
       axios: 1.10.0
       zod: 3.25.67
-
-  '@zodios/core@10.9.6(axios@1.10.0)(zod@3.25.75)':
-    dependencies:
-      axios: 1.10.0
-      zod: 3.25.75
 
   acorn-jsx@5.3.2(acorn@8.15.0):
     dependencies:
@@ -4768,10 +4737,6 @@ snapshots:
     dependencies:
       react: 19.1.0
 
-  react-hook-form@7.60.0(react@19.1.0):
-    dependencies:
-      react: 19.1.0
-
   react-icons@5.5.0(react@19.1.0):
     dependencies:
       react: 19.1.0
@@ -5100,12 +5065,6 @@ snapshots:
       react: 19.1.0
       use-sync-external-store: 1.5.0(react@19.1.0)
 
-  swr@2.3.4(react@19.1.0):
-    dependencies:
-      dequal: 2.0.3
-      react: 19.1.0
-      use-sync-external-store: 1.5.0(react@19.1.0)
-
   tailwind-merge@3.3.1: {}
 
   tailwindcss@4.1.10: {}
@@ -5206,18 +5165,6 @@ snapshots:
       is-plain-obj: 4.1.0
       trough: 2.2.0
       vfile: 6.0.3
-
-  unilife-shared-lib@git+https://git@github.com:CS2031-DBP/proyecto-turinmachin-shared-lib.git#a7126b745447145f7efffb300bc461507d2847ca(axios@1.10.0):
-    dependencies:
-      '@hookform/resolvers': 5.1.1(react-hook-form@7.60.0(react@19.1.0))
-      '@zodios/core': 10.9.6(axios@1.10.0)(zod@3.25.75)
-      dayjs: 1.11.13
-      react: 19.1.0
-      react-hook-form: 7.60.0(react@19.1.0)
-      swr: 2.3.4(react@19.1.0)
-      zod: 3.25.75
-    transitivePeerDependencies:
-      - axios
 
   unist-util-is@6.0.0:
     dependencies:
@@ -5353,7 +5300,5 @@ snapshots:
   yocto-queue@0.1.0: {}
 
   zod@3.25.67: {}
-
-  zod@3.25.75: {}
 
   zwitch@2.0.4: {}
