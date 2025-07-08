@@ -1,8 +1,8 @@
-import { auth } from '@/lib/auth';
-import { Main } from '@/lib/common/components/layout/Main';
-import { routes } from '@/lib/routes';
-import { UniversityExplorer } from '@/lib/university/components/UniversityExplorer';
-import { isSessionAdmin } from '@/lib/user/util';
+import { auth } from '@/auth';
+import { Main } from '@/common/components/layout/Main';
+import { routes } from '@/common/util/routes';
+import { UniversityExplorer } from '@/university/components/UniversityExplorer';
+import { isSessionAdmin } from '@/user/util';
 import Link from 'next/link';
 import { LuPlus } from 'react-icons/lu';
 

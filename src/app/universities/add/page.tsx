@@ -1,9 +1,9 @@
-import { createServerApiClient } from '@/lib/api/util/client';
-import { auth } from '@/lib/auth';
-import { Main } from '@/lib/common/components/layout/Main';
-import { routes } from '@/lib/routes';
-import { UniversityCreator } from '@/lib/university/components/UniversityCreator';
-import { isSessionAdmin } from '@/lib/user/util';
+import { createServerApiClient } from '@/api/util/client';
+import { auth } from '@/auth';
+import { Main } from '@/common/components/layout/Main';
+import { routes } from '@/common/util/routes';
+import { UniversityCreator } from '@/university/components/UniversityCreator';
+import { isSessionAdmin } from '@/user/util';
 import { redirect } from 'next/navigation';
 
 export interface Props {

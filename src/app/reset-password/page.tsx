@@ -1,5 +1,5 @@
-import { ResetPasswordScreen } from '@/lib/auth/components/ResetPasswordScreen';
-import { Main } from '@/lib/common/components/layout/Main';
+import { ResetPasswordScreen } from '@/auth/components/ResetPasswordScreen';
+import { Main } from '@/common/components/layout/Main';
 
 const ResetPassword = () => {
   return (

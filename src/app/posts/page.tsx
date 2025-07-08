@@ -1,6 +1,6 @@
-import { auth } from '@/lib/auth';
-import { Main } from '@/lib/common/components/layout/Main';
-import { PostExplorer } from '@/lib/post/components/PostExplorer';
+import { auth } from '@/auth';
+import { Main } from '@/common/components/layout/Main';
+import { PostExplorer } from '@/post/components/PostExplorer';
 
 const Posts = async () => {
   const session = await auth();

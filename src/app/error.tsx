@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@/lib/common/components/Button';
+import { Button } from '@/common/components/Button';
 
 export interface Props {
   reset: () => void;

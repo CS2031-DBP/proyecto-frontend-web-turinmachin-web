@@ -1,8 +1,8 @@
-import { auth } from '@/lib/auth';
-import { Main } from '@/lib/common/components/layout/Main';
-import { DegreeCreator } from '@/lib/degree/components/DegreeCreator';
-import { routes } from '@/lib/routes';
-import { isSessionAdmin } from '@/lib/user/util';
+import { auth } from '@/auth';
+import { Main } from '@/common/components/layout/Main';
+import { routes } from '@/common/util/routes';
+import { DegreeCreator } from '@/degree/components/DegreeCreator';
+import { isSessionAdmin } from '@/user/util';
 import { redirect } from 'next/navigation';
 
 export interface Props {

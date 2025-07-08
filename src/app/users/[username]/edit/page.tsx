@@ -1,9 +1,9 @@
-import { createServerApiClient } from '@/lib/api/util/client';
-import { auth } from '@/lib/auth';
-import { Main } from '@/lib/common/components/layout/Main';
-import { PageTitle } from '@/lib/common/components/layout/PageTitle';
-import { routes } from '@/lib/routes';
-import { ProfileEditor } from '@/lib/user/components/ProfileEditor';
+import { createServerApiClient } from '@/api/util/client';
+import { auth } from '@/auth';
+import { Main } from '@/common/components/layout/Main';
+import { PageTitle } from '@/common/components/layout/PageTitle';
+import { routes } from '@/common/util/routes';
+import { ProfileEditor } from '@/user/components/ProfileEditor';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { LuKey } from 'react-icons/lu';

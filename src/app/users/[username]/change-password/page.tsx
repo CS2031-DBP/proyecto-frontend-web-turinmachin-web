@@ -1,8 +1,8 @@
-import { auth } from '@/lib/auth';
-import { Main } from '@/lib/common/components/layout/Main';
-import { PageTitle } from '@/lib/common/components/layout/PageTitle';
-import { routes } from '@/lib/routes';
-import { PasswordChanger } from '@/lib/user/components/PasswordChanger';
+import { auth } from '@/auth';
+import { Main } from '@/common/components/layout/Main';
+import { PageTitle } from '@/common/components/layout/PageTitle';
+import { routes } from '@/common/util/routes';
+import { PasswordChanger } from '@/user/components/PasswordChanger';
 import { redirect } from 'next/navigation';
 
 export interface Props {

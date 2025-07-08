@@ -1,11 +1,11 @@
+import { createServerApiClient } from '@/api/util/client';
 import notFound from '@/app/not-found';
-import { createServerApiClient } from '@/lib/api/util/client';
-import { auth } from '@/lib/auth';
-import { Main } from '@/lib/common/components/layout/Main';
-import { DegreeEditor } from '@/lib/degree/components/DegreeEditor';
-import { DegreeSchema } from '@/lib/degree/schemas/degree';
-import { routes } from '@/lib/routes';
-import { isSessionAdmin } from '@/lib/user/util';
+import { auth } from '@/auth';
+import { Main } from '@/common/components/layout/Main';
+import { routes } from '@/common/util/routes';
+import { DegreeEditor } from '@/degree/components/DegreeEditor';
+import { DegreeSchema } from '@/degree/schemas/degree';
+import { isSessionAdmin } from '@/user/util';
 import { isErrorFromAlias } from '@zodios/core';
 import { redirect } from 'next/navigation';
 

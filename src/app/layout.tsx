@@ -1,10 +1,10 @@
-import { ApiClientProvider } from '@/lib/api/context/ApiClientProvider';
-import { auth } from '@/lib/auth';
-// import { Chat } from '@/lib/chat/components/Chat';
-import { LeftBar } from '@/lib/common/components/layout/LeftBar/LeftBar';
-import { RightBar } from '@/lib/common/components/layout/RightBar';
-import { PopupProvider } from '@/lib/common/components/providers/PopupProvider';
-import { SessionUserProvider } from '@/lib/user/components/SessionUserProvider';
+import { ApiClientProvider } from '@/api/context/ApiClientProvider';
+import { auth } from '@/auth';
+import { Chat } from '@/chat/components/Chat';
+import { LeftBar } from '@/common/components/layout/LeftBar/LeftBar';
+import { RightBar } from '@/common/components/layout/RightBar';
+import { PopupProvider } from '@/common/components/providers/PopupProvider';
+import { SessionUserProvider } from '@/user/components/SessionUserProvider';
 import type { Metadata } from 'next';
 import { SessionProvider } from 'next-auth/react';
 import { Inter } from 'next/font/google';
@@ -40,7 +40,7 @@ const RootLayout = async ({ children }: Readonly<Props>) => {
             <ApiClientProvider session={session}>
               <SessionUserProvider session={session}>
                 <PopupProvider>
-                  {/* {session && <Chat session={session} />} */}
+                  {session && <Chat session={session} />}
                   <LeftBar session={session} />
                   {children}
                   <RightBar />

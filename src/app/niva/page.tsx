@@ -1,5 +1,5 @@
-import { AIConversationScreen } from '@/lib/ai/components/AIConversationScreen';
-import { Main } from '@/lib/common/components/layout/Main';
+import { AIConversationScreen } from '@/ai/components/AIConversationScreen';
+import { Main } from '@/common/components/layout/Main';
 
 const AIConversation = () => {
   return (

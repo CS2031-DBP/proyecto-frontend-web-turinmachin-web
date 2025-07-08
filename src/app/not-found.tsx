@@ -1,4 +1,4 @@
-import { Main } from '@/lib/common/components/layout/Main';
+import { Main } from '@/common/components/layout/Main';
 
 const NotFound = () => (
   <Main className="flex grow items-center justify-center">

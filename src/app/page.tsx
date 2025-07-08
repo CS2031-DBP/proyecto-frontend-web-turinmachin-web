@@ -1,6 +1,6 @@
-import { auth } from '@/lib/auth';
-import { Main } from '@/lib/common/components/layout/Main';
-import { PostListing } from '@/lib/post/components/PostListing';
+import { auth } from '@/auth';
+import { Main } from '@/common/components/layout/Main';
+import { PostListing } from '@/post/components/PostListing';
 
 const Home = async () => {
   const session = await auth();
