@@ -40,7 +40,7 @@ const RootLayout = async ({ children }: Readonly<Props>) => {
           <SessionProvider>
             <ApiClientProvider session={session}>
               <SessionUserProvider session={session}>
-                {session && (
+                {session?.user.verified && (
                   <SupabaseProvider session={session}>
                     <ChatButton session={session} />
                   </SupabaseProvider>
