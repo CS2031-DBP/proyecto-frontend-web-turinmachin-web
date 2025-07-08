@@ -29,7 +29,7 @@ pnpm run start
 
 ## Deployment
 
-La aplicación está disponible en [https://unilife.lat].
+La aplicación está disponible en <https://unilife.lat>.
 
 > [!WARNING]
 > El servidor podría estar **temporalmente inactivo** por los límites de AWS academy.
