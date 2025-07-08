@@ -1,11 +1,10 @@
 'use client';
 
 import { routes } from '@/common/util/routes';
+import { ProfilePicture } from '@/user/components/ProfilePicture';
 import { useSessionUser } from '@/user/hooks/use-session-user';
 import { Session } from 'next-auth';
 import Link from 'next/dist/client/link';
-import Image from 'next/image';
-import { LuUser } from 'react-icons/lu';
 import { StreakIndicator } from './StreakIndicator';
 
 export interface Props {
@@ -21,21 +20,10 @@ export const UserCard = ({ session }: Props) => {
       className="hover:bg-background-alt mt-4 flex rounded-lg px-3 py-2"
     >
       <div className="flex grow items-center space-x-3">
-        {user?.profilePicture ? (
-          <div className="relative mr-3 h-10 w-10">
-            <Image
-              src={user.profilePicture.url}
-              alt=""
-              fill
-              sizes="15vw"
-              placeholder={user.profilePicture.blurDataUrl ? 'blur' : 'empty'}
-              blurDataURL={user.profilePicture.blurDataUrl}
-              className="bg-background-alt mr-2 h-8 w-8 rounded-full object-cover"
-            />
-          </div>
-        ) : (
-          <LuUser size={36} />
-        )}
+        <ProfilePicture
+          profilePicture={user?.profilePicture}
+          className="size-10 min-w-10"
+        />
 
         <div className="not-md:hidden">
           <p className="font-semibold">

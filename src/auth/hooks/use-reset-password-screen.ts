@@ -1,6 +1,7 @@
 'use client';
 
 import { useApiClient } from '@/api/hooks/use-api-client';
+import { usePendingCallback } from '@/common/hooks/use-pending';
 import { routes } from '@/common/util/routes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -10,7 +11,6 @@ import { z } from 'zod';
 import { ResetPasswordSchema } from '../schemas/reset-password';
 
 export const FormSchema = ResetPasswordSchema.pick({ newPassword: true });
-
 export type FormSchema = z.infer<typeof FormSchema>;
 
 export type ResetStatus = 'verifying' | 'valid' | 'invalid';
@@ -23,7 +23,6 @@ export const useResetPasswordScreen = () => {
   const router = useRouter();
 
   const [status, setStatus] = useState<ResetStatus>('verifying');
-  const [pending, setPending] = useState(false);
   const verified = useRef(false);
 
   const form = useForm({
@@ -54,17 +53,15 @@ export const useResetPasswordScreen = () => {
     verifyToken();
   }, [verifyToken]);
 
-  const onSubmit = useCallback(
+  const [pending, onSubmit] = usePendingCallback(
     async (data: FormSchema) => {
       if (!token) return;
-      setPending(true);
+
       try {
         await apiClient.resetPassword({ token, newPassword: data.newPassword });
         router.push(routes.home);
       } catch (err) {
         console.error(err);
-      } finally {
-        setPending(false);
       }
     },
     [apiClient, token, router],

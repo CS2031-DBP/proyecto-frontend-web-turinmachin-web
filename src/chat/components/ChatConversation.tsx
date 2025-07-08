@@ -42,8 +42,6 @@ export const ChatConversation = ({ session, otherUser, onGoBack }: Props) => {
     messages.scrollTop = messages.scrollHeight - messages.clientHeight;
   }, [messagesRef]);
 
-  const chatFilter = `and(from_id.eq."${otherUser.id}",to_id.eq."${session.user.id}"),and(from_id.eq."${session.user.id}",to_id.eq."${otherUser.id}")`;
-
   useEffect(() => {
     const channel = supabase
       .channel('messages')
@@ -73,7 +71,9 @@ export const ChatConversation = ({ session, otherUser, onGoBack }: Props) => {
           const res = await supabase
             .from('messages')
             .select()
-            .or(chatFilter)
+            .or(
+              `and(from_id.eq."${otherUser.id}",to_id.eq."${session.user.id}"),and(from_id.eq."${session.user.id}",to_id.eq."${otherUser.id}")`,
+            )
             .order('created_at', { ascending: false });
 
           if (res.data) {
@@ -89,7 +89,7 @@ export const ChatConversation = ({ session, otherUser, onGoBack }: Props) => {
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [supabase, chatFilter, session.user.id, otherUser.id]);
+  }, [supabase, session.user.id, otherUser.id]);
 
   useEffect(() => {
     const messages = messagesRef.current;
