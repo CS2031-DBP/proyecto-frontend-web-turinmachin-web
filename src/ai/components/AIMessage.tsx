@@ -1,6 +1,6 @@
 'use client';
-
 import { AIMessageResponseSchema } from '@/ai/schemas/ai-message-response';
+import NivaPicture from '@/assets/niva.png';
 import { useSessionUser } from '@/user/hooks/use-session-user';
 import Image from 'next/image';
 import { LuUser } from 'react-icons/lu';
@@ -36,7 +36,7 @@ export const AIMessage = ({ message }: Props) => {
   ) : (
     <div className="relative h-10 w-10 flex-shrink-0">
       <Image
-        src="/images/niva.png"
+        src={NivaPicture}
         alt="Niva"
         fill
         sizes="40px"
