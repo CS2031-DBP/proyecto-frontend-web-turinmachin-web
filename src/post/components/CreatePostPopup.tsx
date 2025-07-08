@@ -13,7 +13,7 @@ export const CreatePostPopup: PopupComponent<'post'> = ({ onClose }) => {
     useCreatePost({ onClose });
 
   return (
-    <Popup className="mx-6 w-9/10 max-w-4xl">
+    <Popup className="mx-6 w-9/10 max-w-4xl" disableClickOutside>
       <Popup.Title>Hacer una publicación</Popup.Title>
       <Form
         form={form}

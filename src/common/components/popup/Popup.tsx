@@ -1,24 +1,31 @@
 'use client';
 
+import { useOnClickOutside } from '@/common/hooks/use-on-click-outside';
 import { HTMLAttributes } from 'react';
 import { LuX } from 'react-icons/lu';
 import { twMerge } from 'tailwind-merge';
-import { useOnClickOutside } from '../../hooks/use-on-click-outside';
 import { usePopup } from '../../hooks/use-popup';
 import { PopupFooter } from './PopupFooter';
 import { PopupTitle } from './PopupTitle';
 
-export type Props = HTMLAttributes<HTMLDivElement>;
+export type Props = HTMLAttributes<HTMLDivElement> & {
+  disableClickOutside?: boolean;
+};
 
-const Popup = ({ className, children, ...props }: Props) => {
+const Popup = ({
+  className,
+  children,
+  disableClickOutside = false,
+  ...props
+}: Props) => {
   const { closePopup } = usePopup();
 
-  useOnClickOutside('#popup', closePopup);
+  useOnClickOutside('#popup', closePopup, disableClickOutside);
 
   return (
     <div
-      {...props}
       className="bg-foreground/5 fixed top-0 left-0 z-50 flex h-screen w-screen items-center justify-center backdrop-blur-xs"
+      {...props}
     >
       <div
         id="popup"
@@ -26,11 +33,10 @@ const Popup = ({ className, children, ...props }: Props) => {
           'bg-background border-muted relative w-full rounded-xl border px-4 py-6',
           className,
         )}
-        {...props}
       >
         <button
           onClick={closePopup}
-          className="text-muted hover:text-foreground-muted absolute top-3 right-3 transition-colors ease-in-out"
+          className="text-foreground-muted hover:text-foreground absolute top-3 right-3 transition-colors ease-in-out"
         >
           <LuX className="h-6 w-6" />
         </button>
