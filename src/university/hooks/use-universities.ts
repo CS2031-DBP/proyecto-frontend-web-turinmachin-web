@@ -1,5 +1,5 @@
 import { useApiClient } from '@/api/hooks/use-api-client';
-import { Api } from '@/api/util/client';
+import { Api } from '@/api/util/api';
 import { useViewTrigger } from '@/common/hooks/use-view-trigger';
 import { ZodiosQueryParamsByAlias } from '@zodios/core';
 import { RefObject, useEffect, useState } from 'react';

@@ -3,7 +3,7 @@ import { Zodios } from '@zodios/core';
 import { Session } from 'next-auth';
 import { useSession } from 'next-auth/react';
 import { useEffect, useRef } from 'react';
-import { api, ApiClient } from '../util/client';
+import { api, ApiClient } from '../util/api';
 
 export interface UseApiClientProviderOptions {
   session: Session | null;

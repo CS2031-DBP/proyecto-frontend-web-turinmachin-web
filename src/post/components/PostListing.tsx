@@ -1,6 +1,6 @@
 'use client';
 
-import { api } from '@/api/util/client';
+import { api } from '@/api/util/api';
 import { Spinner } from '@/common/components/Spinner';
 import { ZodiosQueryParamsByAlias } from '@zodios/core';
 import { Session } from 'next-auth';

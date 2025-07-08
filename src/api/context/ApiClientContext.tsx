@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext } from 'react';
-import { ApiClient } from '../util/client';
+import { ApiClient } from '../util/api';
 
 export interface ApiClientContextValue {
   apiClient: ApiClient;
