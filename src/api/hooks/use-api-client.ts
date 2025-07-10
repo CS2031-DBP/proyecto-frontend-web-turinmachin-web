@@ -9,8 +9,8 @@ import {
 export const useApiClient = () => {
   const contextValue = useContext(ApiClientContext);
 
-  if (Object.values(contextValue).some((val) => val === undefined)) {
-    throw new Error('ApiClientContext is not properly initialized');
+  if (contextValue === null) {
+    throw new Error('ApiClientContext is not initialized');
   }
 
   return contextValue as ApiClientContextValue;

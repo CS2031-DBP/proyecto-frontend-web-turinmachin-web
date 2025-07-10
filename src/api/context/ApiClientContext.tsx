@@ -9,6 +9,6 @@ export interface ApiClientContextValue {
   clearToken: () => void;
 }
 
-export const ApiClientContext = createContext<Partial<ApiClientContextValue>>(
-  {},
+export const ApiClientContext = createContext<ApiClientContextValue | null>(
+  null,
 );
