@@ -3,7 +3,7 @@ import { Spinner } from '@/common/components/Spinner';
 import { ProfilePicture } from '@/user/components/ProfilePicture';
 import { UserSchema } from '@/user/schemas/user';
 import { Session } from 'next-auth';
-import { LuPlus } from 'react-icons/lu';
+import { LuGhost, LuPlus } from 'react-icons/lu';
 import { useChatHome } from '../hooks/use-chat-home';
 
 export interface Props {
@@ -31,10 +31,9 @@ export const ChatHome = ({ session, onUserSelect, goToSearch }: Props) => {
           <Spinner className="size-8 border-4" />
         </div>
       ) : recentUsers.length === 0 ? (
-        <div className="border-muted flex grow items-center justify-center rounded border">
-          <p className="text-foreground-muted">
-            ¡No tienes conversaciones recientes!
-          </p>
+        <div className="border-muted text-foreground-muted flex grow flex-col items-center justify-center gap-y-4 rounded border">
+          <LuGhost className="size-12" />
+          <p>¡No tienes conversaciones recientes!</p>
         </div>
       ) : (
         <ul className="border-muted grow overflow-y-auto rounded border">
