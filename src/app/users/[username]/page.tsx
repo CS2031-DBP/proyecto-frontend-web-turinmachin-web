@@ -18,6 +18,7 @@ import {
   LuCalendar,
   LuGraduationCap,
   LuInfo,
+  LuSettings,
   LuShield,
   LuStar,
   LuUniversity,
@@ -151,9 +152,10 @@ const User = async ({ params }: Readonly<Props>) => {
         <div className="flex justify-end gap-x-4 gap-y-2 not-md:flex-col">
           <Link
             href={routes.users.editByUsername(user.username)}
-            className="button-normal text-nowrap"
+            className="button-outline text-nowrap"
           >
-            Editar perfil
+            <LuSettings className="mr-2 inline" />
+            Editar cuenta
           </Link>
           <SignOutButton />
         </div>

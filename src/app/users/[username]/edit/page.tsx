@@ -12,8 +12,10 @@ export interface Props {
   params: Promise<{ username: string }>;
 }
 
-const EditUser = async ({ params }: Readonly<Props>) => {
-  const { username } = await params;
+const EditUserPage = async ({ params }: Readonly<Props>) => {
+  const { username: encodedUsername } = await params;
+
+  const username = decodeURIComponent(encodedUsername);
   const session = await auth();
 
   if (session?.user.username !== username) {
@@ -32,7 +34,7 @@ const EditUser = async ({ params }: Readonly<Props>) => {
   return (
     <Main>
       <PageTitle backHref={routes.users.byUsername(username)}>
-        Editar perfil
+        Editar cuenta
       </PageTitle>
       <div className="mb-2 flex justify-end">
         <Link
@@ -52,4 +54,4 @@ const EditUser = async ({ params }: Readonly<Props>) => {
   );
 };
 
-export default EditUser;
+export default EditUserPage;
