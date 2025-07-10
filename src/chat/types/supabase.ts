@@ -20,6 +20,7 @@ export type Database = {
           created_at: string;
           from_id: string;
           id: string;
+          read: boolean;
           to_id: string;
         };
         Insert: {
@@ -27,6 +28,7 @@ export type Database = {
           created_at?: string;
           from_id?: string;
           id?: string;
+          read?: boolean;
           to_id: string;
         };
         Update: {
@@ -34,6 +36,7 @@ export type Database = {
           created_at?: string;
           from_id?: string;
           id?: string;
+          read?: boolean;
           to_id?: string;
         };
         Relationships: [];
