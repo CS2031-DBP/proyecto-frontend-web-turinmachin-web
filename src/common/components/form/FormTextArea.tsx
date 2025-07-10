@@ -50,7 +50,7 @@ export const FormTextArea = <T extends FieldValues>({
         {...form.register(name, { required, disabled, minLength, maxLength })}
         required={required}
         className={twMerge(
-          'border-muted focus:border-special disabled:bg-muted/20 block w-full rounded border px-3 py-2 focus:outline-none',
+          'border-muted focus:border-special disabled:bg-muted/20 block w-full resize-none rounded border px-3 py-2 focus:outline-none',
           errors[name] ? 'border-red-300' : 'border-muted',
           className,
         )}

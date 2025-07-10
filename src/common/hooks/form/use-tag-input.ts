@@ -8,8 +8,8 @@ export interface UseTagInputOptions {
 export const useTagInput = ({ value, setValue }: UseTagInputOptions) => {
   const [tagInput, setTagInput] = useState('');
 
-  const addTag = (tag: string) => {
-    const clean = tag.trim().toLowerCase();
+  const addCurrent = () => {
+    const clean = tagInput.trim().toLowerCase();
     if (clean.length === 0 || value.includes(clean)) return;
 
     setValue([...value, clean]);
@@ -23,7 +23,7 @@ export const useTagInput = ({ value, setValue }: UseTagInputOptions) => {
   const handleKeyDown = (ev: React.KeyboardEvent<HTMLInputElement>) => {
     if (['Enter', ' '].includes(ev.key)) {
       ev.preventDefault();
-      addTag(tagInput);
+      addCurrent();
     } else if (
       value.length !== 0 &&
       tagInput.length === 0 &&
@@ -33,5 +33,5 @@ export const useTagInput = ({ value, setValue }: UseTagInputOptions) => {
     }
   };
 
-  return { tagInput, setTagInput, handleKeyDown, removeTag };
+  return { tagInput, setTagInput, handleKeyDown, removeTag, addCurrent };
 };

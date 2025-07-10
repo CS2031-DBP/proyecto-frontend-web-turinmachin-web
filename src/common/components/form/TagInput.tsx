@@ -6,10 +6,11 @@ export interface Props {
   setValue: (tags: string[]) => void;
 }
 export const TagInput = ({ value, setValue }: Props) => {
-  const { tagInput, setTagInput, handleKeyDown, removeTag } = useTagInput({
-    value,
-    setValue,
-  });
+  const { tagInput, setTagInput, handleKeyDown, removeTag, addCurrent } =
+    useTagInput({
+      value,
+      setValue,
+    });
 
   return (
     <div className="my-4">
@@ -33,6 +34,7 @@ export const TagInput = ({ value, setValue }: Props) => {
         <input
           placeholder="mates, examen, etc..."
           value={tagInput}
+          onBlur={addCurrent}
           onChange={(ev) =>
             setTagInput(
               ev.target.value

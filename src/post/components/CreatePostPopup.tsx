@@ -26,6 +26,7 @@ export const CreatePostPopup: PopupComponent<'post'> = ({ onClose }) => {
             name="content"
             placeholder="Piensa en algo interesante..."
             autoFocus
+            rows={4}
             className="text-lg sm:text-xl"
           />
           <TagInput value={tags} setValue={setTags} />
