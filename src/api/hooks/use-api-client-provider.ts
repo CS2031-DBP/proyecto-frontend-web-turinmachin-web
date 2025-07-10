@@ -2,6 +2,7 @@ import { clientEnv } from '@/common/env/client';
 import { Zodios } from '@zodios/core';
 import { Session } from 'next-auth';
 import { useSession } from 'next-auth/react';
+import qs from 'qs';
 import { useEffect, useRef } from 'react';
 import { api, ApiClient } from '../util/api';
 
@@ -30,7 +31,12 @@ export const useApiClientProvider = ({
   // Avoids recreating the ref on every render
   // See https://react.dev/reference/react/useRef#avoiding-recreating-the-ref-contents
   if (!apiClient.current) {
-    apiClient.current = new Zodios(clientEnv.NEXT_PUBLIC_API_URL, api);
+    apiClient.current = new Zodios(clientEnv.NEXT_PUBLIC_API_URL, api, {
+      axiosConfig: {
+        paramsSerializer: (params) =>
+          qs.stringify(params, { arrayFormat: 'repeat' }),
+      },
+    });
     if (session) {
       setToken(session.accessToken);
     }
