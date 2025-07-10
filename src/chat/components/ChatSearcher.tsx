@@ -55,6 +55,7 @@ export const ChatSearcher = ({ onUserSelect, onGoBack }: Props) => {
             <li
               key={user.id}
               onClick={() => onUserSelect(user)}
+              role="button"
               className="hover:bg-foreground/5 flex cursor-pointer items-center space-x-2 px-3 py-2"
             >
               <ProfilePicture
