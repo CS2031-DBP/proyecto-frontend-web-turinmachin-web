@@ -4,13 +4,13 @@ import { routes } from '@/common/util/routes';
 import Link from 'next/link';
 import { useRef } from 'react';
 import { useQueryExplorer } from '../../common/hooks/use-query-explorer';
-import { useUniversities } from '../hooks/use-universities';
+import { useInfiniteUniversities } from '../hooks/use-infinite-universities';
 
 export const UniversityExplorer = () => {
   const loaderRef = useRef<HTMLDivElement>(null);
 
   const { form, onSubmit, currentQueries } = useQueryExplorer();
-  const { universities, finished } = useUniversities({
+  const { universities, finished } = useInfiniteUniversities({
     loaderRef,
     queries: currentQueries,
   });

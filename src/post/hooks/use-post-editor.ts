@@ -33,7 +33,7 @@ export const usePostEditor = ({ post }: UsePostEditorOptions) => {
     [router, apiClient],
   );
 
-  const tags = form.watch('tags');
+  const tags = form.watch('tags') ?? [];
   const setTags = (tags: string[]) => form.setValue('tags', tags);
 
   return { form, pending, handleSubmit, tags, setTags };

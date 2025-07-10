@@ -5,12 +5,11 @@ import { Form } from '@/common/components/form/Form';
 import { FormInput } from '@/common/components/form/FormInput';
 import { FormTextArea } from '@/common/components/form/FormTextArea';
 import { ResetButton } from '@/common/components/form/ResetButton';
-import { DegreeSchema } from '@/degree/schemas/degree';
+import { DegreeSelector } from '@/degree/components/DegreeSelector';
 import { Session } from 'next-auth';
 import Image from 'next/image';
 import { useRef } from 'react';
 import { LuInfo } from 'react-icons/lu';
-import { twJoin } from 'tailwind-merge';
 import { useProfileEditor } from '../hooks/use-profile-editor';
 import { useProfilePictureEditor } from '../hooks/use-profile-picture-editor';
 import { UserSchema } from '../schemas/user';
@@ -20,10 +19,9 @@ import { EmailUniversityInfo } from './EmailUniversityInfo';
 export interface Props {
   session: Session;
   user: UserSchema;
-  availableDegrees: DegreeSchema[] | null;
 }
 
-export const ProfileEditor = ({ session, user, availableDegrees }: Props) => {
+export const ProfileEditor = ({ session, user }: Props) => {
   const pictureInputRef = useRef<HTMLInputElement>(null);
   const { form, pending, handleSubmit } = useProfileEditor({ user });
   const {
@@ -93,24 +91,14 @@ export const ProfileEditor = ({ session, user, availableDegrees }: Props) => {
           label="Nombre real"
           required={false}
         />
-        <label>
-          Carrera
-          <select
-            {...form.register('degreeId', { disabled: degreesDisabled })}
-            value={degreesDisabled ? '' : degreeId}
-            className={twJoin(
-              'form-input block w-full',
-              (degreesDisabled || !degreeId) && 'text-foreground-muted',
-            )}
-          >
-            <option value="">(Ninguna)</option>
-            {availableDegrees &&
-              availableDegrees.map((degree) => (
-                <option key={degree.id} value={degree.id}>
-                  {degree.name}
-                </option>
-              ))}
-          </select>
+        <label className="my-2">
+          <div className="mb-2">Carrera</div>
+          <DegreeSelector
+            value={degreeId}
+            nullLabelPlaceholder
+            onChange={(id) => form.setValue('degreeId', id ?? undefined)}
+            queries={{ universityId: user.university?.id }}
+          />
         </label>
         {degreesDisabled && (
           <p className="text-foreground-muted my-1">

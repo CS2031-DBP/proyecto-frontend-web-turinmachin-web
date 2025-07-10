@@ -4,6 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { TagSchema } from '../schemas/post-tag';
 
 export const FormSchema = z.object({
   query: z
@@ -18,14 +19,17 @@ export const FormSchema = z.object({
     .string()
     .optional()
     .transform((s) => (s?.length === 0 ? undefined : s)),
+  tags: TagSchema.array(),
 });
 
 export type FormSchema = z.infer<typeof FormSchema>;
 
 export const usePostExplorer = () => {
   const searchParams = useSearchParams();
+
   const [currentQueries, setCurrentQueries] = useState<FormSchema>({
     query: searchParams.get('q') ?? '',
+    tags: searchParams.getAll('tags'),
   });
 
   const form = useForm({
@@ -43,6 +47,7 @@ export const usePostExplorer = () => {
     formData.query,
     formData.degreeId,
     formData.universityId,
+    formData.tags.join(','),
   ]);
 
   return { form, onSubmit, currentQueries };

@@ -30,8 +30,8 @@ export const useCreatePost = ({ onClose }: UseCreatePostOptions) => {
     },
   });
 
-  const tags = form.watch('tags');
-  const files = form.watch('files');
+  const tags = form.watch('tags') ?? [];
+  const files = form.watch('files') ?? [];
 
   const setTags = (tags: string[]) => form.setValue('tags', tags);
   const setFiles = (files: File[]) => form.setValue('files', files);
@@ -45,7 +45,6 @@ export const useCreatePost = ({ onClose }: UseCreatePostOptions) => {
 
       try {
         const createdPost = await apiClient.createPost(formData);
-
         router.push(routes.posts.byId(createdPost.id));
         onClose();
       } catch (err) {

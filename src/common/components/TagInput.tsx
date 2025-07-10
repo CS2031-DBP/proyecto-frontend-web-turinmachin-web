@@ -1,11 +1,20 @@
-import { LuX } from 'react-icons/lu';
-import { useTagInput } from '../../hooks/form/use-tag-input';
+import { HTMLAttributes } from 'react';
+import { LuTag, LuX } from 'react-icons/lu';
+import { twMerge } from 'tailwind-merge';
+import { useTagInput } from '../hooks/form/use-tag-input';
 
-export interface Props {
+export interface Props extends HTMLAttributes<HTMLDivElement> {
   value: string[];
   setValue: (tags: string[]) => void;
+  inputProps?: HTMLAttributes<HTMLInputElement>;
 }
-export const TagInput = ({ value, setValue }: Props) => {
+export const TagInput = ({
+  value,
+  setValue,
+  inputProps: { className: inputClassName, ...inputProps } = {},
+  className,
+  ...props
+}: Props) => {
   const { tagInput, setTagInput, handleKeyDown, removeTag, addCurrent } =
     useTagInput({
       value,
@@ -13,9 +22,15 @@ export const TagInput = ({ value, setValue }: Props) => {
     });
 
   return (
-    <div className="my-4">
-      <label className="mb-2 block">Tags</label>
-      <div className="form-input has-focus:border-special flex flex-wrap gap-2">
+    <div
+      {...props}
+      className={twMerge(
+        'form-input has-focus:border-special flex items-center',
+        className,
+      )}
+    >
+      <LuTag className="text-foreground-muted mx-1 size-5 min-w-5" />
+      <div className="flex min-w-0 grow flex-wrap items-center gap-2">
         {value.map((tag) => (
           <span
             key={tag}
@@ -32,6 +47,7 @@ export const TagInput = ({ value, setValue }: Props) => {
           </span>
         ))}
         <input
+          {...inputProps}
           placeholder="mates, examen, etc..."
           value={tagInput}
           onBlur={addCurrent}
@@ -45,7 +61,10 @@ export const TagInput = ({ value, setValue }: Props) => {
             )
           }
           onKeyDown={handleKeyDown}
-          className="ml-2 grow py-0.5 outline-none"
+          className={twMerge(
+            'ml-2 min-w-0 grow py-0.5 outline-none',
+            inputClassName,
+          )}
         />
       </div>
     </div>

@@ -4,13 +4,13 @@ import { useQueryExplorer } from '@/common/hooks/use-query-explorer';
 import { routes } from '@/common/util/routes';
 import Link from 'next/link';
 import { useRef } from 'react';
-import { useDegrees } from '../hooks/use-degrees';
+import { useInfiniteDegrees } from '../hooks/use-infinite-degrees';
 
 export const DegreeExplorer = () => {
   const loaderRef = useRef<HTMLDivElement>(null);
 
   const { form, onSubmit, currentQueries } = useQueryExplorer();
-  const { degrees, finished } = useDegrees({
+  const { degrees, finished } = useInfiniteDegrees({
     loaderRef,
     queries: currentQueries,
   });

@@ -5,7 +5,7 @@ import { FileCarousel } from '@/common/components/FileCarousel';
 import { Form } from '@/common/components/form/Form';
 import { FormTextArea } from '@/common/components/form/FormTextArea';
 import { ResetButton } from '@/common/components/form/ResetButton';
-import { TagInput } from '@/common/components/form/TagInput';
+import { TagInput } from '@/common/components/TagInput';
 import { usePostEditor } from '../hooks/use-post-editor';
 import { PostSchema } from '../schemas/post';
 

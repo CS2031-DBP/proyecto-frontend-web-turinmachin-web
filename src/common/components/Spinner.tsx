@@ -4,11 +4,11 @@ import { twMerge } from 'tailwind-merge';
 export type Props = HTMLAttributes<HTMLSpanElement>;
 
 export const Spinner = ({ className, ...props }: Props) => (
-  <span
+  <div
     {...props}
     className={twMerge(
-      'border-foreground size-12 animate-spin rounded-full border-6 border-l-transparent',
+      'border-foreground inline-block size-12 animate-spin rounded-full border-6 border-l-transparent',
       className,
     )}
-  ></span>
+  ></div>
 );
