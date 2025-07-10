@@ -16,7 +16,7 @@ export const ProfilePicture = ({
   <div
     {...props}
     className={twMerge(
-      'bg-muted relative size-8 overflow-hidden rounded-full',
+      'bg-background-alt relative size-8 overflow-hidden rounded-full',
       className,
     )}
   >

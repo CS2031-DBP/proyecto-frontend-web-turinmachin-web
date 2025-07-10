@@ -10,7 +10,10 @@ export interface Props extends HTMLAttributes<HTMLUListElement> {
 export const TagList = ({ tags, className, ...props }: Props) => (
   <ul {...props} className={twMerge(className, 'flex space-x-2')}>
     {tags.map((tag) => (
-      <li key={tag} className="bg-background-alt rounded-full text-sm">
+      <li
+        key={tag}
+        className="bg-background-alt text-foreground-muted rounded-full text-sm"
+      >
         <Link
           href={`${routes.posts.root}?tags=${tag}`}
           className="block px-3 py-1 hover:underline"

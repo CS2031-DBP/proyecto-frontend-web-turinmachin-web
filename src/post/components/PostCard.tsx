@@ -7,6 +7,7 @@ import { FileCarousel } from '../../common/components/FileCarousel';
 import { ResourceDetails } from '../../common/components/ResourceDetails';
 import { PostSchema } from '../schemas/post';
 import { PostActionBar } from './PostActionBar';
+import { TagList } from './TagList';
 
 export interface Props extends HTMLAttributes<HTMLLIElement> {
   post: PostSchema;
@@ -29,7 +30,10 @@ export const PostCard = ({ post, session, className, ...props }: Props) => (
         fromDate={post.createdAt}
         className="mb-3"
       />
-      <p className="mb-4 text-xl break-words">{post.content}</p>
+      <p className="mb-4 line-clamp-8 text-xl break-words whitespace-pre-wrap">
+        {post.content}
+      </p>
+      {post.tags.length !== 0 && <TagList tags={post.tags} className="mb-3" />}
       {post.files.length !== 0 && (
         <FileCarousel
           files={post.files}

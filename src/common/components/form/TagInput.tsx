@@ -40,7 +40,8 @@ export const TagInput = ({ value, setValue }: Props) => {
               ev.target.value
                 .toLowerCase()
                 .replace(/[^a-z0-9-_]/, '')
-                .replace(/-+/, '-'),
+                .replace(/-+/, '-')
+                .replace(/_+/, '_'),
             )
           }
           onKeyDown={handleKeyDown}
