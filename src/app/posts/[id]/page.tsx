@@ -64,7 +64,7 @@ const Post = async ({ params }: Readonly<Props>) => {
           </Dropdown>
         )}
       </div>
-      <p className="mb-2 text-xl">{post.content}</p>
+      <p className="mb-2 text-xl break-words">{post.content}</p>
       {post.tags.length !== 0 && <TagList tags={post.tags} className="my-2" />}
       {post.files.length !== 0 && (
         <FileCarousel

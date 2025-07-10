@@ -29,7 +29,7 @@ export const PostCard = ({ post, session, className, ...props }: Props) => (
         fromDate={post.createdAt}
         className="mb-3"
       />
-      <p className="mb-4 text-xl">{post.content}</p>
+      <p className="mb-4 text-xl break-words">{post.content}</p>
       {post.files.length !== 0 && (
         <FileCarousel
           files={post.files}
