@@ -2,9 +2,11 @@ import { Button } from '@/common/components/Button';
 import { Form } from '@/common/components/form/Form';
 import { FormInput } from '@/common/components/form/FormInput';
 import { Spinner } from '@/common/components/Spinner';
+import { routes } from '@/common/util/routes';
 import { ProfilePicture } from '@/user/components/ProfilePicture';
 import { UserSchema } from '@/user/schemas/user';
 import { Session } from 'next-auth';
+import Link from 'next/link';
 import { useRef } from 'react';
 import { LuArrowDown, LuArrowLeft, LuFeather, LuSend } from 'react-icons/lu';
 import { twJoin } from 'tailwind-merge';
@@ -24,29 +26,34 @@ export const ChatConversation = ({ session, otherUser, onGoBack }: Props) => {
 
   return (
     <>
-      <div className="mb-2 flex w-full items-center gap-x-2">
+      <div className="mb-2 flex w-full items-center">
         <button
-          className="hover:bg-foreground/5 text-foreground-muted block rounded-md px-1 py-1"
+          className="hover:bg-foreground/5 text-foreground-muted mr-2 block rounded-md px-1 py-1"
           onClick={onGoBack}
         >
           <LuArrowLeft className="inline size-6" />
         </button>
-        <ProfilePicture
-          profilePicture={otherUser.profilePicture}
-          className="size-10"
-        />
-        <div>
-          {otherUser.displayName ? (
-            <>
-              <div className="font-semibold">{otherUser.displayName}</div>
-              <div className="text-foreground-muted text-sm">
-                @{otherUser.username}
-              </div>
-            </>
-          ) : (
-            otherUser.username
-          )}
-        </div>
+        <Link
+          href={routes.users.byUsername(otherUser.username)}
+          className="hover:bg-foreground/5 flex cursor-pointer items-center gap-x-2 rounded px-3 py-2"
+        >
+          <ProfilePicture
+            profilePicture={otherUser.profilePicture}
+            className="size-8"
+          />
+          <div>
+            {otherUser.displayName ? (
+              <>
+                <div className="font-semibold">{otherUser.displayName}</div>
+                <div className="text-foreground-muted text-sm">
+                  @{otherUser.username}
+                </div>
+              </>
+            ) : (
+              otherUser.username
+            )}
+          </div>
+        </Link>
       </div>
       <ul
         className="border-muted h-100 overflow-y-auto rounded-lg border px-2"
