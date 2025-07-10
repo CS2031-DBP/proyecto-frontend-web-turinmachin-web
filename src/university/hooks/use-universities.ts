@@ -49,7 +49,6 @@ export const useUniversities = ({ queries, loaderRef }: UseUniversities) => {
   }, [queries, setSize, mutate]);
 
   useViewTrigger(loaderRef, !isLoading && !isValidating && !finished, () => {
-    console.log('sizing');
     setSize((prevSize) => prevSize + 1);
   });
 
