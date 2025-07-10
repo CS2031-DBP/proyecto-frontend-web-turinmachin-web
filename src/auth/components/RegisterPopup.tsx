@@ -1,3 +1,4 @@
+import { TextDivider } from '@/comment/components/TextDivider';
 import { Button } from '@/common/components/Button';
 import { Form } from '@/common/components/form/Form';
 import { FormInput } from '@/common/components/form/FormInput';
@@ -6,6 +7,7 @@ import { PopupComponent } from '@/common/components/providers/PopupProvider';
 import { usePopup } from '@/common/hooks/use-popup';
 import { EmailUniversityInfo } from '@/user/components/EmailUniversityInfo';
 import { useRegisterForm } from '../hooks/use-register-form';
+import { GoogleAuthButton } from './GoogleAuthButton';
 
 export const RegisterPopup: PopupComponent<'register'> = ({ onClose }) => {
   const { openPopup } = usePopup();
@@ -47,6 +49,8 @@ export const RegisterPopup: PopupComponent<'register'> = ({ onClose }) => {
           Crear cuenta
         </Button>
       </Form>
+      <TextDivider>o</TextDivider>
+      <GoogleAuthButton />
 
       <Popup.Footer>
         ¿Ya tienes una cuenta?{' '}

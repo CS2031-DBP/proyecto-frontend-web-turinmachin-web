@@ -10,10 +10,8 @@ export const pick = <T, K extends keyof T>(
   return out;
 };
 
-export const removeUndefined = <T extends Record<string, unknown>>(
-  obj: T,
-): Partial<T> => {
+export const removeUndefined = <T extends Record<string, unknown>>(obj: T) => {
   return Object.fromEntries(
     Object.entries(obj).filter(([, v]) => v !== undefined),
-  ) as Partial<T>;
+  ) as T;
 };

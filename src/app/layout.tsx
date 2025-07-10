@@ -5,7 +5,9 @@ import { SupabaseProvider } from '@/chat/context/SupabaseProvider';
 import { LeftBar } from '@/common/components/layout/LeftBar/LeftBar';
 import { RightBar } from '@/common/components/layout/RightBar';
 import { PopupProvider } from '@/common/components/providers/PopupProvider';
+import { clientEnv } from '@/common/env/client';
 import { SessionUserProvider } from '@/user/context/SessionUserProvider';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import type { Metadata } from 'next';
 import { SessionProvider } from 'next-auth/react';
 import { Inter } from 'next/font/google';
@@ -45,11 +47,15 @@ const RootLayout = async ({ children }: Readonly<Props>) => {
                     <ChatContainer session={session} />
                   </SupabaseProvider>
                 )}
-                <PopupProvider>
-                  <LeftBar session={session} />
-                  {children}
-                  <RightBar />
-                </PopupProvider>
+                <GoogleOAuthProvider
+                  clientId={clientEnv.NEXT_PUBLIC_GOOGLE_CLIENT_ID}
+                >
+                  <PopupProvider>
+                    <LeftBar session={session} />
+                    {children}
+                    <RightBar />
+                  </PopupProvider>
+                </GoogleOAuthProvider>
               </SessionUserProvider>
             </ApiClientProvider>
           </SessionProvider>

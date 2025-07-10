@@ -1,6 +1,7 @@
 import { AIMessageResponseSchema } from '@/ai/schemas/ai-message-response';
 import { LoginRequestSchema } from '@/auth/schemas/login-request';
 import { LoginResponseSchema } from '@/auth/schemas/login-response';
+import { GoogleLoginRequestSchema } from '@/auth/schemas/oauth2-credentials';
 import { RegisterRequestSchema } from '@/auth/schemas/register-request';
 import { ResetPasswordSchema } from '@/auth/schemas/reset-password';
 import { CommentSchema } from '@/comment/schemas/comment';
@@ -43,6 +44,19 @@ export const api = makeApi([
     method: 'post',
     path: '/auth/login',
     parameters: [{ name: 'body', type: 'Body', schema: LoginRequestSchema }],
+    response: LoginResponseSchema,
+    errors: [
+      { status: 401, schema: DetailResponseSchema },
+      { status: 403, schema: DetailResponseSchema },
+    ],
+  },
+  {
+    alias: 'googleLogin',
+    method: 'post',
+    path: '/auth/oauth/google',
+    parameters: [
+      { name: 'body', type: 'Body', schema: GoogleLoginRequestSchema },
+    ],
     response: LoginResponseSchema,
     errors: [{ status: 401, schema: DetailResponseSchema }],
   },

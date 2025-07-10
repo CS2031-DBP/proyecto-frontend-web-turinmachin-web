@@ -1,3 +1,4 @@
+import { TextDivider } from '@/comment/components/TextDivider';
 import { Button } from '@/common/components/Button';
 import { Form } from '@/common/components/form/Form';
 import { FormInput } from '@/common/components/form/FormInput';
@@ -5,6 +6,7 @@ import { Popup } from '@/common/components/popup/Popup';
 import { PopupComponent } from '@/common/components/providers/PopupProvider';
 import { usePopup } from '@/common/hooks/use-popup';
 import { useLoginForm } from '../hooks/use-login-form';
+import { GoogleAuthButton } from './GoogleAuthButton';
 
 export const LoginPopup: PopupComponent<'login'> = ({ onClose }) => {
   const { openPopup } = usePopup();
@@ -44,6 +46,8 @@ export const LoginPopup: PopupComponent<'login'> = ({ onClose }) => {
           Ingresar
         </Button>
       </Form>
+      <TextDivider>o</TextDivider>
+      <GoogleAuthButton />
 
       <Popup.Footer>
         ¿No tienes una cuenta?{' '}

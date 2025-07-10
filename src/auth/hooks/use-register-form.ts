@@ -6,6 +6,7 @@ import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { AuthCredentialsSchema } from '../schemas/auth-credentials';
 import { RegisterRequestSchema } from '../schemas/register-request';
 
 export const FormSchema = RegisterRequestSchema;
@@ -31,10 +32,13 @@ export const useRegisterForm = ({ onClose }: UseRegisterFormOptions) => {
 
   const [pending, handleSubmit] = usePendingCallback(
     async (data: FormSchema) => {
-      const res = await signIn('credentials', {
-        redirect: false,
+      const credentials: AuthCredentialsSchema = {
         type: 'register',
         ...removeUndefined(data),
+      };
+      const res = await signIn('credentials', {
+        redirect: false,
+        ...credentials,
       });
 
       if (res.error) {

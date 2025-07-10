@@ -4,6 +4,7 @@ import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { AuthCredentialsSchema } from '../schemas/auth-credentials';
 import { LoginRequestSchema } from '../schemas/login-request';
 
 export const FormSchema = LoginRequestSchema;
@@ -26,7 +27,12 @@ export const useLoginForm = ({ onClose }: UseLoginFormOptions) => {
 
   const [pending, handleSubmit] = usePendingCallback(
     async (data: FormSchema) => {
-      const res = await signIn('credentials', { redirect: false, ...data });
+      const credentials: AuthCredentialsSchema = { type: 'login', ...data };
+      console.log('creds:', credentials);
+      const res = await signIn('credentials', {
+        redirect: false,
+        ...credentials,
+      });
 
       if (res.error) {
         throw res.code ?? 'Algo salió mal :(';

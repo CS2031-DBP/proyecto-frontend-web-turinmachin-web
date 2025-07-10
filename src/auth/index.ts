@@ -2,12 +2,10 @@ import { isErrorFromAlias } from '@zodios/core';
 import NextAuth, { CredentialsSignin } from 'next-auth';
 import 'next-auth/jwt'; // Required to augment JWT interface
 import Credentials from 'next-auth/providers/credentials';
-import { ZodError } from 'zod';
 import { createServerApiClient } from '../api/util/create-server-api-client';
 import { pick } from '../common/util/object';
-import { LoginRequestSchema } from './schemas/login-request';
+import { AuthCredentialsSchema } from './schemas/auth-credentials';
 import { LoginResponseSchema } from './schemas/login-response';
-import { RegisterRequestSchema } from './schemas/register-request';
 import { SessionUserSchema } from './schemas/session-user';
 
 declare module 'next-auth' {
@@ -41,51 +39,75 @@ const apiClient = createServerApiClient(null);
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
-      async authorize(credentials) {
-        let data: LoginResponseSchema;
+      async authorize(rawCredentials) {
+        const {
+          success,
+          data: credentials,
+          error,
+        } = AuthCredentialsSchema.safeParse(rawCredentials);
+
+        if (!success) {
+          console.error(error);
+          throw new InvalidLoginError('Invalid credential schema');
+        }
+
+        let loginResponse: LoginResponseSchema;
 
         if (credentials.type === 'register') {
           try {
-            const creds = await RegisterRequestSchema.parseAsync(credentials);
-            data = await apiClient.register(creds);
+            loginResponse = await apiClient.register(credentials);
           } catch (err) {
-            if (
-              err instanceof ZodError ||
-              isErrorFromAlias(apiClient.api, 'register', err)
-            ) {
+            if (isErrorFromAlias(apiClient.api, 'register', err)) {
               throw new InvalidLoginError(
                 '¡Este correo o nombre de usuario ya está en uso!',
               );
             }
             throw err;
           }
-        } else {
+        } else if (credentials.type === 'login') {
           try {
-            const creds = await LoginRequestSchema.parseAsync(credentials);
-            data = await apiClient.login(creds);
+            loginResponse = await apiClient.login(credentials);
           } catch (err) {
-            if (
-              err instanceof ZodError ||
-              isErrorFromAlias(apiClient.api, 'login', err)
-            ) {
-              throw new InvalidLoginError('Credenciales inválidas.');
+            if (isErrorFromAlias(apiClient.api, 'login', err)) {
+              if (err.response.status === 403) {
+                throw new InvalidLoginError(
+                  'Esta cuenta usa inicio de sesión con Google.',
+                );
+              } else {
+                // Implies 401
+                if (err) throw new InvalidLoginError('Credenciales inválidas.');
+              }
             }
             throw err;
           }
+        } else if (credentials.type === 'google') {
+          try {
+            loginResponse = await apiClient.googleLogin(credentials);
+            console.log(loginResponse);
+          } catch (err) {
+            if (isErrorFromAlias(apiClient.api, 'googleLogin', err)) {
+              throw new InvalidLoginError(
+                'Este usuario no está asociado a una cuenta Google.',
+              );
+            }
+            throw err;
+          }
+        } else {
+          throw new InvalidLoginError('Invalid login type');
         }
 
         return {
-          accessToken: data.token,
+          accessToken: loginResponse.token,
           user: {
             ...pick(
-              data.user,
+              loginResponse.user,
               'id',
               'username',
               'displayName',
               'role',
               'verified',
             ),
-            hasUniversity: !!data.user.university,
+            hasUniversity: !!loginResponse.user.university,
           },
         };
       },

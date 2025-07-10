@@ -1,5 +1,5 @@
 import { routes } from '@/common/util/routes';
-import Image from 'next/image';
+import { ProfilePicture } from '@/user/components/ProfilePicture';
 import Link from 'next/link';
 import type { HTMLAttributes } from 'react';
 import type { DegreeSchema } from '../../degree/schemas/degree';
@@ -28,20 +28,12 @@ export const ResourceDetails = ({
   return (
     <div {...props}>
       <div className="flex items-center">
-        {user.profilePicture && (
-          <Link
-            href={routes.users.byUsername(user.username)}
-            className="relative mr-3 h-8 w-8"
-          >
-            <Image
-              src={user.profilePicture.url}
-              alt=""
-              fill
-              sizes="5vw"
-              className="bg-background-alt mr-2 h-8 w-8 rounded-full object-cover"
-            />
-          </Link>
-        )}
+        <Link href={routes.users.byUsername(user.username)} className="mr-3">
+          <ProfilePicture
+            profilePicture={user.profilePicture}
+            className="size-8"
+          />
+        </Link>
         <div>
           <div>
             <Link
