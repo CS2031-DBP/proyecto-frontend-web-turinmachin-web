@@ -7,20 +7,16 @@ import { isErrorFromAlias } from '@zodios/core';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { CreatePostSchema } from '../schemas/create-post';
 
-const FormSchema = z.object({
-  content: z.string().trim().nonempty(),
-  tags: z.string().array(),
-  files: z.instanceof(File).array(),
-});
+export const FormSchema = CreatePostSchema;
+export type FormSchema = z.infer<typeof FormSchema>;
 
-type FormSchema = z.infer<typeof FormSchema>;
-
-export interface UseCreatePost {
+export interface UseCreatePostOptions {
   onClose: () => void;
 }
 
-export const useCreatePost = ({ onClose }: UseCreatePost) => {
+export const useCreatePost = ({ onClose }: UseCreatePostOptions) => {
   const router = useRouter();
   const { apiClient } = useApiClient();
   const { openPopup } = usePopup();
@@ -44,8 +40,8 @@ export const useCreatePost = ({ onClose }: UseCreatePost) => {
     async (data: FormSchema) => {
       const formData = new FormData();
       formData.set('content', data.content);
-      data.tags.forEach((t) => formData.append('tags', t));
-      data.files.forEach((f) => formData.append('files', f));
+      data.tags?.forEach((t) => formData.append('tags', t));
+      data.files?.forEach((f) => formData.append('files', f));
 
       try {
         const createdPost = await apiClient.createPost(formData);
