@@ -61,6 +61,16 @@ export const AIMessage = ({ message }: Props) => {
               ),
               li: ({ children }) => <li className="mb-1">{children}</li>,
               p: ({ children }) => <p className="mb-2">{children}</p>,
+              a: ({ children, href }) => (
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-special font-semibold hover:underline"
+                >
+                  {children}
+                </a>
+              ),
             }}
           >
             {message.content}
