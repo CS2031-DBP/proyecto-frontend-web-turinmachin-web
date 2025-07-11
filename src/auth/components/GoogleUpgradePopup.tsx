@@ -21,10 +21,10 @@ export const GoogleUpgradePopup: PopupComponent<'googleUpgrade'> = ({
 
       <div className="space-y-4">
         <p className="text-center font-semibold">
-          ¿Quieres asociar tu usuario de UniLife a esta cuenta de Google
+          ¿Quieres asociar tu usuario de UniLife a esta cuenta de Google?
         </p>
         <p className="text-foreground-muted text-center">
-          ¡Esto reemplazaría el inicio de sesión por contraseña!
+          ¡Ahora podrías iniciar sesión con esta cuenta de Google!
         </p>
       </div>
 
