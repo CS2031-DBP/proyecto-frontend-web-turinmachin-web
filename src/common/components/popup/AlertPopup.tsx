@@ -1,8 +1,7 @@
 'use client';
-
 import { Button } from '@/common/components/Button';
 import { Popup } from '@/common/components/popup/Popup';
-import type { IconType } from 'react-icons'; // para tipar el ícono
+import type { IconType } from 'react-icons';
 
 export interface AlertPopupProps {
   title: string;

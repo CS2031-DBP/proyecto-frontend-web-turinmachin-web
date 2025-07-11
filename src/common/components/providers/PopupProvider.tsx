@@ -2,6 +2,7 @@
 
 import { ResetConversationAIPopup } from '@/ai/components/ResetConversationPopup';
 import { DeleteAccountPopup } from '@/auth/components/DeleteAccountPopup';
+import { GoogleUpgradePopup } from '@/auth/components/GoogleUpgradePopup';
 import { LoginPopup } from '@/auth/components/LoginPopup';
 import { RegisterPopup } from '@/auth/components/RegisterPopup';
 import { ResetPasswordConfirmationPopup } from '@/auth/components/ResetPasswordConfirmationPopup';
@@ -55,6 +56,7 @@ const PopupComponents: { [P in PopupType]: PopupComponent<P> } = {
   toxicityPost: ToxicityPostPopup,
   toxicityComment: ToxicityCommentPopup,
   resetConversationAI: ResetConversationAIPopup,
+  googleUpgrade: GoogleUpgradePopup,
 };
 
 export const PopupProvider = ({ children }: Props) => {

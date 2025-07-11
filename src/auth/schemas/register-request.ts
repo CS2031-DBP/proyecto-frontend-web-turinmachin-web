@@ -23,7 +23,7 @@ export const RegisterRequestSchema = z.object({
     .transform((s) => (!s ? undefined : s)),
   password: z
     .string()
-    .min(4, 'Tu contraseña debe tener al menos 4 caracteres.'),
+    .min(6, 'Tu contraseña debe tener al menos 6 caracteres.'),
 });
 
 export type RegisterRequestSchema = z.infer<typeof RegisterRequestSchema>;

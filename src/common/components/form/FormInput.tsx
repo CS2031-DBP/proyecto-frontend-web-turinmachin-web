@@ -26,7 +26,6 @@ export const FormInput = <T extends FieldValues>({
   label,
   name,
   required = true,
-  disabled,
   minLength,
   maxLength,
   min,
@@ -54,15 +53,14 @@ export const FormInput = <T extends FieldValues>({
         </div>
       )}
       <input
-        {...props}
         {...form.register(name, {
           required,
-          disabled,
           minLength,
           maxLength,
           min,
           max,
         })}
+        {...props}
         required={required}
         className={twMerge(
           'form-input block w-full',

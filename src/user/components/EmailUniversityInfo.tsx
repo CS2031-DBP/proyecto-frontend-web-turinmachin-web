@@ -25,7 +25,7 @@ export const EmailUniversityInfo = ({ email }: Props) => {
           .
         </>
       ) : (
-        'Este correo no le pertenece a alguna universidad que conozcamos, pero igual puedes usarlo :)'
+        'No reconocemos el dominio de este correo, pero igual puedes usarlo :)'
       )}
     </p>
   );

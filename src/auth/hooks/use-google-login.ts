@@ -7,28 +7,30 @@ import { useState } from 'react';
 import { AuthCredentialsSchema } from '../schemas/auth-credentials';
 
 export const useGoogleLogin = () => {
-  const { closePopup } = usePopup();
+  const { closePopup, openPopup } = usePopup();
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
 
   const [pending, handleSuccess] = usePendingCallback(
     async (response: CredentialResponse) => {
-      if (!response.credential) return;
+      const idToken = response.credential;
+      if (!idToken) return;
 
       setError(null);
 
-      const credentials: AuthCredentialsSchema = {
-        type: 'google',
-        idToken: response.credential,
-      };
+      const credentials: AuthCredentialsSchema = { type: 'google', idToken };
       const res = await signIn('credentials', {
         redirect: false,
         ...credentials,
       });
 
       if (res.error) {
-        console.error('signIn error:', res);
-        setError(res.code ?? 'Algo salió mal :(');
+        if (res.code?.includes('asociado')) {
+          openPopup('googleUpgrade', { idToken });
+        } else {
+          console.error('signIn error:', res);
+          setError(res.code ?? 'Algo salió mal :(');
+        }
         return;
       }
 

@@ -7,15 +7,15 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { SelfUserSchema } from '../schemas/self-user';
 import { UpdateUserSchema } from '../schemas/update-user';
-import { UserSchema } from '../schemas/user';
 import { useSessionUser } from './use-session-user';
 
 export const FormSchema = UpdateUserSchema;
 export type FormSchema = z.infer<typeof FormSchema>;
 
 export interface UseProfileEditorOptions {
-  user: UserSchema;
+  user: SelfUserSchema;
 }
 
 export const useProfileEditor = ({ user }: UseProfileEditorOptions) => {
@@ -35,6 +35,15 @@ export const useProfileEditor = ({ user }: UseProfileEditorOptions) => {
   const [pending, handleSubmit] = usePendingCallback(
     async (data: FormSchema) => {
       const res = await apiClient.updateSelf({ body: data });
+
+      if (res.status === 409) {
+        if (res.body.detail?.includes('username')) {
+          throw '¡Este nombre de usuario ya está en uso!';
+        } else {
+          throw '¡Este correo ya está en uso!';
+        }
+      }
+
       const newUser = res.body;
 
       await updateSession(newUser);

@@ -13,7 +13,6 @@ export const baseClientArgs: Partial<InitClientArgs> = {
       args.path = args.path.split('?')[0] + '?' + fixedQuery;
     }
 
-    console.log(args.path);
     return tsRestFetchApi(args);
   },
 };

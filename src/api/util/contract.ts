@@ -59,7 +59,15 @@ export const appContract = c.router(
       body: GoogleLoginRequestSchema,
       responses: {
         200: LoginResponseSchema,
-        401: DetailResponseSchema,
+        403: DetailResponseSchema,
+      },
+    },
+    googleLoginUpgrade: {
+      method: 'POST',
+      path: '/auth/oauth/google/upgrade',
+      body: GoogleLoginRequestSchema,
+      responses: {
+        200: LoginResponseSchema,
       },
     },
     resendVerificationEmail: {
@@ -119,6 +127,7 @@ export const appContract = c.router(
       body: UpdateUserSchema,
       responses: {
         200: SelfUserSchema,
+        409: DetailResponseSchema,
       },
     },
     updateSelfPicture: {

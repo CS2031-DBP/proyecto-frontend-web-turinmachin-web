@@ -79,12 +79,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         } else if (credentials.type === 'google') {
           const response = await apiClient.googleLogin({ body: credentials });
 
-          if (response.status === 401) {
+          if (response.status === 403) {
             throw new InvalidLoginError(
               'Este usuario no está asociado a una cuenta Google.',
             );
           }
 
+          loginResponse = response.body;
+        } else if (credentials.type === 'googleUpgrade') {
+          const response = await apiClient.googleLoginUpgrade({
+            body: credentials,
+          });
           loginResponse = response.body;
         } else {
           throw new InvalidLoginError('Invalid login type');

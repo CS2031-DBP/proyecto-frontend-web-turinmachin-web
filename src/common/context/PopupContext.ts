@@ -20,7 +20,8 @@ export type PopupType =
   | 'deleteDegree'
   | 'toxicityPost'
   | 'toxicityComment'
-  | 'resetConversationAI';
+  | 'resetConversationAI'
+  | 'googleUpgrade';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface PopupArgs extends Record<PopupType, {}> {
@@ -35,6 +36,9 @@ export interface PopupArgs extends Record<PopupType, {}> {
   };
   resetConversationAI: {
     resetConversation: () => Promise<void>;
+  };
+  googleUpgrade: {
+    idToken: string;
   };
 }
 

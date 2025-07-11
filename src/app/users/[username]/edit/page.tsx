@@ -30,15 +30,17 @@ const EditUserPage = async ({ params }: Readonly<Props>) => {
       <PageTitle backHref={routes.users.byUsername(username)}>
         Editar cuenta
       </PageTitle>
-      <div className="mb-2 flex justify-end">
-        <Link
-          href={routes.users.changePasswordByUsername(username)}
-          className="button-outline"
-        >
-          <LuKey className="mr-2 mb-1 inline" />
-          Cambiar contraseña
-        </Link>
-      </div>
+      {user.authProvider === 'CREDENTIALS' && (
+        <div className="mb-2 flex justify-end">
+          <Link
+            href={routes.users.changePasswordByUsername(username)}
+            className="button-outline"
+          >
+            <LuKey className="mr-2 mb-1 inline" />
+            Cambiar contraseña
+          </Link>
+        </div>
+      )}
       <ProfileEditor session={session} user={user} />
     </Main>
   );

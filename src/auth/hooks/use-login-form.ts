@@ -28,7 +28,6 @@ export const useLoginForm = ({ onClose }: UseLoginFormOptions) => {
   const [pending, handleSubmit] = usePendingCallback(
     async (data: FormSchema) => {
       const credentials: AuthCredentialsSchema = { type: 'login', ...data };
-      console.log('creds:', credentials);
       const res = await signIn('credentials', {
         redirect: false,
         ...credentials,

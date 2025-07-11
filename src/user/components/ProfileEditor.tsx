@@ -9,16 +9,17 @@ import { DegreeSelector } from '@/degree/components/DegreeSelector';
 import { Session } from 'next-auth';
 import Image from 'next/image';
 import { useRef } from 'react';
+import { FcGoogle } from 'react-icons/fc';
 import { LuInfo } from 'react-icons/lu';
 import { useProfileEditor } from '../hooks/use-profile-editor';
 import { useProfilePictureEditor } from '../hooks/use-profile-picture-editor';
-import { UserSchema } from '../schemas/user';
+import { SelfUserSchema } from '../schemas/self-user';
 import { DeleteAccountButton } from './DeleteAccountButton';
 import { EmailUniversityInfo } from './EmailUniversityInfo';
 
 export interface Props {
   session: Session;
-  user: UserSchema;
+  user: SelfUserSchema;
 }
 
 export const ProfileEditor = ({ session, user }: Props) => {
@@ -81,8 +82,17 @@ export const ProfileEditor = ({ session, user }: Props) => {
           name="email"
           type="email"
           label="Correo electrónico"
+          disabled={user.authProvider !== 'CREDENTIALS'}
         >
-          <EmailUniversityInfo email={email} />
+          <div className="mt-3 flex items-center justify-between gap-x-6 gap-y-3 not-md:flex-col not-md:items-start">
+            <EmailUniversityInfo email={email} />
+            {user.authProvider === 'GOOGLE' && (
+              <div className="text-success-foreground flex items-center gap-x-2">
+                <FcGoogle className="text-foreground size-6" />
+                <p className="text-nowrap">Correo gestionado por Google</p>
+              </div>
+            )}
+          </div>
         </FormInput>
         <FormInput form={form} name="username" label="Nombre de usuario" />
         <FormInput
