@@ -25,14 +25,14 @@ export const TagInput = ({
     <div
       {...props}
       className={twMerge(
-        'form-input has-focus:border-special flex items-center',
+        'form-input has-focus:border-special flex min-w-0 items-center',
         className,
       )}
     >
       <LuTag className="text-foreground-muted mx-1 size-5 min-w-5" />
-      <div className="flex min-w-0 grow flex-wrap items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2 overflow-hidden">
         {value.map((tag) => (
-          <span
+          <div
             key={tag}
             className="bg-background-alt inline-flex items-center rounded-full px-3 py-1 text-sm"
           >
@@ -44,7 +44,7 @@ export const TagInput = ({
             >
               <LuX className="inline" strokeWidth={3} />
             </button>
-          </span>
+          </div>
         ))}
         <input
           placeholder="Tags"
@@ -63,7 +63,7 @@ export const TagInput = ({
           }
           onKeyDown={handleKeyDown}
           className={twMerge(
-            'ml-2 min-w-0 grow py-0.5 outline-none',
+            'ml-2 min-w-0 flex-shrink-0 flex-grow basis-30 py-0.5 outline-none',
             inputClassName,
           )}
         />

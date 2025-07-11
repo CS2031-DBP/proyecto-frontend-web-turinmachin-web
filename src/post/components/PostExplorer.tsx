@@ -40,7 +40,7 @@ export const PostExplorer = ({ session }: Props) => {
           />
         </div>
         <div className="flex w-full gap-x-2 gap-y-2 not-xl:flex-col">
-          <div className="flex gap-x-2 xl:max-w-120">
+          <div className="flex gap-x-2 xl:max-w-100">
             <UniversitySelector
               value={universityId}
               onChange={setUniversityId}
