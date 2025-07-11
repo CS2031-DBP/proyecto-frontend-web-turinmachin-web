@@ -57,7 +57,8 @@ export const TagInput = ({
                 .toLowerCase()
                 .replace(/[^a-z0-9-_]/, '')
                 .replace(/-+/, '-')
-                .replace(/_+/, '_'),
+                .replace(/_+/, '_')
+                .substring(0, 20),
             )
           }
           onKeyDown={handleKeyDown}
