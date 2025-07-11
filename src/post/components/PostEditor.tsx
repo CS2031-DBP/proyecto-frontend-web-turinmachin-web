@@ -23,6 +23,7 @@ export const PostEditor = ({ post }: Props) => {
       <FormTextArea
         form={form}
         name="content"
+        autoComplete="off"
         placeholder="Piensa en algo interesante..."
       />
       <TagInput value={tags} setValue={setTags} />

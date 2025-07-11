@@ -124,6 +124,7 @@ export const ProfileEditor = ({ session, user }: Props) => {
           form={form}
           name="bio"
           label="Bio"
+          autoComplete="off"
           placeholder="Algo interesante sobre tí..."
           rows={6}
           required={false}

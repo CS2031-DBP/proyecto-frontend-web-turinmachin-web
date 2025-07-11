@@ -36,6 +36,7 @@ export const CommentForm = ({
       <FormTextArea
         form={form}
         name="content"
+        autoComplete="off"
         placeholder={
           session === null
             ? '¡Inicia sesión para comentar!'
