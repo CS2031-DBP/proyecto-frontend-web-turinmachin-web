@@ -27,6 +27,7 @@ import { z } from 'zod';
 import { DetailResponseSchema } from '../schemas/detail-response';
 
 import { CreatePostSchema } from '@/post/schemas/create-post';
+import { SelfUserSchema } from '@/user/schemas/self-user';
 import { initContract } from '@ts-rest/core';
 
 const c = initContract();
@@ -109,7 +110,7 @@ export const appContract = c.router(
       method: 'GET',
       path: '/users/@self',
       responses: {
-        200: UserSchema,
+        200: SelfUserSchema,
       },
     },
     updateSelf: {
@@ -117,7 +118,7 @@ export const appContract = c.router(
       path: '/users/@self',
       body: UpdateUserSchema,
       responses: {
-        200: UserSchema,
+        200: SelfUserSchema,
       },
     },
     updateSelfPicture: {
@@ -126,7 +127,7 @@ export const appContract = c.router(
       contentType: 'multipart/form-data',
       body: z.object({ picture: z.instanceof(File) }),
       responses: {
-        200: UserSchema,
+        200: SelfUserSchema,
       },
     },
     deleteSelfPicture: {

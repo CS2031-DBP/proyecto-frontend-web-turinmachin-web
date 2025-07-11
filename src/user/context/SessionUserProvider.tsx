@@ -1,5 +1,4 @@
 'use client';
-
 import { Session } from 'next-auth';
 import { ReactNode } from 'react';
 import { useSessionUserProvider } from '../hooks/use-session-user-provider';
