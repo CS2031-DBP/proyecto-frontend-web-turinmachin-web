@@ -1,7 +1,6 @@
 import { useApiClient } from '@/api/hooks/use-api-client';
 import { extractEmailDomain } from '@/common/util/string';
 import { UniversitySchema } from '@/university/schemas/university';
-import { isErrorFromAlias } from '@zodios/core';
 import { useCallback, useEffect, useState } from 'react';
 
 export const useUniversityEmailInfo = (email: string) => {
@@ -15,18 +14,11 @@ export const useUniversityEmailInfo = (email: string) => {
   const fetchUniversity = useCallback(
     async (emailDomain: string) => {
       try {
-        const foundUniversity = await apiClient.getUniversityByEmailDomain({
+        const res = await apiClient.getUniversityByEmailDomain({
           params: { emailDomain },
         });
-        setUniversity(foundUniversity);
-      } catch (err) {
-        if (
-          isErrorFromAlias(apiClient.api, 'getUniversityByEmailDomain', err)
-        ) {
-          setUniversity(null);
-        } else {
-          throw err;
-        }
+
+        setUniversity(res.status === 404 ? null : res.body);
       } finally {
         setPending(false);
       }

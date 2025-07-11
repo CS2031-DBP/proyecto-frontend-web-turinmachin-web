@@ -16,7 +16,7 @@ export const useDeleteDegree = ({
   const { apiClient } = useApiClient();
 
   const [pending, deleteDegree] = usePendingCallback(async () => {
-    await apiClient.removeDegree(undefined, { params: { id: degreeId } });
+    await apiClient.removeDegree({ params: { id: degreeId } });
     onClose();
     router.push(routes.degrees.root);
   }, [apiClient, degreeId, onClose]);

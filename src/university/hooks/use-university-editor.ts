@@ -35,10 +35,11 @@ export const useUniversityEditor = ({
 
   const [pending, handleSubmit] = usePendingCallback(
     async (data: FormSchema) => {
-      const createdUniversity = await apiClient.updateUniversity(data, {
+      const res = await apiClient.updateUniversity({
         params: { id: university.id },
+        body: data,
       });
-      router.push(routes.universities.byId(createdUniversity.id));
+      router.push(routes.universities.byId(res.body.id));
     },
     [router, apiClient],
   );

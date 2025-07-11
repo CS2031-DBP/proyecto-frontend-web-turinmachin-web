@@ -8,7 +8,7 @@ export const useDeleteSelfAccount = () => {
   const router = useRouter();
 
   const [pending, deleteSelfAccount] = usePendingCallback(async () => {
-    await apiClient.deleteSelf(undefined);
+    await apiClient.deleteSelf();
     await signOut({ redirect: false });
     window.location.reload();
   }, [apiClient, router]);

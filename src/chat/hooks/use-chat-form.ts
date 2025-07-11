@@ -1,4 +1,3 @@
-import { useApiClient } from '@/api/hooks/use-api-client';
 import { usePendingCallback } from '@/common/hooks/use-pending';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -15,7 +14,6 @@ export type FormSchema = z.infer<typeof FormSchema>;
 
 export const useChatForm = ({ recipientId }: UseChatFormOptions) => {
   const { supabase } = useSupabase();
-  const { apiClient } = useApiClient();
 
   const form = useForm({
     resolver: zodResolver(FormSchema),
@@ -33,7 +31,7 @@ export const useChatForm = ({ recipientId }: UseChatFormOptions) => {
         to_id: recipientId,
       });
     },
-    [apiClient],
+    [supabase],
   );
 
   return { form, pending, handleSubmit };

@@ -1,4 +1,4 @@
-import { createServerApiClient } from '@/api/util/create-server-api-client';
+import { createServerApiClient } from '@/api/util/server';
 import { auth } from '@/auth';
 import { Main } from '@/common/components/layout/Main';
 import { PageTitle } from '@/common/components/layout/PageTitle';
@@ -23,13 +23,7 @@ const EditUserPage = async ({ params }: Readonly<Props>) => {
   }
 
   const apiClient = createServerApiClient(session);
-  const user = await apiClient.getSelf();
-
-  const availableDegrees = user.university
-    ? await apiClient.getAllDegrees({
-        queries: { universityId: user.university?.id },
-      })
-    : null;
+  const { body: user } = await apiClient.getSelf();
 
   return (
     <Main>
@@ -45,11 +39,7 @@ const EditUserPage = async ({ params }: Readonly<Props>) => {
           Cambiar contraseña
         </Link>
       </div>
-      <ProfileEditor
-        session={session}
-        user={user}
-        availableDegrees={availableDegrees}
-      />
+      <ProfileEditor session={session} user={user} />
     </Main>
   );
 };

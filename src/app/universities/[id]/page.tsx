@@ -1,13 +1,11 @@
-import { createServerApiClient } from '@/api/util/create-server-api-client';
+import { createServerApiClient } from '@/api/util/server';
 import { auth } from '@/auth';
 import { Main } from '@/common/components/layout/Main';
 import { routes } from '@/common/util/routes';
 import { quantify } from '@/common/util/string';
 import { PostListing } from '@/post/components/PostListing';
 import { DeleteUniversityButton } from '@/university/components/DeleteUniversityButton';
-import { UniversityWithStatsSchema } from '@/university/schemas/university-with-stats';
 import { isSessionAdmin } from '@/user/util';
-import { isErrorFromAlias } from '@zodios/core';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { LuLink, LuPencil, LuUser } from 'react-icons/lu';
@@ -16,23 +14,21 @@ export interface Props {
   params: Promise<{ id: string }>;
 }
 
-const University = async ({ params }: Readonly<Props>) => {
+const UniversityPage = async ({ params }: Readonly<Props>) => {
   const session = await auth();
   const apiClient = createServerApiClient(session);
 
   const { id: universityId } = await params;
 
-  let university: UniversityWithStatsSchema;
-  try {
-    university = await apiClient.getUniversityWithStatsById({
-      params: { id: universityId },
-    });
-  } catch (err) {
-    if (isErrorFromAlias(apiClient.api, 'getUniversityById', err)) {
-      return notFound();
-    }
-    throw err;
+  const response = await apiClient.getUniversityWithStatsById({
+    params: { id: universityId },
+  });
+
+  if (response.status !== 200) {
+    return notFound();
   }
+
+  const university = response.body;
 
   return (
     <Main className="">
@@ -86,4 +82,4 @@ const University = async ({ params }: Readonly<Props>) => {
   );
 };
 
-export default University;
+export default UniversityPage;

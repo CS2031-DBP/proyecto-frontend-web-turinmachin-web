@@ -1,9 +1,9 @@
-import { createServerApiClient } from '@/api/util/create-server-api-client';
+import { createServerApiClient } from '@/api/util/server';
 import { auth } from '@/auth';
 import { Main } from '@/common/components/layout/Main';
 import { routes } from '@/common/util/routes';
 import { PostEditor } from '@/post/components/PostEditor';
-import { redirect } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 
 export interface Props {
   params: Promise<{ id: string }>;
@@ -15,7 +15,12 @@ const EditPost = async ({ params }: Props) => {
   const session = await auth();
   const apiClient = createServerApiClient(session);
 
-  const post = await apiClient.getPost({ params: { id: postId } });
+  const response = await apiClient.getPost({ params: { id: postId } });
+  if (response.status !== 200) {
+    return notFound();
+  }
+
+  const post = response.body;
 
   if (session?.user.id !== post.author.id) {
     return redirect(routes.posts.byId(post.id));

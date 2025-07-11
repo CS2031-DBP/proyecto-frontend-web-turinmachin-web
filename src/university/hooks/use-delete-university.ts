@@ -16,7 +16,7 @@ export const useDeleteUniversity = ({
   const { apiClient } = useApiClient();
 
   const [pending, deleteUniversity] = usePendingCallback(async () => {
-    await apiClient.removeUniversity(undefined, {
+    await apiClient.removeUniversity({
       params: { id: universityId },
     });
     onClose();

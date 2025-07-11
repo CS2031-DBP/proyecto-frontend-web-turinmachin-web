@@ -1,4 +1,4 @@
-import { createServerApiClient } from '@/api/util/create-server-api-client';
+import { createServerApiClient } from '@/api/util/server';
 import { auth } from '@/auth';
 import { CommentSection } from '@/comment/components/CommentSection';
 import { Dropdown } from '@/common/components/Dropdown';
@@ -9,9 +9,7 @@ import { routes } from '@/common/util/routes';
 import { DeletePostButton } from '@/post/components/DeletePostButton';
 import { PostActionBar } from '@/post/components/PostActionBar';
 import { TagList } from '@/post/components/TagList';
-import { PostSchema } from '@/post/schemas/post';
 import { sessionHasRights } from '@/user/util';
-import { isErrorFromAlias } from '@zodios/core';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { LuEllipsis, LuPencil } from 'react-icons/lu';
@@ -25,17 +23,13 @@ const Post = async ({ params }: Readonly<Props>) => {
   const session = await auth();
   const apiClient = createServerApiClient(session);
 
-  let post: PostSchema;
+  const response = await apiClient.getPost({ params: { id: postId } });
 
-  try {
-    post = await apiClient.getPost({ params: { id: postId } });
-  } catch (err) {
-    if (isErrorFromAlias(apiClient.api, 'getPost', err)) {
-      notFound();
-    }
-
-    throw err;
+  if (response.status !== 200) {
+    return notFound();
   }
+
+  const post = response.body;
 
   return (
     <Main>

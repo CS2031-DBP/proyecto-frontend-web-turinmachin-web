@@ -1,12 +1,10 @@
-import { createServerApiClient } from '@/api/util/create-server-api-client';
+import { createServerApiClient } from '@/api/util/server';
 import notFound from '@/app/not-found';
 import { auth } from '@/auth';
 import { Main } from '@/common/components/layout/Main';
 import { routes } from '@/common/util/routes';
 import { UniversityEditor } from '@/university/components/UniversityEditor';
-import { UniversitySchema } from '@/university/schemas/university';
 import { isSessionAdmin } from '@/user/util';
-import { isErrorFromAlias } from '@zodios/core';
 import { redirect } from 'next/navigation';
 
 export interface Props {
@@ -23,30 +21,26 @@ const EditUniversity = async ({ params }: Readonly<Props>) => {
     return redirect(routes.universities.byId(universityId));
   }
 
-  let university: UniversitySchema;
-  try {
-    university = await apiClient.getUniversityById({
-      params: { id: universityId },
-    });
-  } catch (err) {
-    if (isErrorFromAlias(apiClient.api, 'getUniversityById', err)) {
-      return notFound();
-    }
-    throw err;
+  const universityResponse = await apiClient.getUniversityById({
+    params: { id: universityId },
+  });
+
+  if (universityResponse.status !== 200) {
+    return notFound();
   }
 
-  const universityDegrees = await apiClient.getAllDegrees({
-    queries: { universityId },
+  const degreesResponse = await apiClient.getAllDegrees({
+    query: { universityId },
   });
-  const availableDegrees = await apiClient.getAllDegrees();
+  const allDegreesResponse = await apiClient.getAllDegrees();
 
   return (
     <Main>
       <h1 className="mb-8 text-2xl font-semibold">Editar universidad</h1>
       <UniversityEditor
-        availableDegrees={availableDegrees}
-        university={university}
-        universityDegrees={universityDegrees}
+        availableDegrees={allDegreesResponse.body}
+        university={universityResponse.body}
+        universityDegrees={degreesResponse.body}
       />
     </Main>
   );

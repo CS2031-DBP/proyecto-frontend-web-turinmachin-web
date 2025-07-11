@@ -4,7 +4,6 @@ import { useApiClient } from '@/api/hooks/use-api-client';
 import { usePendingCallback } from '@/common/hooks/use-pending';
 import { usePopup } from '@/common/hooks/use-popup';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { isErrorFromAlias } from '@zodios/core';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -28,22 +27,20 @@ export const useResetPasswordForm = (onClose: () => void) => {
   const [pending, handleSubmit] = usePendingCallback(
     async ({ email }) => {
       try {
-        await apiClient.requestPasswordReset({ email });
+        const res = await apiClient.requestPasswordReset({ body: { email } });
+
+        if (res.status === 404) {
+          throw 'No se encontró una cuenta con ese correo.';
+        }
+
+        if (res.status === 409) {
+          throw 'Ya se ha enviado una solicitud de restablecimiento recientemente.';
+        }
+
         onClose();
         openPopup('resetPasswordConfirmation', {});
       } catch (err) {
-        if (isErrorFromAlias(apiClient.api, 'requestPasswordReset', err)) {
-          const status = err.response?.status;
-
-          if (status === 404) {
-            throw 'No se encontró una cuenta con ese correo.';
-          }
-
-          if (status === 409) {
-            throw 'Ya se ha enviado una solicitud de restablecimiento recientemente.';
-          }
-        }
-
+        console.error(err);
         throw 'Ocurrió un error al intentar enviar el correo. Intenta nuevamente.';
       }
     },

@@ -22,10 +22,10 @@ export const useVoteButtons = ({
     if (session === null) return;
 
     if (localCurrentVote === 1) {
-      await apiClient.removePostVote(undefined, { params: { id: postId } });
+      await apiClient.removePostVote({ params: { id: postId } });
       setLocalCurrentVote(0);
     } else {
-      await apiClient.upvotePost(undefined, { params: { id: postId } });
+      await apiClient.upvotePost({ params: { id: postId } });
       setLocalCurrentVote(1);
     }
   };
@@ -34,10 +34,10 @@ export const useVoteButtons = ({
     if (session === null) return;
 
     if (localCurrentVote === -1) {
-      await apiClient.removePostVote(undefined, { params: { id: postId } });
+      await apiClient.removePostVote({ params: { id: postId } });
       setLocalCurrentVote(0);
     } else {
-      await apiClient.downvotePost(undefined, { params: { id: postId } });
+      await apiClient.downvotePost({ params: { id: postId } });
       setLocalCurrentVote(-1);
     }
   };

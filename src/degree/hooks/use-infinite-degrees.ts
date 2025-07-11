@@ -1,12 +1,14 @@
 import { useApiClient } from '@/api/hooks/use-api-client';
-import { Api } from '@/api/util/api';
+import { appContract } from '@/api/util/contract';
 import { useViewTrigger } from '@/common/hooks/use-view-trigger';
-import { ZodiosQueryParamsByAlias } from '@zodios/core';
+import { ClientInferRequest } from '@ts-rest/core';
 import { RefObject, useEffect, useState } from 'react';
 import useSWRInfinite from 'swr/infinite';
 import { DegreePageSchema } from '../schemas/degree';
 
-export type Queries = ZodiosQueryParamsByAlias<Api, 'getDegrees'>;
+export type Queries = ClientInferRequest<
+  typeof appContract.getDegrees
+>['query'];
 
 export interface UseUniversities {
   queries?: Queries;
@@ -39,8 +41,8 @@ export const useInfiniteDegrees = ({ queries, loaderRef }: UseUniversities) => {
     isValidating,
     setSize,
     mutate,
-  } = useSWRInfinite(getKey, ([, queries]) =>
-    apiClient.getDegrees({ queries }),
+  } = useSWRInfinite(getKey, ([, query]) =>
+    apiClient.getDegrees({ query }).then((res) => res.body),
   );
 
   useEffect(() => {

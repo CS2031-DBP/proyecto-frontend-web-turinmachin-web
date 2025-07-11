@@ -1,4 +1,4 @@
-import { createServerApiClient } from '@/api/util/create-server-api-client';
+import { createServerApiClient } from '@/api/util/server';
 import { auth } from '@/auth';
 import { SignOutButton } from '@/auth/components/SignOutButton';
 import { Main } from '@/common/components/layout/Main';
@@ -8,9 +8,7 @@ import { PostListing } from '@/post/components/PostListing';
 import { ModDeleteAccountButton } from '@/user/components/ModDeleteAccountButton';
 import { ResendVerificationButton } from '@/user/components/ResendVerificationButton';
 import { RoleSelector } from '@/user/components/RoleSelector';
-import { UserSchema } from '@/user/schemas/user';
 import { isSessionAdmin } from '@/user/util';
-import { isErrorFromAlias } from '@zodios/core';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -28,22 +26,17 @@ export interface Props {
   params: Promise<{ username: string }>;
 }
 
-const User = async ({ params }: Readonly<Props>) => {
+const UserPage = async ({ params }: Readonly<Props>) => {
   const { username } = await params;
   const session = await auth();
   const apiClient = createServerApiClient(session);
 
-  let user: UserSchema;
-
-  try {
-    user = await apiClient.getUserByUsername({ params: { username } });
-  } catch (err) {
-    if (isErrorFromAlias(apiClient.api, 'getUserByUsername', err)) {
-      return notFound();
-    }
-    throw err;
+  const response = await apiClient.getUserByUsername({ params: { username } });
+  if (response.status === 404) {
+    return notFound();
   }
 
+  const user = response.body;
   const isSelf = user.id === session?.user.id;
 
   const joinedAt = day(user.createdAt).locale('es').format('MMMM [de] YYYY');
@@ -167,4 +160,4 @@ const User = async ({ params }: Readonly<Props>) => {
   );
 };
 
-export default User;
+export default UserPage;

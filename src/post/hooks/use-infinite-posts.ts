@@ -1,12 +1,12 @@
 import { useApiClient } from '@/api/hooks/use-api-client';
-import { Api } from '@/api/util/api';
+import { appContract } from '@/api/util/contract';
 import { useViewTrigger } from '@/common/hooks/use-view-trigger';
-import { ZodiosQueryParamsByAlias } from '@zodios/core';
+import { ClientInferRequest } from '@ts-rest/core';
 import { RefObject, useEffect, useState } from 'react';
 import useSWRInfinite from 'swr/infinite';
 import { PostPageSchema } from '../schemas/post';
 
-export type Queries = ZodiosQueryParamsByAlias<Api, 'getPosts'>;
+export type Queries = ClientInferRequest<typeof appContract.getPosts>['query'];
 
 export interface UsePostsOptions {
   queries?: Queries;
@@ -39,7 +39,9 @@ export const useInfinitePosts = ({ queries, loaderRef }: UsePostsOptions) => {
     isValidating,
     setSize,
     mutate,
-  } = useSWRInfinite(getKey, ([, queries]) => apiClient.getPosts({ queries }));
+  } = useSWRInfinite(getKey, ([, query]) =>
+    apiClient.getPosts({ query }).then((res) => res.body),
+  );
 
   useEffect(() => {
     setFinished(false);

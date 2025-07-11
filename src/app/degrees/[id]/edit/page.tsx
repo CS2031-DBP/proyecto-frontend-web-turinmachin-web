@@ -1,12 +1,10 @@
-import { createServerApiClient } from '@/api/util/create-server-api-client';
+import { createServerApiClient } from '@/api/util/server';
 import notFound from '@/app/not-found';
 import { auth } from '@/auth';
 import { Main } from '@/common/components/layout/Main';
 import { routes } from '@/common/util/routes';
 import { DegreeEditor } from '@/degree/components/DegreeEditor';
-import { DegreeSchema } from '@/degree/schemas/degree';
 import { isSessionAdmin } from '@/user/util';
-import { isErrorFromAlias } from '@zodios/core';
 import { redirect } from 'next/navigation';
 
 export interface Props {
@@ -23,22 +21,18 @@ const EditDegree = async ({ params }: Readonly<Props>) => {
     return redirect(routes.degrees.byId(degreeId));
   }
 
-  let degree: DegreeSchema;
-  try {
-    degree = await apiClient.getDegreeById({
-      params: { id: degreeId },
-    });
-  } catch (err) {
-    if (isErrorFromAlias(apiClient.api, 'getDegreeById', err)) {
-      return notFound();
-    }
-    throw err;
+  const response = await apiClient.getDegreeById({
+    params: { id: degreeId },
+  });
+
+  if (response.status !== 200) {
+    return notFound();
   }
 
   return (
     <Main>
       <h1 className="mb-8 text-2xl font-semibold">Editar carrera</h1>
-      <DegreeEditor degree={degree} />
+      <DegreeEditor degree={response.body} />
     </Main>
   );
 };

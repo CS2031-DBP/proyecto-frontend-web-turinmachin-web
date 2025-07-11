@@ -16,7 +16,7 @@ export const useSessionUserProvider = ({
 
   const swr = useSWR<UserSchema | null>(
     key,
-    () => (session ? apiClient.getSelf() : null),
+    () => (session ? apiClient.getSelf().then((res) => res.body) : null),
     {
       revalidateOnFocus: !!session,
       revalidateIfStale: !!session,

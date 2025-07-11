@@ -8,7 +8,7 @@ export const useDeletePost = (postId: string) => {
   const { apiClient } = useApiClient();
 
   const [pending, deletePost] = usePendingCallback(async () => {
-    await apiClient.deletePost(undefined, { params: { id: postId } });
+    await apiClient.deletePost({ params: { id: postId } });
     router.push(routes.home);
   }, [router, apiClient, postId]);
 

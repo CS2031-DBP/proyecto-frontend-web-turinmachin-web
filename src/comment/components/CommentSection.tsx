@@ -1,5 +1,4 @@
 'use client';
-
 import { Button } from '@/common/components/Button';
 import { Spinner } from '@/common/components/Spinner';
 import { Session } from 'next-auth';

@@ -1,17 +1,17 @@
 import { useApiClient } from '@/api/hooks/use-api-client';
-import { Api } from '@/api/util/api';
-import { ZodiosQueryParamsByAlias } from '@zodios/core';
+import { appContract } from '@/api/util/contract';
+import { ClientInferRequest } from '@ts-rest/core';
 import useSWR from 'swr';
 
 export interface UseUsersOptions {
-  queries?: ZodiosQueryParamsByAlias<Api, 'getUsers'>;
+  queries?: ClientInferRequest<typeof appContract.getUsers>['query'];
 }
 
-export const useUsers = ({ queries }: UseUsersOptions = {}) => {
+export const useUsers = ({ queries: query }: UseUsersOptions = {}) => {
   const { apiClient } = useApiClient();
 
-  const { data, error, isLoading, mutate } = useSWR(['users', queries], () =>
-    apiClient.getUsers({ queries }),
+  const { data, error, isLoading, mutate } = useSWR(['users', query], () =>
+    apiClient.getUsers({ query }).then((res) => res.body),
   );
 
   const retry = async () => {

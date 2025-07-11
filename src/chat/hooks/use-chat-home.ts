@@ -33,7 +33,11 @@ export const useChatHome = ({ session }: UseChatHomeOptions) => {
     const users = await Promise.allSettled(userPromises);
     setRecentUsers(
       users
-        .map((result) => (result.status === 'fulfilled' ? result.value : null))
+        .map((result) =>
+          result.status === 'fulfilled' && result.value.status === 200
+            ? result.value.body
+            : null,
+        )
         .filter((user) => user !== null),
     );
   }, [supabase, session.user.id, apiClient]);

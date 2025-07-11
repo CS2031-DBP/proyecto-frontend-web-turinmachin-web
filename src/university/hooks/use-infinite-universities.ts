@@ -1,12 +1,14 @@
 import { useApiClient } from '@/api/hooks/use-api-client';
-import { Api } from '@/api/util/api';
+import { appContract } from '@/api/util/contract';
 import { useViewTrigger } from '@/common/hooks/use-view-trigger';
-import { ZodiosQueryParamsByAlias } from '@zodios/core';
+import { ClientInferRequest } from '@ts-rest/core';
 import { RefObject, useEffect, useState } from 'react';
 import useSWRInfinite from 'swr/infinite';
 import { UniversityPageSchema } from '../schemas/university';
 
-export type Queries = ZodiosQueryParamsByAlias<Api, 'getUniversities'>;
+export type Queries = ClientInferRequest<
+  typeof appContract.getUniversities
+>['query'];
 
 export interface UseUniversities {
   queries?: Queries;
@@ -42,8 +44,8 @@ export const useInfiniteUniversities = ({
     isValidating,
     setSize,
     mutate,
-  } = useSWRInfinite(getKey, ([, queries]) =>
-    apiClient.getUniversities({ queries }),
+  } = useSWRInfinite(getKey, ([, query]) =>
+    apiClient.getUniversities({ query }).then((res) => res.body),
   );
 
   useEffect(() => {

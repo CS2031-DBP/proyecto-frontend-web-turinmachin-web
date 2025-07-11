@@ -1,8 +1,8 @@
 'use client';
 
-import { api } from '@/api/util/api';
+import { appContract } from '@/api/util/contract';
 import { Spinner } from '@/common/components/Spinner';
-import { ZodiosQueryParamsByAlias } from '@zodios/core';
+import { ClientInferRequest } from '@ts-rest/core';
 import { Session } from 'next-auth';
 import { useRef, type HTMLAttributes } from 'react';
 import { LuFileSearch, LuGhost } from 'react-icons/lu';
@@ -12,7 +12,7 @@ import { PostCard } from './PostCard';
 
 export interface Props extends HTMLAttributes<HTMLUListElement> {
   session: Session | null;
-  queries?: Omit<ZodiosQueryParamsByAlias<typeof api, 'getPosts'>, 'page'>;
+  queries?: ClientInferRequest<typeof appContract.getPosts>['query'];
 }
 
 export const PostListing = ({

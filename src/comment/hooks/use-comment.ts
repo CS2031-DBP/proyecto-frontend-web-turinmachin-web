@@ -14,7 +14,7 @@ export const useCommentControls = ({
   const { apiClient } = useApiClient();
 
   const deleteSelf = async () => {
-    await apiClient.deletePostComment(undefined, {
+    await apiClient.deletePostComment({
       params: { id: postId, commentId },
     });
     await mutate(['comments', postId]);

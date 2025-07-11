@@ -24,8 +24,8 @@ export const useDegreeCreator = () => {
 
   const [pending, handleSubmit] = usePendingCallback(
     async (data: FormSchema) => {
-      const createdDegree = await apiClient.createDegree(data);
-      router.push(routes.degrees.byId(createdDegree.id));
+      const res = await apiClient.createDegree({ body: data });
+      router.push(routes.degrees.byId(res.body.id));
     },
     [router, apiClient],
   );

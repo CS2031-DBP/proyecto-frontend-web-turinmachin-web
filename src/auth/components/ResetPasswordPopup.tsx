@@ -1,6 +1,4 @@
-// components/popups/ResetPasswordPopup.tsx
 'use client';
-
 import { Button } from '@/common/components/Button';
 import { Form } from '@/common/components/form/Form';
 import { FormInput } from '@/common/components/form/FormInput';
