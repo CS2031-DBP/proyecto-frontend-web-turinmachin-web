@@ -18,8 +18,8 @@ export const useAIConversation = ({
 
     const fetchMessages = async () => {
       try {
-        const data = await apiClient.getConversation();
-        setMessages(data);
+        const res = await apiClient.getConversation();
+        setMessages(res.body);
       } finally {
         setLoading(false);
       }
@@ -42,8 +42,8 @@ export const useAIConversation = ({
     setMessages((prev) => [...prev, tempUserMessage]);
 
     try {
-      const response = await apiClient.sendMessage({ content });
-      setMessages((prev) => [...prev, response]);
+      const res = await apiClient.sendMessage({ body: { content } });
+      setMessages((prev) => [...prev, res.body]);
     } finally {
       setSending(false);
     }

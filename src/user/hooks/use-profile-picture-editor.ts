@@ -22,7 +22,9 @@ export const useProfilePictureEditor = ({
       const picture = e.currentTarget.files?.[0];
       if (!picture) return;
 
-      const newUser = await apiClient.updateSelfPicture({ picture });
+      const res = await apiClient.updateSelfPicture({ body: { picture } });
+      const newUser = res.body;
+
       await mutateUser(newUser);
       setPictureUrl(newUser.profilePicture!.url);
     },

@@ -1,4 +1,4 @@
-import { createServerApiClient } from '@/api/util/create-server-api-client';
+import { createServerApiClient } from '@/api/util/server';
 import { auth } from '@/auth';
 import { Main } from '@/common/components/layout/Main';
 import { routes } from '@/common/util/routes';
@@ -20,12 +20,12 @@ const AddUniversity = async ({ params }: Readonly<Props>) => {
     return redirect(routes.universities.byId(universityId));
   }
 
-  const availableDegrees = await apiClient.getAllDegrees();
+  const response = await apiClient.getAllDegrees();
 
   return (
     <Main>
       <h1 className="mb-8 text-2xl font-semibold">Añadir universidad</h1>
-      <UniversityCreator availableDegrees={availableDegrees} />
+      <UniversityCreator availableDegrees={response.body} />
     </Main>
   );
 };

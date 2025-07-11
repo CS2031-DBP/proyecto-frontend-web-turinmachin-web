@@ -27,8 +27,8 @@ export const useUniversityCreator = () => {
 
   const [pending, handleSubmit] = usePendingCallback(
     async (data: FormSchema) => {
-      const createdUniversity = await apiClient.createUniversity(data);
-      router.push(routes.universities.byId(createdUniversity.id));
+      const res = await apiClient.createUniversity({ body: data });
+      router.push(routes.universities.byId(res.body.id));
     },
     [router, apiClient],
   );

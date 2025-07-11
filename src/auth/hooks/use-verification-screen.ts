@@ -21,7 +21,7 @@ export const useVerificationScreen = () => {
   const doVerification = useCallback(
     async (verificationId: string) => {
       try {
-        await apiClient.verify({ verificationId });
+        await apiClient.verify({ body: { verificationId } });
         await mutate();
         router.refresh();
       } catch (err) {

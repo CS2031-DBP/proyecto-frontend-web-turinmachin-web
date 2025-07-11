@@ -8,6 +8,7 @@ import { ResetPasswordConfirmationPopup } from '@/auth/components/ResetPasswordC
 import { ResetPasswordPopup } from '@/auth/components/ResetPasswordPopup';
 import { VerificationPopup } from '@/auth/components/VerificationPopup';
 import { ToxicityCommentPopup } from '@/comment/components/ToxicityCommentPopup';
+import { UnionToIntersection } from '@/common/util/types';
 import { DeleteDegreePopup } from '@/degree/components/DeleteDegreePopup';
 import { NoUniversityPopup } from '@/post/components/NoUniversityPopup';
 import { ToxicityPostPopup } from '@/post/components/ToxicityPostPopup';
@@ -16,7 +17,6 @@ import { DeleteUniversityPopup } from '@/university/components/DeleteUniversityP
 import { ModDeleteAccountPopup } from '@/user/components/ModDeleteAccountPopup';
 import { VerificationResendCooldownPopup } from '@/user/components/VerificationResendCooldownPopup';
 import { VerificationResendPopup } from '@/user/components/VerificationResendPopup';
-import { UnionToIntersection } from '@zodios/core/lib/utils.types';
 import { ReactNode, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { JSX } from 'react/jsx-runtime';

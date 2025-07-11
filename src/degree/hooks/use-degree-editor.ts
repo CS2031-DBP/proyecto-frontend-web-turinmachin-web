@@ -27,10 +27,12 @@ export const useDegreeEditor = ({ degree }: UseDegreeEditorOptions) => {
 
   const [pending, handleSubmit] = usePendingCallback(
     async (data: FormSchema) => {
-      const createdDegree = await apiClient.updateDegree(data, {
+      const res = await apiClient.updateDegree({
         params: { id: degree.id },
+        body: data,
       });
-      router.push(routes.degrees.byId(createdDegree.id));
+
+      router.push(routes.degrees.byId(res.body.id));
     },
     [router, apiClient],
   );

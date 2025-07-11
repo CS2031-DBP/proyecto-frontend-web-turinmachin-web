@@ -1,7 +1,7 @@
 import { useApiClient } from '@/api/hooks/use-api-client';
 import { Session } from 'next-auth';
 import useSWR from 'swr';
-import { UserSchema } from '../schemas/user';
+import { SelfUserSchema } from '../schemas/self-user';
 
 export interface UseSessionUserProviderOptions {
   session: Session | null;
@@ -14,9 +14,9 @@ export const useSessionUserProvider = ({
 
   const key = session ? ['user', session.user.username] : null;
 
-  const swr = useSWR<UserSchema | null>(
+  const swr = useSWR<SelfUserSchema | null>(
     key,
-    () => (session ? apiClient.getSelf() : null),
+    () => (session ? apiClient.getSelf().then((res) => res.body) : null),
     {
       revalidateOnFocus: !!session,
       revalidateIfStale: !!session,

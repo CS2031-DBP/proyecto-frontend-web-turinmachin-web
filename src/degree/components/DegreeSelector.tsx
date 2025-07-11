@@ -1,4 +1,4 @@
-import { Api } from '@/api/util/api';
+import { appContract } from '@/api/util/contract';
 import { Spinner } from '@/common/components/Spinner';
 import {
   Combobox,
@@ -6,7 +6,7 @@ import {
   ComboboxOption,
   ComboboxOptions,
 } from '@headlessui/react';
-import { ZodiosQueryParamsByAlias } from '@zodios/core';
+import { ClientInferRequest } from '@ts-rest/core';
 import { HTMLAttributes, useState } from 'react';
 import { FaCircle } from 'react-icons/fa';
 import { LuGraduationCap } from 'react-icons/lu';
@@ -17,7 +17,7 @@ import { DegreeSchema } from '../schemas/degree';
 
 export interface Props
   extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
-  queries?: ZodiosQueryParamsByAlias<Api, 'getDegrees'>;
+  queries?: ClientInferRequest<typeof appContract.getDegrees>['query'];
   value?: string;
   nullLabel?: string;
   nullLabelPlaceholder?: boolean;

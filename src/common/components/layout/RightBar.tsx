@@ -5,7 +5,7 @@ import { routes } from '@/common/util/routes';
 import { DegreeSchema } from '@/degree/schemas/degree';
 import { UniversitySchema } from '@/university/schemas/university';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { LuGraduationCap, LuUniversity } from 'react-icons/lu';
 
 const PAGE_SIZE = 5;
@@ -21,28 +21,29 @@ export const RightBar = () => {
   const [degPage, setDegPage] = useState(0);
   const [degTotalPages, setDegTotalPages] = useState<number | null>(null);
 
+  const loadMoreUniversities = useCallback(async () => {
+    const res = await apiClient.getUniversities({
+      query: { page: uniPage, size: PAGE_SIZE },
+    });
+
+    setUniversities((prev) => [...prev, ...res.body.content]);
+    setUniPage((prev) => prev + 1);
+    setUniTotalPages(res.body.page.totalPages);
+  }, [apiClient, uniPage]);
+
+  const loadMoreDegrees = useCallback(async () => {
+    const res = await apiClient.getDegrees({
+      query: { page: degPage, size: PAGE_SIZE },
+    });
+    setDegrees((prev) => [...prev, ...res.body.content]);
+    setDegPage((prev) => prev + 1);
+    setDegTotalPages(res.body.page.totalPages);
+  }, [apiClient, degPage]);
+
   useEffect(() => {
     loadMoreUniversities();
     loadMoreDegrees();
   }, []);
-
-  const loadMoreUniversities = async () => {
-    const res = await apiClient.getUniversities({
-      queries: { page: uniPage, size: PAGE_SIZE },
-    });
-    setUniversities((prev) => [...prev, ...res.content]);
-    setUniPage((prev) => prev + 1);
-    setUniTotalPages(res.page.totalPages);
-  };
-
-  const loadMoreDegrees = async () => {
-    const res = await apiClient.getDegrees({
-      queries: { page: degPage, size: PAGE_SIZE },
-    });
-    setDegrees((prev) => [...prev, ...res.content]);
-    setDegPage((prev) => prev + 1);
-    setDegTotalPages(res.page.totalPages);
-  };
 
   const canLoadMoreUniversities =
     uniTotalPages === null || uniPage < uniTotalPages;

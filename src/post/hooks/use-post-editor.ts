@@ -27,7 +27,7 @@ export const usePostEditor = ({ post }: UsePostEditorOptions) => {
 
   const [pending, handleSubmit] = usePendingCallback(
     async (data: FormSchema) => {
-      await apiClient.updatePost(data, { params: { id: post.id } });
+      await apiClient.updatePost({ params: { id: post.id }, body: data });
       router.push(routes.posts.byId(post.id));
     },
     [router, apiClient],

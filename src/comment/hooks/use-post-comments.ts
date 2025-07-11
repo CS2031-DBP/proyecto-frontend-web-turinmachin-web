@@ -4,14 +4,9 @@ import useSWR from 'swr';
 export const usePostComments = (postId: string) => {
   const { apiClient } = useApiClient();
 
-  const {
-    data: comments,
-    error,
-    isLoading,
-    mutate,
-  } = useSWR(['comments', postId], () =>
+  const { data, error, isLoading, mutate } = useSWR(['comments', postId], () =>
     apiClient.getPostComments({ params: { id: postId } }),
   );
 
-  return { comments, isLoading, error, mutate };
+  return { comments: data?.body, isLoading, error, mutate };
 };

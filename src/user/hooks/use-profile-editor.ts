@@ -34,7 +34,9 @@ export const useProfileEditor = ({ user }: UseProfileEditorOptions) => {
 
   const [pending, handleSubmit] = usePendingCallback(
     async (data: FormSchema) => {
-      const newUser = await apiClient.updateSelf(data);
+      const res = await apiClient.updateSelf({ body: data });
+      const newUser = res.body;
+
       await updateSession(newUser);
       await mutateUser(newUser);
       router.push(routes.users.byUsername(newUser.username));

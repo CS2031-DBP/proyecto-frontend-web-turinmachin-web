@@ -39,8 +39,8 @@ export const useResetPasswordScreen = () => {
     }
 
     try {
-      const response = await apiClient.verifyResetToken({ token });
-      setStatus(response.valid ? 'valid' : 'invalid');
+      const res = await apiClient.verifyResetToken({ body: { token } });
+      setStatus(res.body.valid ? 'valid' : 'invalid');
     } catch (err) {
       console.error(err);
       setStatus('invalid');
@@ -58,7 +58,9 @@ export const useResetPasswordScreen = () => {
       if (!token) return;
 
       try {
-        await apiClient.resetPassword({ token, newPassword: data.newPassword });
+        await apiClient.resetPassword({
+          body: { token, newPassword: data.newPassword },
+        });
         router.push(routes.home);
       } catch (err) {
         console.error(err);

@@ -1,8 +1,7 @@
-import { isErrorFromAlias } from '@zodios/core';
 import NextAuth, { CredentialsSignin } from 'next-auth';
 import 'next-auth/jwt'; // Required to augment JWT interface
 import Credentials from 'next-auth/providers/credentials';
-import { createServerApiClient } from '../api/util/create-server-api-client';
+import { createServerApiClient } from '../api/util/server';
 import { pick } from '../common/util/object';
 import { AuthCredentialsSchema } from './schemas/auth-credentials';
 import { LoginResponseSchema } from './schemas/login-response';
@@ -54,44 +53,39 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         let loginResponse: LoginResponseSchema;
 
         if (credentials.type === 'register') {
-          try {
-            loginResponse = await apiClient.register(credentials);
-          } catch (err) {
-            if (isErrorFromAlias(apiClient.api, 'register', err)) {
-              throw new InvalidLoginError(
-                '¡Este correo o nombre de usuario ya está en uso!',
-              );
-            }
-            throw err;
+          const response = await apiClient.register({ body: credentials });
+
+          if (response.status === 409) {
+            throw new InvalidLoginError(
+              '¡Este correo o nombre de usuario ya está en uso!',
+            );
           }
+
+          loginResponse = response.body;
         } else if (credentials.type === 'login') {
-          try {
-            loginResponse = await apiClient.login(credentials);
-          } catch (err) {
-            if (isErrorFromAlias(apiClient.api, 'login', err)) {
-              if (err.response.status === 403) {
-                throw new InvalidLoginError(
-                  'Esta cuenta usa inicio de sesión con Google.',
-                );
-              } else {
-                // Implies 401
-                if (err) throw new InvalidLoginError('Credenciales inválidas.');
-              }
-            }
-            throw err;
+          const response = await apiClient.login({ body: credentials });
+
+          if (response.status === 403) {
+            throw new InvalidLoginError(
+              'Esta cuenta usa inicio de sesión con Google.',
+            );
           }
+
+          if (response.status === 401) {
+            throw new InvalidLoginError('Credenciales inválidas.');
+          }
+
+          loginResponse = response.body;
         } else if (credentials.type === 'google') {
-          try {
-            loginResponse = await apiClient.googleLogin(credentials);
-            console.log(loginResponse);
-          } catch (err) {
-            if (isErrorFromAlias(apiClient.api, 'googleLogin', err)) {
-              throw new InvalidLoginError(
-                'Este usuario no está asociado a una cuenta Google.',
-              );
-            }
-            throw err;
+          const response = await apiClient.googleLogin({ body: credentials });
+
+          if (response.status === 401) {
+            throw new InvalidLoginError(
+              'Este usuario no está asociado a una cuenta Google.',
+            );
           }
+
+          loginResponse = response.body;
         } else {
           throw new InvalidLoginError('Invalid login type');
         }
@@ -121,9 +115,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       } else {
         // Refresh
         // PERF: find out a way to programmatically regenerate the JWT that actually works
-        const updatedUser = await apiClient.getUserById({
+        const response = await apiClient.getUserById({
           params: { id: token.user.id },
         });
+
+        if (response.status !== 200) {
+          throw new Error(`User not found by ID ${token.user.id}`);
+        }
+
+        const updatedUser = response.body;
         token.user = {
           ...pick(
             updatedUser,

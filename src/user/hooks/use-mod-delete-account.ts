@@ -17,7 +17,7 @@ export const useModDeleteAccount = ({
   const router = useRouter();
 
   const [pending, deleteAccount] = usePendingCallback(async () => {
-    await apiClient.deleteUser(undefined, { params: { id: user.id } });
+    await apiClient.deleteUser({ params: { id: user.id } });
     router.push(routes.home);
     onClose();
   }, [apiClient, router]);

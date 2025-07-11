@@ -1,10 +1,9 @@
 'use client';
-
 import { createContext } from 'react';
-import { ApiClient } from '../util/api';
+import { ClientApiClient } from '../util/client';
 
 export interface ApiClientContextValue {
-  apiClient: ApiClient;
+  apiClient: ClientApiClient;
   setToken: (token: string) => void;
   clearToken: () => void;
 }

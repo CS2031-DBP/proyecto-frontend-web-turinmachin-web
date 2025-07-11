@@ -1,5 +1,4 @@
 'use client';
-
 import { sessionHasRights } from '@/user/util';
 import { Session } from 'next-auth';
 import { useState, type HTMLAttributes } from 'react';

@@ -1,17 +1,19 @@
 import { useApiClient } from '@/api/hooks/use-api-client';
-import { Api } from '@/api/util/api';
-import { ZodiosQueryParamsByAlias } from '@zodios/core';
+import { appContract } from '@/api/util/contract';
+import { ClientInferRequest } from '@ts-rest/core';
 import useSWR from 'swr';
 
-export type UseDegreesOptions = ZodiosQueryParamsByAlias<Api, 'getDegrees'>;
+export type UseDegreesOptions = ClientInferRequest<
+  typeof appContract.getDegrees
+>['query'];
 
-export const useDegrees = (queries: UseDegreesOptions) => {
+export const useDegrees = (query: UseDegreesOptions) => {
   const { apiClient } = useApiClient();
 
   const { data, isLoading, error } = useSWR(
-    ['degrees', queries],
-    ([, queries]) =>
-      apiClient.getDegrees({ queries }).then((page) => page.content),
+    ['degrees', query],
+    ([, query]) =>
+      apiClient.getDegrees({ query }).then((res) => res.body.content),
     {},
   );
 

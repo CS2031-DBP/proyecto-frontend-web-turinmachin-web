@@ -2,7 +2,6 @@ import { useApiClient } from '@/api/hooks/use-api-client';
 import { usePendingCallback } from '@/common/hooks/use-pending';
 import { usePopup } from '@/common/hooks/use-popup';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { isErrorFromAlias } from '@zodios/core';
 import { useForm } from 'react-hook-form';
 import { useSWRConfig } from 'swr';
 import { z } from 'zod';
@@ -29,30 +28,21 @@ export const useCommentForm = ({
 
   const [pending, handleSubmit] = usePendingCallback(
     async (data: FormSchema) => {
-      try {
-        if (parentId) {
-          await apiClient.createPostCommentReply(data, {
+      const response = await (parentId
+        ? apiClient.createPostCommentReply({
+            body: data,
             params: { id: postId, parentId },
-          });
-        } else {
-          await apiClient.createPostComment(data, {
-            params: { id: postId },
-          });
-        }
+          })
+        : apiClient.createPostComment({ body: data, params: { id: postId } }));
 
-        await mutate(['comments', postId]);
-        form.reset();
-        onCancel?.();
-      } catch (err) {
-        if (
-          isErrorFromAlias(apiClient.api, 'createPostComment', err) ||
-          isErrorFromAlias(apiClient.api, 'createPostCommentReply', err)
-        ) {
-          openPopup('toxicityComment', {});
-        } else {
-          throw err;
-        }
+      if (response.status === 403) {
+        openPopup('toxicityComment', {});
+        return;
       }
+
+      await mutate(['comments', postId]);
+      form.reset();
+      onCancel?.();
     },
     [],
   );

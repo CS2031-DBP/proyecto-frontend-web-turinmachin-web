@@ -3,7 +3,6 @@ import { usePendingCallback } from '@/common/hooks/use-pending';
 import { usePopup } from '@/common/hooks/use-popup';
 import { routes } from '@/common/util/routes';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { isErrorFromAlias } from '@zodios/core';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -43,17 +42,14 @@ export const useCreatePost = ({ onClose }: UseCreatePostOptions) => {
       data.tags?.forEach((t) => formData.append('tags', t));
       data.files?.forEach((f) => formData.append('files', f));
 
-      try {
-        const createdPost = await apiClient.createPost(formData);
-        router.push(routes.posts.byId(createdPost.id));
-        onClose();
-      } catch (err) {
-        if (isErrorFromAlias(apiClient.api, 'createPost', err)) {
-          openPopup('toxicityPost', {});
-        } else {
-          throw err;
-        }
+      const res = await apiClient.createPost({ body: formData });
+      if (res.status === 403) {
+        openPopup('toxicityPost', {});
+        return;
       }
+
+      router.push(routes.posts.byId(res.body.id));
+      onClose();
     },
     [apiClient, router],
   );

@@ -16,10 +16,10 @@ export const useRoleSelector = ({ user }: UseRoleSelectorOptions) => {
   const [pending, handleChange] = usePendingCallback(
     async (e: ChangeEvent<HTMLSelectElement>) => {
       const roleValue = RoleSchema.parse(e.target.value);
-      await apiClient.updateUserRole(
-        { role: roleValue },
-        { params: { id: user.id } },
-      );
+      await apiClient.updateUserRole({
+        params: { id: user.id },
+        body: { role: roleValue },
+      });
       setRole(roleValue);
     },
     [setRole, apiClient],
