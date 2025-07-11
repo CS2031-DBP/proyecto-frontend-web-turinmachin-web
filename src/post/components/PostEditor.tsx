@@ -26,7 +26,14 @@ export const PostEditor = ({ post }: Props) => {
         autoComplete="off"
         placeholder="Piensa en algo interesante..."
       />
-      <TagInput value={tags} setValue={setTags} />
+      <div className="my-4">
+        <label className="mb-2 block">Tags</label>
+        <TagInput
+          value={tags}
+          setValue={setTags}
+          inputProps={{ placeholder: 'mates, examen, etc...' }}
+        />
+      </div>
       {post.files.length !== 0 && (
         <>
           <FileCarousel files={post.files} contain />
