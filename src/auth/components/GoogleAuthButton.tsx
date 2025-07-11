@@ -9,7 +9,7 @@ export const GoogleAuthButton = (props: Props) => {
 
   return (
     <div className={twJoin(pending && 'pointer-events-none brightness-50')}>
-      <GoogleLogin shape="circle" onSuccess={handleSuccess} {...props} />
+      <GoogleLogin shape="pill" onSuccess={handleSuccess} {...props} />
       {error && <p className="text-error mt-3 text-center">{error}</p>}
     </div>
   );
