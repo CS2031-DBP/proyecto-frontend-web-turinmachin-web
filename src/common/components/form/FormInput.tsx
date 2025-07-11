@@ -19,12 +19,14 @@ export interface Props<T extends FieldValues>
   name: FieldName<FieldValuesFromFieldErrors<FieldErrors<T>>> & Path<T>;
   label?: string;
   labelProps?: LabelHTMLAttributes<HTMLLabelElement>;
+  showError?: boolean;
 }
 
 export const FormInput = <T extends FieldValues>({
   form,
   label,
   name,
+  showError = true,
   required = true,
   minLength,
   maxLength,
@@ -64,12 +66,14 @@ export const FormInput = <T extends FieldValues>({
         required={required}
         className={twMerge(
           'form-input block w-full',
-          errors[name] && 'border-red-300',
+          showError && errors[name] && 'border-red-300',
           className,
         )}
       />
       {children}
-      <ErrorMessage name={name} errors={errors} render={FormError} />
+      {showError && (
+        <ErrorMessage name={name} errors={errors} render={FormError} />
+      )}
     </label>
   );
 };

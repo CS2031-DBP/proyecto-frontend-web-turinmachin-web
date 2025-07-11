@@ -110,6 +110,7 @@ export const ChatConversation = ({ session, otherUser, onGoBack }: Props) => {
             labelProps={{ className: 'my-0 grow' }}
             autoComplete="off"
             disabled={messages === null}
+            showError={false}
           />
           <Button className="px-3 py-1" disabled={messages === null}>
             <LuSend className="inline" />
