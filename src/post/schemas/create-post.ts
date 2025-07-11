@@ -9,6 +9,7 @@ export const CreatePostSchema = z.object({
     .max(300, 'Tu post no puede tener más de 300 caracteres.')
     .transform((s) => s.replaceAll(/(\r\n|\r|\n)+/g, '\n')),
   tags: TagSchema.array()
+    .max(10, 'Tu post no puede tener más de 10 tags.')
     .optional()
     .transform((arr) => (arr?.length === 0 ? undefined : arr)),
   files: z
