@@ -8,7 +8,7 @@ export interface Props extends HTMLAttributes<HTMLUListElement> {
 }
 
 export const TagList = ({ tags, className, ...props }: Props) => (
-  <ul {...props} className={twMerge(className, 'flex space-x-2')}>
+  <ul {...props} className={twMerge(className, 'flex flex-wrap gap-2')}>
     {tags.map((tag) => (
       <li
         key={tag}
