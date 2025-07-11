@@ -3,7 +3,7 @@ import { Spinner } from '@/common/components/Spinner';
 import { ProfilePicture } from '@/user/components/ProfilePicture';
 import { UserSchema } from '@/user/schemas/user';
 import { Session } from 'next-auth';
-import { LuGhost, LuPlus } from 'react-icons/lu';
+import { LuCircle, LuGhost, LuPlus } from 'react-icons/lu';
 import { useChatHome } from '../hooks/use-chat-home';
 
 export interface Props {
@@ -37,7 +37,7 @@ export const ChatHome = ({ session, onUserSelect, goToSearch }: Props) => {
         </div>
       ) : (
         <ul className="border-muted grow overflow-y-auto rounded border">
-          {recentUsers.map((user) => (
+          {recentUsers.map(({ user, alert }) => (
             <li
               key={user.id}
               onClick={() => onUserSelect(user)}
@@ -63,6 +63,7 @@ export const ChatHome = ({ session, onUserSelect, goToSearch }: Props) => {
                   </>
                 )}
               </div>
+              {alert && <LuCircle className="ml-4 fill-red-500 text-red-500" />}
             </li>
           ))}
         </ul>

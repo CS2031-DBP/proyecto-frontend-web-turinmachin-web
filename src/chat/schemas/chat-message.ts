@@ -5,6 +5,7 @@ export const ChatMessageSchema = z.object({
   from_id: z.string(),
   to_id: z.string(),
   content: z.string(),
+  read: z.boolean(),
   created_at: z.coerce.date(),
 });
 

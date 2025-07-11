@@ -24,7 +24,7 @@ const Popup = ({
 
   return (
     <div
-      className="bg-foreground/5 fixed top-0 left-0 z-50 flex h-screen w-screen items-center justify-center backdrop-blur-xs"
+      className="fixed top-0 left-0 z-50 flex h-screen w-screen items-center justify-center bg-black/50 backdrop-blur-xs"
       {...props}
     >
       <div
