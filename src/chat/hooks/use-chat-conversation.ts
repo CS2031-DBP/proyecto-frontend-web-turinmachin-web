@@ -32,13 +32,16 @@ export const useChatConversation = ({
       .eq('to_id', session.user.id);
   }, [supabase, otherUser.id, session.user.id]);
 
-  const handleMessageCreate = (message: ChatMessageSchema) => {
-    setMessages((prevMessages) =>
-      prevMessages ? [...prevMessages, message] : null,
-    );
+  const handleMessageCreate = useCallback(
+    (message: ChatMessageSchema) => {
+      setMessages((prevMessages) =>
+        prevMessages ? [...prevMessages, message] : null,
+      );
 
-    markAllRead();
-  };
+      markAllRead();
+    },
+    [markAllRead],
+  );
 
   const scrollToBottom = useCallback(() => {
     const messages = messagesRef.current;
@@ -96,7 +99,13 @@ export const useChatConversation = ({
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [supabase, session.user.id, otherUser.id, markAllRead]);
+  }, [
+    supabase,
+    session.user.id,
+    otherUser.id,
+    markAllRead,
+    handleMessageCreate,
+  ]);
 
   useEffect(() => {
     const messages = messagesRef.current;
