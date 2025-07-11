@@ -105,6 +105,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               'displayName',
               'role',
               'verified',
+              'hasPassword',
             ),
             hasUniversity: !!loginResponse.user.university,
           },
@@ -120,8 +121,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       } else {
         // Refresh
         // PERF: find out a way to programmatically regenerate the JWT that actually works
-        const response = await apiClient.getUserById({
-          params: { id: token.user.id },
+        const response = await apiClient.getSelf({
+          extraHeaders: {
+            Authorization: `Bearer ${token.accessToken}`,
+          },
         });
 
         if (response.status !== 200) {
@@ -138,6 +141,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             'displayName',
             'role',
             'verified',
+            'hasPassword',
           ),
           hasUniversity: !!updatedUser.university,
         };

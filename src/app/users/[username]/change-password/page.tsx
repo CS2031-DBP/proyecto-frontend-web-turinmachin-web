@@ -20,7 +20,7 @@ const ChangeUserPassword = async ({ params }: Readonly<Props>) => {
   return (
     <Main>
       <PageTitle backHref={routes.users.editByUsername(username)}>
-        Cambiar contraseña
+        {session.user.hasPassword ? 'Cambiar contraseña' : 'Crear contraseña'}
       </PageTitle>
       <PasswordChanger session={session} />
     </Main>

@@ -22,7 +22,6 @@ export const usePasswordChanger = ({ session }: UsePasswordChangerOptions) => {
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      currentPassword: '',
       newPassword: '',
     },
   });

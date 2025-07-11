@@ -1,5 +1,4 @@
 'use client';
-
 import { Button } from '@/common/components/Button';
 import { Form } from '@/common/components/form/Form';
 import { FormInput } from '@/common/components/form/FormInput';
@@ -17,12 +16,14 @@ export const PasswordChanger = ({ session }: Props) => {
 
   return (
     <Form form={form} onSubmit={handleSubmit}>
-      <FormInput
-        form={form}
-        name="currentPassword"
-        type="password"
-        label="Contraseña actual"
-      />
+      {session.user.hasPassword && (
+        <FormInput
+          form={form}
+          name="currentPassword"
+          type="password"
+          label="Contraseña actual"
+        />
+      )}
       <FormInput
         form={form}
         name="newPassword"
