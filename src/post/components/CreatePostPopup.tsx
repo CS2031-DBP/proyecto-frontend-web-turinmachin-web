@@ -33,7 +33,11 @@ export const CreatePostPopup: PopupComponent<'post'> = ({ onClose }) => {
           />
           <div className="my-4">
             <label className="mb-2 block">Tags</label>
-            <TagInput value={tags} setValue={setTags} />
+            <TagInput
+              value={tags}
+              setValue={setTags}
+              inputProps={{ placeholder: 'mates, examen, etc...' }}
+            />
           </div>
           <MediaSelector value={files} setValue={setFiles} />
         </div>

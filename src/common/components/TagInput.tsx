@@ -1,4 +1,4 @@
-import { HTMLAttributes } from 'react';
+import { HTMLAttributes, InputHTMLAttributes } from 'react';
 import { LuTag, LuX } from 'react-icons/lu';
 import { twMerge } from 'tailwind-merge';
 import { useTagInput } from '../hooks/form/use-tag-input';
@@ -6,7 +6,7 @@ import { useTagInput } from '../hooks/form/use-tag-input';
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   value: string[];
   setValue: (tags: string[]) => void;
-  inputProps?: HTMLAttributes<HTMLInputElement>;
+  inputProps?: InputHTMLAttributes<HTMLInputElement>;
 }
 export const TagInput = ({
   value,
@@ -47,8 +47,8 @@ export const TagInput = ({
           </span>
         ))}
         <input
+          placeholder="Tags"
           {...inputProps}
-          placeholder="mates, examen, etc..."
           value={tagInput}
           onBlur={addCurrent}
           onChange={(ev) =>
