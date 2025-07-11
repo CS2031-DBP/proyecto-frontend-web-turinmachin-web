@@ -108,6 +108,7 @@ export const ChatConversation = ({ session, otherUser, onGoBack }: Props) => {
             name="content"
             placeholder="Escribe algo..."
             labelProps={{ className: 'my-0 grow' }}
+            autoComplete="off"
             disabled={messages === null}
           />
           <Button className="px-3 py-1" disabled={messages === null}>
