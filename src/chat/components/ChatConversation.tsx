@@ -8,7 +8,12 @@ import { UserSchema } from '@/user/schemas/user';
 import { Session } from 'next-auth';
 import Link from 'next/link';
 import { useRef } from 'react';
-import { LuArrowDown, LuArrowLeft, LuFeather, LuSend } from 'react-icons/lu';
+import {
+  LuArrowDown,
+  LuArrowLeft,
+  LuMessagesSquare,
+  LuSend,
+} from 'react-icons/lu';
 import { twJoin } from 'tailwind-merge';
 import { useChatConversation } from '../hooks/use-chat-conversation';
 import { ChatMessage } from './ChatMessage';
@@ -66,7 +71,7 @@ export const ChatConversation = ({ session, otherUser, onGoBack }: Props) => {
           </div>
         ) : messages.length === 0 ? (
           <div className="text-foreground-muted flex h-full flex-col items-center justify-center gap-y-2">
-            <LuFeather className="size-8" />
+            <LuMessagesSquare className="size-8" />
             <div>¡Escribe algo!</div>
           </div>
         ) : (

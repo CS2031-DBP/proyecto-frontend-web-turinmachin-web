@@ -3,6 +3,7 @@ import { TagInput } from '@/common/components/TagInput';
 import { DegreeSelector } from '@/degree/components/DegreeSelector';
 import { UniversitySelector } from '@/university/components/UniversitySelector';
 import { Session } from 'next-auth';
+import { LuSearch } from 'react-icons/lu';
 import { usePostExplorer } from '../hooks/use-post-explorer';
 import { PostListing } from './PostListing';
 
@@ -29,14 +30,17 @@ export const PostExplorer = ({ session }: Props) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="bg-background/85 border-muted sticky top-0 z-25 space-y-2 border-b px-8 py-6 backdrop-blur-lg"
       >
-        <input
-          placeholder="¡Busca algo!"
-          autoFocus
-          {...form.register('query')}
-          className="form-input w-full min-w-0"
-        />
+        <div className="form-input has-focus:border-special relative flex items-center gap-x-2">
+          <LuSearch className="text-foreground-muted size-5 min-w-5" />
+          <input
+            placeholder="¡Busca algo!"
+            autoFocus
+            {...form.register('query')}
+            className="min-w-0 grow bg-transparent outline-none"
+          />
+        </div>
         <div className="flex w-full gap-x-2 gap-y-2 not-xl:flex-col">
-          <div className="flex gap-x-2 xl:max-w-90">
+          <div className="flex gap-x-2 xl:max-w-120">
             <UniversitySelector
               value={universityId}
               onChange={setUniversityId}

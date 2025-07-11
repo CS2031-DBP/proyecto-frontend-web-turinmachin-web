@@ -1,4 +1,5 @@
 'use client';
+
 import { Button } from '@/common/components/Button';
 import { Session } from 'next-auth';
 import { useState } from 'react';
@@ -16,10 +17,12 @@ export const ChatContainer = ({ session }: Props) => {
     return (
       <Button
         variant="special"
-        className="fixed right-0 bottom-0 z-5 m-6 size-12 rounded-full shadow-lg"
+        className="fixed right-[clamp(1rem,2vw,2rem)] bottom-[clamp(1rem,2vw,2rem)] z-5 h-[clamp(3rem,4.5vw,4rem)] w-[clamp(3rem,4.5vw,4rem)] rounded-full p-0 shadow-lg"
         onClick={() => setShowChat(true)}
       >
-        <LuMessageSquare className="absolute top-1/2 left-1/2 inline size-6 -translate-1/2" />
+        <div className="flex h-full w-full items-center justify-center">
+          <LuMessageSquare className="h-1/2 w-1/2" />
+        </div>
       </Button>
     );
   }
