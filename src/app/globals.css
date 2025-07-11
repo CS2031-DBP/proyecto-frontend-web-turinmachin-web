@@ -76,5 +76,5 @@
 }
 
 @utility button-error {
-  @apply button hover:text-background border border-red-300 text-red-300 hover:bg-red-300;
+  @apply button hover:text-background border-error text-error hover:bg-error border;
 }
