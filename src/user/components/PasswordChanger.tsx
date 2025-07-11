@@ -38,7 +38,7 @@ export const PasswordChanger = ({ session }: Props) => {
           Volver
         </Link>
         <Button type="submit" disabled={pending}>
-          Cambiar
+          Guardar
         </Button>
       </div>
     </Form>
