@@ -14,6 +14,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import {
+  LuCake,
   LuCalendar,
   LuGraduationCap,
   LuInfo,
@@ -41,6 +42,7 @@ const UserPage = async ({ params }: Readonly<Props>) => {
   const isSelf = user.id === session?.user.id;
 
   const joinedAt = day(user.createdAt).locale('es').format('MMMM [de] YYYY');
+  const birthdayStr = day(user.birthday).locale('es').format('D [de] MMMM');
 
   return (
     <Main>
@@ -105,6 +107,10 @@ const UserPage = async ({ params }: Readonly<Props>) => {
           <LuCalendar className="mr-2 shrink-0" />
           <span className="mr-1 not-lg:hidden">Se unió en</span>
           {joinedAt}
+        </li>
+        <li className="flex items-center">
+          <LuCake className="mr-2 shrink-0" />
+          {birthdayStr}
         </li>
         {user.role !== 'USER' &&
           (user.role === 'ADMIN' ? (

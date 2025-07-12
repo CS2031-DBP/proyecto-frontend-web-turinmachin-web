@@ -11,6 +11,7 @@ export const UserSchema = z.object({
   username: z.string(),
   displayName: z.string().optional(),
   bio: z.string().optional(),
+  birthday: z.coerce.date().optional(),
   university: UniversitySchema.optional(),
   degree: DegreeSchema.optional(),
   profilePicture: FileInfoSchema.optional(),

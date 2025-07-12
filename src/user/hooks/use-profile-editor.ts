@@ -27,7 +27,7 @@ export const useProfileEditor = ({ user }: UseProfileEditorOptions) => {
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      ...pick(user, 'email', 'username', 'displayName', 'bio'),
+      ...pick(user, 'email', 'username', 'displayName', 'bio', 'birthday'),
       degreeId: user.degree?.id,
     },
   });

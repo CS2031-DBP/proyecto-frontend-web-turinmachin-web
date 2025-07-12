@@ -121,6 +121,16 @@ export const ProfileEditor = ({ session, user }: Props) => {
                 : 'Debes verificar tu correo antes de establecer tu carrera.'}
           </p>
         )}
+        <FormInput
+          form={form}
+          name="birthday"
+          label="Fecha de nacimiento"
+          required={false}
+          type="date"
+          min="1900-01-01"
+          max={new Date().toISOString().split('T')[0]}
+          className="form-input w-full"
+        />
         <FormTextArea
           form={form}
           name="bio"
