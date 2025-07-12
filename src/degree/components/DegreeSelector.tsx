@@ -21,10 +21,12 @@ export interface Props
   value?: string;
   nullLabel?: string;
   nullLabelPlaceholder?: boolean;
+  disabled?: boolean;
   onChange: (id: string | null) => void;
 }
 
 export const DegreeSelector = ({
+  disabled = false,
   queries,
   value,
   onChange,
@@ -48,11 +50,16 @@ export const DegreeSelector = ({
   };
 
   return (
-    <Combobox value={selectedDegree} onChange={handleChange} immediate>
+    <Combobox
+      value={selectedDegree}
+      onChange={handleChange}
+      disabled={disabled}
+      immediate
+    >
       <div
         {...props}
         className={twMerge(
-          'form-input has-focus:border-special relative flex items-center gap-x-2',
+          'form-input has-focus:border-special data-disabled:bg-background-alt relative flex items-center gap-x-2',
           className,
         )}
       >

@@ -106,8 +106,9 @@ export const ProfileEditor = ({ session, user }: Props) => {
           <DegreeSelector
             value={degreeId}
             nullLabelPlaceholder
-            onChange={(id) => form.setValue('degreeId', id ?? undefined)}
             queries={{ universityId: user.university?.id }}
+            disabled={emailChanged || !user.university}
+            onChange={(id) => form.setValue('degreeId', id ?? undefined)}
           />
         </label>
         {degreesDisabled && (
