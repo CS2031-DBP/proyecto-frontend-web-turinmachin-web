@@ -2,7 +2,7 @@
 
 import { Button } from '@/common/components/Button';
 import { Popup } from '@/common/components/popup/Popup';
-import type { PopupComponent } from '@/common/components/providers/PopupProvider';
+import type { PopupComponent } from '@/common/context/PopupProvider';
 import { useState } from 'react';
 import { LuTrash } from 'react-icons/lu';
 

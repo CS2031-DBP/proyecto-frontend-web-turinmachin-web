@@ -1,5 +1,10 @@
 import { AIConversationScreen } from '@/ai/components/AIConversationScreen';
 import { Main } from '@/common/components/layout/Main';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Niva',
+};
 
 const AIConversation = () => {
   return (

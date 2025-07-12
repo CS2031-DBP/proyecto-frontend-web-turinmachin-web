@@ -21,7 +21,8 @@ export type PopupType =
   | 'toxicityPost'
   | 'toxicityComment'
   | 'resetConversationAI'
-  | 'googleUpgrade';
+  | 'googleUpgrade'
+  | 'enableNotifications';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface PopupArgs extends Record<PopupType, {}> {
@@ -39,6 +40,9 @@ export interface PopupArgs extends Record<PopupType, {}> {
   };
   googleUpgrade: {
     idToken: string;
+  };
+  enableNotifications: {
+    onGrant: () => Promise<void>;
   };
 }
 

@@ -3,8 +3,8 @@ import { Form } from '@/common/components/form/Form';
 import { FormTextArea } from '@/common/components/form/FormTextArea';
 import { MediaSelector } from '@/common/components/form/MediaSelector';
 import { Popup } from '@/common/components/popup/Popup';
-import { PopupComponent } from '@/common/components/providers/PopupProvider';
 import { TagInput } from '@/common/components/TagInput';
+import { PopupComponent } from '@/common/context/PopupProvider';
 import { LuPlus } from 'react-icons/lu';
 import { useCreatePost } from '../hooks/use-create-post';
 

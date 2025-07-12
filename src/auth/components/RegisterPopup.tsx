@@ -3,7 +3,7 @@ import { Button } from '@/common/components/Button';
 import { Form } from '@/common/components/form/Form';
 import { FormInput } from '@/common/components/form/FormInput';
 import { Popup } from '@/common/components/popup/Popup';
-import { PopupComponent } from '@/common/components/providers/PopupProvider';
+import { PopupComponent } from '@/common/context/PopupProvider';
 import { usePopup } from '@/common/hooks/use-popup';
 import { EmailUniversityInfo } from '@/user/components/EmailUniversityInfo';
 import { useRegisterForm } from '../hooks/use-register-form';

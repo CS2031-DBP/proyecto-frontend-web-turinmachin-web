@@ -4,7 +4,8 @@ import { ChatContainer } from '@/chat/components/ChatContainer';
 import { SupabaseProvider } from '@/chat/context/SupabaseProvider';
 import { LeftBar } from '@/common/components/layout/LeftBar/LeftBar';
 import { RightBar } from '@/common/components/layout/RightBar';
-import { PopupProvider } from '@/common/components/providers/PopupProvider';
+import { NotificationsProvider } from '@/common/components/NotificationsProvider';
+import { PopupProvider } from '@/common/context/PopupProvider';
 import { clientEnv } from '@/common/env/client';
 import { SessionUserProvider } from '@/user/context/SessionUserProvider';
 import { GoogleOAuthProvider } from '@react-oauth/google';
@@ -51,6 +52,7 @@ const RootLayout = async ({ children }: Readonly<Props>) => {
                   clientId={clientEnv.NEXT_PUBLIC_GOOGLE_CLIENT_ID}
                 >
                   <PopupProvider>
+                    {session?.user.verified && <NotificationsProvider />}
                     <LeftBar session={session} />
                     {children}
                     <RightBar />

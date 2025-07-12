@@ -1,5 +1,4 @@
 'use client';
-
 import { ResetConversationAIPopup } from '@/ai/components/ResetConversationPopup';
 import { DeleteAccountPopup } from '@/auth/components/DeleteAccountPopup';
 import { GoogleUpgradePopup } from '@/auth/components/GoogleUpgradePopup';
@@ -8,6 +7,7 @@ import { RegisterPopup } from '@/auth/components/RegisterPopup';
 import { ResetPasswordConfirmationPopup } from '@/auth/components/ResetPasswordConfirmationPopup';
 import { ResetPasswordPopup } from '@/auth/components/ResetPasswordPopup';
 import { VerificationPopup } from '@/auth/components/VerificationPopup';
+import { EnableNotificationsPopup } from '@/chat/components/EnableNotificationsPopup';
 import { ToxicityCommentPopup } from '@/comment/components/ToxicityCommentPopup';
 import { UnionToIntersection } from '@/common/util/types';
 import { DeleteDegreePopup } from '@/degree/components/DeleteDegreePopup';
@@ -21,8 +21,8 @@ import { VerificationResendPopup } from '@/user/components/VerificationResendPop
 import { ReactNode, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { JSX } from 'react/jsx-runtime';
-import { CreatePostPopup } from '../../../post/components/CreatePostPopup';
-import { PopupArgs, PopupContext, PopupType } from '../../context/PopupContext';
+import { CreatePostPopup } from '../../post/components/CreatePostPopup';
+import { PopupArgs, PopupContext, PopupType } from './PopupContext';
 
 export interface Props {
   children?: ReactNode;
@@ -57,6 +57,7 @@ const PopupComponents: { [P in PopupType]: PopupComponent<P> } = {
   toxicityComment: ToxicityCommentPopup,
   resetConversationAI: ResetConversationAIPopup,
   googleUpgrade: GoogleUpgradePopup,
+  enableNotifications: EnableNotificationsPopup,
 };
 
 export const PopupProvider = ({ children }: Props) => {

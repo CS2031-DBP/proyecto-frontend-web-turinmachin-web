@@ -1,7 +1,7 @@
 'use client';
 
 import { LeftBar } from '@/common/components/layout/LeftBar/LeftBar';
-import { PopupProvider } from '@/common/components/providers/PopupProvider';
+import { PopupProvider } from '@/common/context/PopupProvider';
 import { Inter } from 'next/font/google';
 import { twJoin } from 'tailwind-merge';
 import Error from './error';

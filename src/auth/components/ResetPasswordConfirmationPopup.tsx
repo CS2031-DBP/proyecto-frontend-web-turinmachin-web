@@ -1,7 +1,7 @@
 'use client';
 
 import { AlertPopup } from '@/common/components/popup/AlertPopup';
-import type { PopupComponent } from '@/common/components/providers/PopupProvider';
+import type { PopupComponent } from '@/common/context/PopupProvider';
 import { LuFileKey } from 'react-icons/lu';
 
 export const ResetPasswordConfirmationPopup: PopupComponent<

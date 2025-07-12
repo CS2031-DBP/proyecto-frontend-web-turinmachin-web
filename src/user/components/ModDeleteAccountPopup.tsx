@@ -1,6 +1,6 @@
 import { Button } from '@/common/components/Button';
 import { Popup } from '@/common/components/popup/Popup';
-import { PopupComponent } from '@/common/components/providers/PopupProvider';
+import { PopupComponent } from '@/common/context/PopupProvider';
 import { LuTrash } from 'react-icons/lu';
 import { useModDeleteAccount } from '../hooks/use-mod-delete-account';
 

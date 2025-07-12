@@ -26,6 +26,7 @@ import { UserPageSchema, UserSchema } from '@/user/schemas/user';
 import { z } from 'zod';
 import { DetailResponseSchema } from '../schemas/detail-response';
 
+import { ChatSubscriptionSchema } from '@/chat/schemas/chat-subscription';
 import { CreatePostSchema } from '@/post/schemas/create-post';
 import { SelfUserSchema } from '@/user/schemas/self-user';
 import { initContract } from '@ts-rest/core';
@@ -450,6 +451,15 @@ export const appContract = c.router(
       body: c.noBody(),
       responses: {
         204: c.noBody(),
+      },
+    },
+    saveSubscription: {
+      method: 'POST',
+      path: '/chat/subscribe',
+      body: ChatSubscriptionSchema,
+      responses: {
+        204: c.noBody(),
+        409: DetailResponseSchema,
       },
     },
   },
