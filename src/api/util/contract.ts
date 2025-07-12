@@ -218,6 +218,7 @@ export const appContract = c.router(
         authorId: z.string().optional(),
         universityId: z.string().optional(),
         degreeId: z.string().optional(),
+        upvotedBy: z.string().optional(),
         tags: z.array(z.string()).optional(),
         page: z.number().optional(),
         size: z.number().optional(),

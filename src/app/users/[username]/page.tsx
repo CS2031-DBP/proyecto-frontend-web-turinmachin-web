@@ -9,6 +9,7 @@ import { ModDeleteAccountButton } from '@/user/components/ModDeleteAccountButton
 import { ResendVerificationButton } from '@/user/components/ResendVerificationButton';
 import { RoleSelector } from '@/user/components/RoleSelector';
 import { isSessionAdmin } from '@/user/util';
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -154,8 +155,24 @@ const UserPage = async ({ params }: Readonly<Props>) => {
         </div>
       )}
 
-      <hr className="border-muted my-4" />
-      <PostListing session={session} queries={{ authorId: user.id }} />
+      <TabGroup className="mt-8">
+        <TabList className="grid grid-cols-2 overflow-hidden rounded font-semibold">
+          <Tab className="data-selected:text-special border-muted data-hover:bg-foreground/5 data-selected:border-special border-b px-6 py-4">
+            Publicaciones
+          </Tab>
+          <Tab className="data-selected:text-special border-muted data-hover:bg-foreground/5 data-selected:border-special border-b px-6 py-4">
+            Votadas
+          </Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel>
+            <PostListing session={session} queries={{ authorId: user.id }} />
+          </TabPanel>
+          <TabPanel>
+            <PostListing session={session} queries={{ upvotedBy: user.id }} />
+          </TabPanel>
+        </TabPanels>
+      </TabGroup>
     </Main>
   );
 };

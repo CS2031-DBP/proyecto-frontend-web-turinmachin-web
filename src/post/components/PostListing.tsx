@@ -41,7 +41,7 @@ export const PostListing = ({
         <div
           ref={loaderRef}
           className={twJoin(
-            'flex min-h-25 items-center justify-center',
+            'flex items-center justify-center py-20',
             posts.length === 0 && 'grow',
           )}
         >
