@@ -2,29 +2,29 @@ import { Button } from '@/common/components/Button';
 import { Popup } from '@/common/components/popup/Popup';
 import { PopupComponent } from '@/common/context/PopupProvider';
 import { LuTrash } from 'react-icons/lu';
-import { useDeleteDegree } from '../hooks/use-delete-degree';
+import { useDeleteUniversity } from '../../hooks/use-delete-university';
 
-export const DeleteDegreePopup: PopupComponent<'deleteDegree'> = ({
-  degreeId,
+export const DeleteUniversityPopup: PopupComponent<'deleteUniversity'> = ({
+  universityId,
   onClose,
 }) => {
-  const { pending, deleteDegree } = useDeleteDegree({
-    degreeId,
+  const { pending, deleteUniversity } = useDeleteUniversity({
+    universityId,
     onClose,
   });
 
   return (
     <Popup className="max-w-sm">
-      <Popup.Title>¿Eliminar esta carrera?</Popup.Title>
+      <Popup.Title>¿Eliminar esta universidad?</Popup.Title>
       <p>Esta acción no se puede deshacer.</p>
       <Button
         variant="error"
-        onClick={deleteDegree}
+        onClick={deleteUniversity}
         disabled={pending}
         className="mt-6 w-full"
       >
         <LuTrash className="mr-2 mb-1 inline" />
-        Eliminar carrera
+        Eliminar universidad
       </Button>
     </Popup>
   );

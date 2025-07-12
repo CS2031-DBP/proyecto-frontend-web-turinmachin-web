@@ -5,8 +5,8 @@ import { FormInput } from '@/common/components/form/FormInput';
 import { Popup } from '@/common/components/popup/Popup';
 import { PopupComponent } from '@/common/context/PopupProvider';
 import { usePopup } from '@/common/hooks/use-popup';
-import { useLoginForm } from '../hooks/use-login-form';
-import { GoogleAuthButton } from './GoogleAuthButton';
+import { useLoginForm } from '../../hooks/use-login-form';
+import { GoogleAuthButton } from '../GoogleAuthButton';
 
 export const LoginPopup: PopupComponent<'login'> = ({ onClose }) => {
   const { openPopup } = usePopup();

@@ -5,7 +5,7 @@ import { FormInput } from '@/common/components/form/FormInput';
 import { Popup } from '@/common/components/popup/Popup';
 import { PopupComponent } from '@/common/context/PopupProvider';
 import { usePopup } from '@/common/hooks/use-popup';
-import { useResetPasswordForm } from '../hooks/use-reset-password-form';
+import { useResetPasswordForm } from '../../hooks/use-reset-password-form';
 
 export const ResetPasswordPopup: PopupComponent<'resetPassword'> = ({
   onClose,

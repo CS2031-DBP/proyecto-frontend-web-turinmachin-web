@@ -6,7 +6,7 @@ import { Popup } from '@/common/components/popup/Popup';
 import { TagInput } from '@/common/components/TagInput';
 import { PopupComponent } from '@/common/context/PopupProvider';
 import { LuPlus } from 'react-icons/lu';
-import { useCreatePost } from '../hooks/use-create-post';
+import { useCreatePost } from '../../hooks/use-create-post';
 
 export const CreatePostPopup: PopupComponent<'post'> = ({ onClose }) => {
   const { form, pending, handleSubmit, files, setFiles, tags, setTags } =

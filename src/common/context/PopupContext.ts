@@ -45,6 +45,9 @@ export interface PopupArgs extends Record<PopupType, {}> {
   enableNotifications: {
     onGrant: () => Promise<void>;
   };
+  googleWelcome: {
+    username: string;
+  };
 }
 
 export interface PopupContextValue {

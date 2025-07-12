@@ -3,7 +3,7 @@ import { Button } from '@/common/components/Button';
 import { Popup } from '@/common/components/popup/Popup';
 import { PopupComponent } from '@/common/context/PopupProvider';
 import { FcGoogle } from 'react-icons/fc';
-import { useGoogleUpgradePopup } from '../hooks/use-google-upgrade-popup';
+import { useGoogleUpgradePopup } from '../../hooks/use-google-upgrade-popup';
 
 export const GoogleUpgradePopup: PopupComponent<'googleUpgrade'> = ({
   idToken,

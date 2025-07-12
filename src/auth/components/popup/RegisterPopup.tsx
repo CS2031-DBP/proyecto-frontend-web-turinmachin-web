@@ -6,8 +6,8 @@ import { Popup } from '@/common/components/popup/Popup';
 import { PopupComponent } from '@/common/context/PopupProvider';
 import { usePopup } from '@/common/hooks/use-popup';
 import { EmailUniversityInfo } from '@/user/components/EmailUniversityInfo';
-import { useRegisterForm } from '../hooks/use-register-form';
-import { GoogleAuthButton } from './GoogleAuthButton';
+import { useRegisterForm } from '../../hooks/use-register-form';
+import { GoogleAuthButton } from '../GoogleAuthButton';
 
 export const RegisterPopup: PopupComponent<'register'> = ({ onClose }) => {
   const { openPopup } = usePopup();

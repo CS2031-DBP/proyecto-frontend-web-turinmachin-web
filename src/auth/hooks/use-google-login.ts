@@ -1,7 +1,7 @@
 import { usePendingCallback } from '@/common/hooks/use-pending';
 import { usePopup } from '@/common/hooks/use-popup';
 import { CredentialResponse } from '@react-oauth/google';
-import { signIn } from 'next-auth/react';
+import { getSession, signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { AuthCredentialsSchema } from '../schemas/auth-credentials';
@@ -34,8 +34,12 @@ export const useGoogleLogin = () => {
         return;
       }
 
-      closePopup();
       router.refresh();
+
+      const session = await getSession();
+      if (session) {
+        openPopup('googleWelcome', { username: session.user.username });
+      }
     },
     [router, closePopup],
   );
