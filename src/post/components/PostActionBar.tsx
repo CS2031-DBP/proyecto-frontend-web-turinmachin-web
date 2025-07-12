@@ -39,7 +39,7 @@ export const PostActionBar = ({
       className="bg-background-alt hover:bg-alt hover:text-foreground flex items-center rounded-full px-4 py-2"
     >
       <LuMessageCircle size={20} />
-      <span className="ml-2 not-md:hidden">{post.totalComments}</span>
+      <span className="ml-2">{post.totalComments}</span>
     </Link>
     <Dropdown
       items={[
