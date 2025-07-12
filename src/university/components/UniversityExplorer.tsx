@@ -32,7 +32,12 @@ export const UniversityExplorer = () => {
               href={routes.universities.byId(university.id)}
               className="border-muted hover:border-special block rounded-2xl border px-8 py-4 text-lg"
             >
-              {university.name}
+              <div>{university.name}</div>
+              {university.shortName && (
+                <div className="text-foreground-muted my-1">
+                  {university.shortName}
+                </div>
+              )}
             </Link>
           </li>
         ))}
