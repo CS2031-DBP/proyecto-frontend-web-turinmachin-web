@@ -3,6 +3,7 @@ import { ResetConversationAIPopup } from '@/ai/components/ResetConversationPopup
 import { DeleteAccountPopup } from '@/auth/components/DeleteAccountPopup';
 import { GoogleUpgradePopup } from '@/auth/components/GoogleUpgradePopup';
 import { LoginPopup } from '@/auth/components/LoginPopup';
+import { GoogleWelcomePopup } from '@/auth/components/popup/GoogleWelcomePopup';
 import { RegisterPopup } from '@/auth/components/RegisterPopup';
 import { ResetPasswordConfirmationPopup } from '@/auth/components/ResetPasswordConfirmationPopup';
 import { ResetPasswordPopup } from '@/auth/components/ResetPasswordPopup';
@@ -58,6 +59,7 @@ const PopupComponents: { [P in PopupType]: PopupComponent<P> } = {
   resetConversationAI: ResetConversationAIPopup,
   googleUpgrade: GoogleUpgradePopup,
   enableNotifications: EnableNotificationsPopup,
+  googleWelcome: GoogleWelcomePopup,
 };
 
 export const PopupProvider = ({ children }: Props) => {

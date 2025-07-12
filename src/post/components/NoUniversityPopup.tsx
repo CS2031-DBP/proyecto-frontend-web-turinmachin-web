@@ -7,8 +7,9 @@ export const NoUniversityPopup: PopupComponent<'noUniversity'> = ({
 }) => (
   <AlertPopup
     title="Universidad no asignada"
-    message="Tu correo necesita estar asociado a una universidad para poder publicar."
     Icon={LuUniversity}
     onClose={onClose}
-  />
+  >
+    Tu correo necesita estar asociado a una universidad para poder publicar.
+  </AlertPopup>
 );

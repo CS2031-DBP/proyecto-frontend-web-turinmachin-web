@@ -22,6 +22,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: 'UniLife',
+  description: 'La plataforma social que une universidades.',
 };
 
 export interface Props {
@@ -33,13 +34,8 @@ const RootLayout = async ({ children }: Readonly<Props>) => {
 
   return (
     <html lang="es" suppressHydrationWarning>
-      <body
-        className={twJoin(
-          inter.className,
-          'bg-background textientforeground font-main flex min-h-screen flex-col antialiased',
-        )}
-      >
-        <div className="flex max-h-screen grow justify-items-stretch">
+      <body className={twJoin(inter.className)}>
+        <div className="flex h-full justify-items-stretch">
           <SessionProvider>
             <ApiClientProvider session={session}>
               <SessionUserProvider session={session}>

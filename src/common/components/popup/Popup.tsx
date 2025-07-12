@@ -24,13 +24,13 @@ const Popup = ({
 
   return (
     <div
-      className="fixed top-0 left-0 z-50 flex h-screen w-screen items-center justify-center bg-black/50 backdrop-blur-xs"
+      className="fixed top-0 left-0 z-50 flex h-screen w-screen items-center justify-center bg-black/50 p-4 backdrop-blur-xs"
       {...props}
     >
       <div
         id="popup"
         className={twMerge(
-          'bg-background border-muted relative w-full rounded-xl border px-4 py-6',
+          'bg-background border-muted relative w-full rounded-xl border px-4 py-6 not-sm:px-2',
           className,
         )}
       >

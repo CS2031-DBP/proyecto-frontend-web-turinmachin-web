@@ -18,9 +18,11 @@ export const ToxicityPostPopup: PopupComponent<'toxicityPost'> = ({
   return (
     <AlertPopup
       title="Contenido no seguro"
-      message="Tu publicación podría contener contenido inapropiado. Por favor, revísala antes de publicarla nuevamente."
       Icon={LuTriangleAlert}
       onClose={handleContinue}
-    />
+    >
+      Tu publicación podría contener contenido inapropiado. Por favor, revísala
+      antes de publicarla nuevamente.
+    </AlertPopup>
   );
 };

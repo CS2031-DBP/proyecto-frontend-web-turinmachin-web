@@ -1,5 +1,4 @@
 'use client';
-
 import { LeftBar } from '@/common/components/layout/LeftBar/LeftBar';
 import { PopupProvider } from '@/common/context/PopupProvider';
 import { Inter } from 'next/font/google';
@@ -17,13 +16,8 @@ export interface Props {
 
 const GlobalError = ({ reset }: Readonly<Props>) => (
   <html lang="es" suppressHydrationWarning>
-    <body
-      className={twJoin(
-        inter.className,
-        'bg-background text-foreground font-main flex min-h-screen flex-col antialiased',
-      )}
-    >
-      <div className="flex max-h-screen grow justify-items-stretch">
+    <body className={twJoin(inter.className)}>
+      <div className="flex h-full justify-items-stretch">
         <PopupProvider>
           <LeftBar session={null} />
           <Error reset={reset} />

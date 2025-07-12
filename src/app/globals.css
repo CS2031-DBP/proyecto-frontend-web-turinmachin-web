@@ -24,8 +24,13 @@
     @apply transition-colors;
   }
 
+  html,
   body {
-    @apply text-foreground scheme-light;
+    @apply h-full;
+  }
+
+  body {
+    @apply bg-background text-foreground font-mono antialiased scheme-light;
   }
 
   button,

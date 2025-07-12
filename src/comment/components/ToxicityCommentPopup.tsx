@@ -1,5 +1,3 @@
-'use client';
-
 import { AlertPopup } from '@/common/components/popup/AlertPopup';
 import type { PopupComponent } from '@/common/context/PopupProvider';
 import { LuMessageCircleWarning } from 'react-icons/lu';
@@ -9,8 +7,10 @@ export const ToxicityCommentPopup: PopupComponent<'toxicityComment'> = ({
 }) => (
   <AlertPopup
     title="Contenido no seguro"
-    message="Tu comentario podría contener contenido inapropiado. Por favor, revísalo antes de comentar nuevamente."
     Icon={LuMessageCircleWarning}
     onClose={onClose}
-  />
+  >
+    Tu comentario podría contener contenido inapropiado. Por favor, revísalo
+    antes de comentar nuevamente.
+  </AlertPopup>
 );
