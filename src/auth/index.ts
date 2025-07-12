@@ -65,25 +65,34 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         } else if (credentials.type === 'login') {
           const response = await apiClient.login({ body: credentials });
 
-          if (response.status === 403) {
+          if (response.status === 403)
             throw new InvalidLoginError(
               'Esta cuenta usa inicio de sesión con Google.',
             );
-          }
 
-          if (response.status === 401) {
+          if (response.status === 401)
             throw new InvalidLoginError('Credenciales inválidas.');
-          }
 
           loginResponse = response.body;
-        } else if (credentials.type === 'google') {
+        } else if (credentials.type === 'googleLogin') {
           const response = await apiClient.googleLogin({ body: credentials });
 
-          if (response.status === 403) {
+          if (response.status === 404)
+            throw new InvalidLoginError('Esta cuenta no existe.');
+
+          if (response.status === 403)
             throw new InvalidLoginError(
               'Este usuario no está asociado a una cuenta Google.',
             );
-          }
+
+          loginResponse = response.body;
+        } else if (credentials.type === 'googleRegister') {
+          const response = await apiClient.googleRegister({
+            body: credentials,
+          });
+
+          if (response.status === 409)
+            throw new InvalidLoginError('Esta cuenta ya existe.');
 
           loginResponse = response.body;
         } else if (credentials.type === 'googleUpgrade') {

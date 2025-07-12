@@ -56,11 +56,21 @@ export const appContract = c.router(
     },
     googleLogin: {
       method: 'POST',
-      path: '/auth/oauth/google',
+      path: '/auth/oauth/google/login',
       body: GoogleLoginRequestSchema,
       responses: {
         200: LoginResponseSchema,
         403: DetailResponseSchema,
+        404: DetailResponseSchema,
+      },
+    },
+    googleRegister: {
+      method: 'POST',
+      path: '/auth/oauth/google/register',
+      body: GoogleLoginRequestSchema,
+      responses: {
+        200: LoginResponseSchema,
+        409: DetailResponseSchema,
       },
     },
     googleLoginUpgrade: {

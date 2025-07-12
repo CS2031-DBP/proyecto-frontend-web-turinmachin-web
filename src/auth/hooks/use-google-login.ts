@@ -11,6 +11,30 @@ export const useGoogleLogin = () => {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
 
+  const registerInstead = async (idToken: string) => {
+    const credentials: AuthCredentialsSchema = {
+      type: 'googleRegister',
+      idToken,
+    };
+    const res = await signIn('credentials', {
+      redirect: false,
+      ...credentials,
+    });
+
+    if (res.error) {
+      console.error('signIn error:', res);
+      setError(res.code ?? 'Algo salió mal :(');
+      return;
+    }
+
+    router.refresh();
+
+    const session = await getSession();
+    if (session) {
+      openPopup('googleWelcome', { username: session.user.username });
+    }
+  };
+
   const [pending, handleSuccess] = usePendingCallback(
     async (response: CredentialResponse) => {
       const idToken = response.credential;
@@ -18,15 +42,21 @@ export const useGoogleLogin = () => {
 
       setError(null);
 
-      const credentials: AuthCredentialsSchema = { type: 'google', idToken };
+      const credentials: AuthCredentialsSchema = {
+        type: 'googleLogin',
+        idToken,
+      };
       const res = await signIn('credentials', {
         redirect: false,
         ...credentials,
       });
 
       if (res.error) {
+        // TODO: needs way better error handling
         if (res.code?.includes('asociado')) {
           openPopup('googleUpgrade', { idToken });
+        } else if (res.code?.includes('existe')) {
+          registerInstead(idToken);
         } else {
           console.error('signIn error:', res);
           setError(res.code ?? 'Algo salió mal :(');
@@ -35,11 +65,7 @@ export const useGoogleLogin = () => {
       }
 
       router.refresh();
-
-      const session = await getSession();
-      if (session) {
-        openPopup('googleWelcome', { username: session.user.username });
-      }
+      closePopup();
     },
     [router, closePopup],
   );
