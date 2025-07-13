@@ -256,6 +256,17 @@ export const appContract = c.router(
         403: DetailResponseSchema,
       },
     },
+    suggestTags: {
+      method: 'GET',
+      path: '/posts/suggest-tags',
+      query: z.object({
+        content: z.string(),
+      }),
+      responses: {
+        200: z.array(z.string()),
+        403: DetailResponseSchema,
+      },
+    },
     updatePost: {
       method: 'PUT',
       path: '/posts/:id',

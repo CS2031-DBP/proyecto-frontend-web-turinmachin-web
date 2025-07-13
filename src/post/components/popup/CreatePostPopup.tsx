@@ -5,7 +5,7 @@ import { MediaSelector } from '@/common/components/form/MediaSelector';
 import { Popup } from '@/common/components/popup/Popup';
 import { TagInput } from '@/common/components/TagInput';
 import { PopupComponent } from '@/common/context/PopupProvider';
-import { LuPlus } from 'react-icons/lu';
+import { LuPlus, LuSparkles } from 'react-icons/lu';
 import { useCreatePost } from '../../hooks/use-create-post';
 
 export const CreatePostPopup: PopupComponent<'post'> = ({ onClose }) => {
@@ -34,19 +34,34 @@ export const CreatePostPopup: PopupComponent<'post'> = ({ onClose }) => {
             autoComplete="off"
             className="text-lg sm:text-xl"
           />
+
           <div className="my-4">
             <label className="mb-2 block">Tags</label>
-            <TagInput
-              value={tags}
-              setValue={setTags}
-              inputProps={{ placeholder: 'mates, examen, etc...' }}
-            />
+            <div className="flex items-center gap-2">
+              <TagInput
+                value={tags}
+                setValue={setTags}
+                inputProps={{ placeholder: 'mates, examen, etc...' }}
+                className="flex-1"
+              />
+              <button
+                type="button"
+                title="Sugerir etiquetas"
+                className="bg-special hover:bg-special-muted inline-flex items-center gap-1 rounded-full px-3 py-2.5 text-sm font-semibold shadow-sm transition"
+                onClick={() => {
+                  // Aquí se llamará al endpoint más adelante
+                }}
+              >
+                <LuSparkles className="h-4 w-4" />
+                Sugerir
+              </button>
+            </div>
           </div>
+
           <MediaSelector value={files} setValue={setFiles} />
         </div>
 
         <div className="text-right">
-          {' '}
           <Button
             variant="special"
             disabled={pending}
