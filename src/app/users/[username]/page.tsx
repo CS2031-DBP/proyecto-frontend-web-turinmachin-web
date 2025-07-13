@@ -42,7 +42,6 @@ const UserPage = async ({ params }: Readonly<Props>) => {
   const isSelf = user.id === session?.user.id;
 
   const joinedAt = day(user.createdAt).locale('es').format('MMMM [de] YYYY');
-  const birthdayStr = day(user.birthday).locale('es').format('D [de] MMMM');
 
   return (
     <Main>
@@ -108,10 +107,12 @@ const UserPage = async ({ params }: Readonly<Props>) => {
           <span className="mr-1 not-lg:hidden">Se unió en</span>
           {joinedAt}
         </li>
-        <li className="flex items-center">
-          <LuCake className="mr-2 shrink-0" />
-          {birthdayStr}
-        </li>
+        {user.birthday && (
+          <li className="flex items-center">
+            <LuCake className="mr-2 shrink-0" />
+            {day(user.birthday).locale('es').format('D [de] MMMM')}
+          </li>
+        )}
         {user.role !== 'USER' &&
           (user.role === 'ADMIN' ? (
             <li className="text-important flex items-center">

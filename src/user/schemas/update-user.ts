@@ -6,11 +6,14 @@ export const UpdateUserSchema = RegisterRequestSchema.pick({
   username: true,
   displayName: true,
 }).extend({
-  birthday: z.coerce
-    .date()
-    .min(new Date('1900-01-01'), '¿Naciste antes de 1900? :o')
-    .max(new Date(), 'No puedes no haber nacido todavía.')
-    .optional(),
+  birthday: z.preprocess(
+    (val) => (val === '' ? undefined : val),
+    z.coerce
+      .date()
+      .min(new Date('1900-01-01'), '¿Naciste antes de 1900? :o')
+      .max(new Date(), 'No puedes no haber nacido todavía.')
+      .optional(),
+  ),
   bio: z
     .string()
     .optional()
