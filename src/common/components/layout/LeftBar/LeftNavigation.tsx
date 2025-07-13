@@ -1,5 +1,4 @@
 'use client';
-
 import { routes } from '@/common/util/routes';
 import { Session } from 'next-auth';
 import Link from 'next/link';
@@ -14,7 +13,7 @@ import {
   LuUniversity,
   LuUser,
 } from 'react-icons/lu';
-import { twJoin, twMerge } from 'tailwind-merge';
+import { twJoin } from 'tailwind-merge';
 
 type Link =
   | {
@@ -83,11 +82,11 @@ export interface Props extends HTMLAttributes<HTMLUListElement> {
   session: Session | null;
 }
 
-export const LeftNavigation = ({ session, className, ...props }: Props) => {
+export const LeftNavigation = ({ session }: Props) => {
   const pathname = usePathname();
 
   return (
-    <nav className={twMerge(className, 'block grow')} {...props}>
+    <nav className="block grow overflow-y-auto">
       {links
         .filter((link) => !link.sessionOnly || session !== null)
         .map((link) => {
