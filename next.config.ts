@@ -19,7 +19,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'unilife-prod.s3.amazonaws.com',
+        hostname: 'unilife-storage.s3.amazonaws.com',
         port: '',
         search: '',
       },
