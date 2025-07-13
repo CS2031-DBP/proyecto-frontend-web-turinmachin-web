@@ -46,6 +46,7 @@ export const CommentForm = ({
                 ? '¿Qué opinas de esta opinión?'
                 : '¿Qué opinas?'
         }
+        showError={false}
         disabled={session === null || !session.user.verified}
         autoFocus={autoFocusInput}
       />

@@ -19,6 +19,7 @@ export interface Props<T extends FieldValues>
   name: FieldName<FieldValuesFromFieldErrors<FieldErrors<T>>> & Path<T>;
   showLengthHint?: boolean;
   label?: string;
+  showError?: boolean;
 }
 
 export const FormTextArea = <T extends FieldValues>({
@@ -30,6 +31,7 @@ export const FormTextArea = <T extends FieldValues>({
   disabled,
   minLength,
   maxLength,
+  showError = true,
   className,
   ...props
 }: Props<T>) => {
@@ -55,7 +57,7 @@ export const FormTextArea = <T extends FieldValues>({
         required={required}
         className={twMerge(
           'border-muted focus:border-special disabled:bg-muted/20 block w-full resize-none rounded border px-3 py-2 focus:outline-none',
-          errors[name] ? 'border-red-300' : 'border-muted',
+          showError && errors[name] ? 'border-red-300' : 'border-muted',
           className,
         )}
       />
@@ -71,7 +73,9 @@ export const FormTextArea = <T extends FieldValues>({
           {value?.length ?? 0}/{maxLength}
         </div>
       )}
-      <ErrorMessage name={name} errors={errors} render={FormError} />
+      {showError && (
+        <ErrorMessage name={name} errors={errors} render={FormError} />
+      )}
     </label>
   );
 };
