@@ -25,6 +25,18 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  headers: async () => [
+    {
+      source: '/(.*)',
+      headers: [
+        {
+          key: 'Content-Security-Policy',
+          value:
+            "default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; object-src 'none';",
+        },
+      ],
+    },
+  ],
 };
 
 export default nextConfig;
