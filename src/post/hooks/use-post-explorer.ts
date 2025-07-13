@@ -1,8 +1,10 @@
-import { useDebouncedEffect } from '@/common/hooks/use-debounced-effect';
+'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useDebouncedCallback } from 'use-debounce';
+import useDeepCompareEffect from 'use-deep-compare-effect';
 import { z } from 'zod/v4';
 import { TagSchema } from '../schemas/post-tag';
 
@@ -39,18 +41,14 @@ export const usePostExplorer = () => {
     defaultValues: currentQueries,
   });
 
-  const onSubmit = (data: FormSchema) => {
-    setCurrentQueries(data);
-  };
-
   const formData = form.watch();
 
-  useDebouncedEffect(() => form.handleSubmit(onSubmit)(), 250, [
-    formData.query,
-    formData.degreeId,
-    formData.universityId,
-    formData.tags.join(','),
-  ]);
+  const onSubmit = useMemo(() => form.handleSubmit(setCurrentQueries), [form]);
+  const debouncedOnSubmit = useDebouncedCallback(onSubmit, 250);
+
+  useDeepCompareEffect(() => {
+    debouncedOnSubmit();
+  }, [formData, debouncedOnSubmit]);
 
   return { form, onSubmit, currentQueries };
 };

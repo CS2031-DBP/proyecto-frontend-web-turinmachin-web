@@ -27,7 +27,7 @@ export const PostExplorer = ({ session }: Props) => {
   return (
     <>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={onSubmit}
         className="bg-background/85 border-muted sticky top-0 z-25 space-y-2 border-b px-8 py-6 backdrop-blur-lg"
       >
         <div className="form-input has-focus:border-special relative flex items-center gap-x-2">

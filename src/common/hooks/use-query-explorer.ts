@@ -1,7 +1,7 @@
-import { useDebouncedEffect } from '@/common/hooks/use-debounced-effect';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useDebounce } from 'use-debounce';
 import { z } from 'zod/v4';
 
 export const FormSchema = z.object({
@@ -36,9 +36,11 @@ export const useQueryExplorer = ({
 
   const formData = form.watch();
 
-  useDebouncedEffect(() => form.handleSubmit(onSubmit)(), 250, [
-    formData.query,
-  ]);
+  const [debouncedQuery] = useDebounce(formData.query, 250);
+
+  useEffect(() => {
+    form.handleSubmit(onSubmit)();
+  }, [debouncedQuery, form]);
 
   return { form, onSubmit, currentQueries };
 };
