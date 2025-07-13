@@ -41,8 +41,6 @@ export const NotificationsProvider = () => {
       auth: btoa(String.fromCharCode.apply(null, [...new Uint8Array(auth)])),
     };
 
-    console.log('sub:', subscription);
-    console.log('sending:', data);
     await apiClient.saveSubscription({ body: data });
   }, [apiClient]);
 

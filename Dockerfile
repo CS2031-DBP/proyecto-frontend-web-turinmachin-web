@@ -1,8 +1,6 @@
 # Credit: https://github.com/vercel/next.js/blob/canary/examples/with-docker/Dockerfile
 FROM node:lts-alpine AS base
 
-RUN apk add --no-cache git
-RUN apk add --no-cache openssh
 RUN apk add --no-cache libc6-compat
 
 RUN corepack enable pnpm
@@ -52,7 +50,6 @@ ENV HOSTNAME="0.0.0.0"
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
