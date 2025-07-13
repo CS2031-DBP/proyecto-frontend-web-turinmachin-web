@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod/v4';
 import { AuthorRoleSchema } from './author-role';
 
 export const AIMessageResponseSchema = z.object({

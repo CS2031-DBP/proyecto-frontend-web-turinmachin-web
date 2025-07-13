@@ -1,4 +1,4 @@
-import z from 'zod';
+import z from 'zod/v4';
 import { TagSchema } from './post-tag';
 
 export const CreatePostSchema = z.object({

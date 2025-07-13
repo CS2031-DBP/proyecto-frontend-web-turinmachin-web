@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod/v4';
 
 export const ChatSubscriptionSchema = z.object({
   endpoint: z.string().url(),

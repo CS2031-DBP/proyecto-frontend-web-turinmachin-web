@@ -1,5 +1,5 @@
 import { createPageSchema } from '@/api/schemas/page';
-import { z } from 'zod';
+import { z } from 'zod/v4';
 import { FileInfoSchema } from '../../common/schemas/file-info';
 import { DegreeSchema } from '../../degree/schemas/degree';
 import { UniversitySchema } from '../../university/schemas/university';

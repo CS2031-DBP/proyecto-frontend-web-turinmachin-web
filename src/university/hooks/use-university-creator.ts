@@ -4,7 +4,7 @@ import { routes } from '@/common/util/routes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
-import z from 'zod';
+import z from 'zod/v4';
 import { CreateUniversitySchema } from '../schemas/create-university';
 
 export const FormSchema = CreateUniversitySchema;

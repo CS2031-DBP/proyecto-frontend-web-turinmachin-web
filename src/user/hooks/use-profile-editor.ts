@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import { z } from 'zod/v4';
 import { SelfUserSchema } from '../schemas/self-user';
 import { UpdateUserSchema } from '../schemas/update-user';
 import { useSessionUser } from './use-session-user';

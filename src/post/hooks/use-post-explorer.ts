@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import { z } from 'zod/v4';
 import { TagSchema } from '../schemas/post-tag';
 
 export const FormSchema = z.object({
@@ -30,6 +30,8 @@ export const usePostExplorer = () => {
   const [currentQueries, setCurrentQueries] = useState<FormSchema>({
     query: searchParams.get('q') ?? '',
     tags: searchParams.getAll('tags'),
+    universityId: undefined,
+    degreeId: undefined,
   });
 
   const form = useForm({

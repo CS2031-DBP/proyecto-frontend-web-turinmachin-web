@@ -6,7 +6,7 @@ import { DegreeSchema } from '@/degree/schemas/degree';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
-import z from 'zod';
+import z from 'zod/v4';
 import { UniversitySchema } from '../schemas/university';
 import { UpdateUniversitySchema } from '../schemas/update-university';
 

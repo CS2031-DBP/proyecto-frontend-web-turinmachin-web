@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod/v4';
 import { LoginRequestSchema } from './login-request';
 import { GoogleLoginRequestSchema } from './oauth2-credentials';
 import { RegisterRequestSchema } from './register-request';

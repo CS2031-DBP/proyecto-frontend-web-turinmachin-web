@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod/v4';
 import { CreatePostSchema } from './create-post';
 
 export const UpdatePostSchema = CreatePostSchema.pick({

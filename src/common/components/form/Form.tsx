@@ -1,21 +1,21 @@
 import { FormHTMLAttributes, useState } from 'react';
-import { FieldValues, UseFormReturn } from 'react-hook-form';
+import { FieldValues, SubmitHandler, UseFormReturn } from 'react-hook-form';
 
-export interface Props<T extends FieldValues>
+export interface Props<F extends FieldValues, T>
   extends Omit<FormHTMLAttributes<HTMLFormElement>, 'onSubmit'> {
   onSubmit: (data: T) => Promise<void>;
-  form: UseFormReturn<T>;
+  form: UseFormReturn<F, unknown, T>;
 }
 
-export const Form = <T extends FieldValues>({
+export const Form = <F extends FieldValues, T>({
   form,
   onSubmit,
   children,
   ...props
-}: Props<T>) => {
+}: Props<F, T>) => {
   const [error, setError] = useState<string | null>(null);
 
-  const onValid = async (data: T) => {
+  const onValid: SubmitHandler<T> = async (data) => {
     setError(null);
     try {
       await onSubmit?.(data);

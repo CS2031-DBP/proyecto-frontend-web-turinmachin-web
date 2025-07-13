@@ -1,5 +1,5 @@
 import { createPageSchema } from '@/api/schemas/page';
-import { z } from 'zod';
+import { z } from 'zod/v4';
 
 export const UniversitySchema = z.object({
   id: z.string(),

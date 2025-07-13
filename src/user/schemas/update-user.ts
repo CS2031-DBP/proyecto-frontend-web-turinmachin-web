@@ -1,5 +1,5 @@
 import { RegisterRequestSchema } from '@/auth/schemas/register-request';
-import { z } from 'zod';
+import { z } from 'zod/v4';
 
 export const UpdateUserSchema = RegisterRequestSchema.pick({
   email: true,

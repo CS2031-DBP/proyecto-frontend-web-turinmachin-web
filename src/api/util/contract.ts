@@ -23,7 +23,7 @@ import { RoleSchema } from '@/user/schemas/role';
 import { UpdatePasswordSchema } from '@/user/schemas/update-password';
 import { UpdateUserSchema } from '@/user/schemas/update-user';
 import { UserPageSchema, UserSchema } from '@/user/schemas/user';
-import { z } from 'zod';
+import { z } from 'zod/v4';
 import { DetailResponseSchema } from '../schemas/detail-response';
 
 import { ChatSubscriptionSchema } from '@/chat/schemas/chat-subscription';

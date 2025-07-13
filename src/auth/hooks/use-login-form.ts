@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import { z } from 'zod/v4';
 import { AuthCredentialsSchema } from '../schemas/auth-credentials';
 import { LoginRequestSchema } from '../schemas/login-request';
 

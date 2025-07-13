@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Session } from 'next-auth';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import { z } from 'zod/v4';
 import { UpdatePasswordSchema } from '../schemas/update-password';
 
 export interface UsePasswordChangerOptions {

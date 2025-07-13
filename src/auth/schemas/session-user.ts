@@ -1,5 +1,5 @@
 import { SelfUserSchema } from '@/user/schemas/self-user';
-import { z } from 'zod';
+import { z } from 'zod/v4';
 
 export const SessionUserSchema = SelfUserSchema.pick({
   id: true,

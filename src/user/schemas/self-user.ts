@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod/v4';
 import { UserSchema } from './user';
 
 export const SelfUserSchema = UserSchema.extend({

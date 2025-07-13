@@ -4,7 +4,7 @@ import { usePopup } from '@/common/hooks/use-popup';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useSWRConfig } from 'swr';
-import { z } from 'zod';
+import { z } from 'zod/v4';
 import { CreateCommentSchema } from '../schemas/create-comment';
 
 export const FormSchema = CreateCommentSchema;
