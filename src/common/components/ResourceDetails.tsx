@@ -51,10 +51,10 @@ export const ResourceDetails = ({
             )}
           </div>
           {university && (
-            <div>
+            <div className="text-foreground-muted">
               <Link
                 href={routes.universities.byId(university.id)}
-                className="text-foreground-muted hover:underline"
+                className="hover:underline"
               >
                 {universityName}
               </Link>
@@ -63,7 +63,7 @@ export const ResourceDetails = ({
                   ,{' '}
                   <Link
                     href={routes.degrees.byId(degree.id)}
-                    className="text-foreground-muted hover:underline"
+                    className="hover:underline"
                   >
                     {degree.name}
                   </Link>
