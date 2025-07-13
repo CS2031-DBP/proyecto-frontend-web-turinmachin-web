@@ -1,8 +1,6 @@
 # Credit: https://github.com/vercel/next.js/blob/canary/examples/with-docker/Dockerfile
 FROM node:lts-alpine AS base
 
-RUN apk add --no-cache git
-RUN apk add --no-cache openssh
 RUN apk add --no-cache libc6-compat
 
 RUN corepack enable pnpm
