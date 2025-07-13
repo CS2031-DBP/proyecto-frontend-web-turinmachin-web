@@ -19,7 +19,7 @@ export const FormSchema = z.object({
     .string()
     .optional()
     .transform((s) => (s?.length === 0 ? undefined : s)),
-  tags: TagSchema.array(),
+  tags: z.array(TagSchema),
 });
 
 export type FormSchema = z.infer<typeof FormSchema>;

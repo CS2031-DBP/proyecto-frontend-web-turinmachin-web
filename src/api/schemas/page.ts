@@ -11,7 +11,7 @@ export type PageInfoSchema = z.infer<typeof PageInfoSchema>;
 
 export const createPageSchema = <T extends z.ZodType>(itemSchema: T) =>
   z.object({
-    content: itemSchema.array(),
+    content: z.array(itemSchema),
     page: PageInfoSchema,
   });
 

@@ -4,12 +4,14 @@ import { LoginResponseSchema } from '@/auth/schemas/login-response';
 import { GoogleLoginRequestSchema } from '@/auth/schemas/oauth2-credentials';
 import { RegisterRequestSchema } from '@/auth/schemas/register-request';
 import { ResetPasswordSchema } from '@/auth/schemas/reset-password';
+import { ChatSubscriptionSchema } from '@/chat/schemas/chat-subscription';
 import { CommentSchema } from '@/comment/schemas/comment';
 import { CreateCommentSchema } from '@/comment/schemas/create-comment';
 import { CreateDegreeSchema } from '@/degree/schemas/create-degree';
 import { DegreePageSchema, DegreeSchema } from '@/degree/schemas/degree';
 import { DegreeWithStatsSchema } from '@/degree/schemas/degree-with-stats';
 import { UpdateDegreeSchema } from '@/degree/schemas/update-degree';
+import { CreatePostSchema } from '@/post/schemas/create-post';
 import { PostPageSchema, PostSchema } from '@/post/schemas/post';
 import { UpdatePostSchema } from '@/post/schemas/update-post';
 import { CreateUniversitySchema } from '@/university/schemas/create-university';
@@ -20,16 +22,13 @@ import {
 import { UniversityWithStatsSchema } from '@/university/schemas/university-with-stats';
 import { UpdateUniversitySchema } from '@/university/schemas/update-university';
 import { RoleSchema } from '@/user/schemas/role';
+import { SelfUserSchema } from '@/user/schemas/self-user';
 import { UpdatePasswordSchema } from '@/user/schemas/update-password';
 import { UpdateUserSchema } from '@/user/schemas/update-user';
 import { UserPageSchema, UserSchema } from '@/user/schemas/user';
+import { initContract } from '@ts-rest/core';
 import { z } from 'zod/v4';
 import { DetailResponseSchema } from '../schemas/detail-response';
-
-import { ChatSubscriptionSchema } from '@/chat/schemas/chat-subscription';
-import { CreatePostSchema } from '@/post/schemas/create-post';
-import { SelfUserSchema } from '@/user/schemas/self-user';
-import { initContract } from '@ts-rest/core';
 
 const c = initContract();
 

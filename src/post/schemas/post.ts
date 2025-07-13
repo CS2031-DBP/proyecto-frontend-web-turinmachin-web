@@ -10,7 +10,7 @@ export const PostSchema = z.object({
   id: z.string(),
   author: UserSchema,
   content: z.string(),
-  files: FileInfoSchema.array(),
+  files: z.array(FileInfoSchema),
   university: UniversitySchema,
   degree: DegreeSchema.optional(),
   tags: z.string().array(),
