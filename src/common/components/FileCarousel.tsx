@@ -91,6 +91,7 @@ export const FileCarousel = ({
                 muted={muteVideos}
                 loop
                 autoPlay
+                playsInline
                 controls={fullVideoControls}
                 className={twJoin(
                   'h-full w-full',
