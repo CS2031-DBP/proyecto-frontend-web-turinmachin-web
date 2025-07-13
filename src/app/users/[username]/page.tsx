@@ -6,11 +6,11 @@ import { day } from '@/common/util/dayjs';
 import { routes } from '@/common/util/routes';
 import { PostListing } from '@/post/components/PostListing';
 import { ModDeleteAccountButton } from '@/user/components/ModDeleteAccountButton';
+import { ProfilePicture } from '@/user/components/ProfilePicture';
 import { ResendVerificationButton } from '@/user/components/ResendVerificationButton';
 import { RoleSelector } from '@/user/components/RoleSelector';
 import { isSessionAdmin } from '@/user/util';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import {
@@ -52,19 +52,10 @@ const UserPage = async ({ params }: Readonly<Props>) => {
         </div>
       )}
       <div className="mt-8">
-        {user.profilePicture && (
-          <div className="bg-background-alt relative mx-auto mb-8 size-36 min-h-36 overflow-hidden rounded-full">
-            <Image
-              src={user.profilePicture.url}
-              className="object-cover"
-              fill
-              alt=""
-              sizes="50vw"
-              placeholder={user.profilePicture.blurDataUrl ? 'blur' : 'empty'}
-              blurDataURL={user.profilePicture.blurDataUrl}
-            />
-          </div>
-        )}
+        <ProfilePicture
+          profilePicture={user.profilePicture}
+          className="mx-auto mb-8 size-36"
+        />
         <div className="my-4">
           <h1 className="text-center text-3xl font-bold">
             {user.displayName ?? (
