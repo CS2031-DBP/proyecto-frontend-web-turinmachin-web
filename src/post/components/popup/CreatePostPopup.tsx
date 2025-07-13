@@ -29,6 +29,8 @@ export const CreatePostPopup: PopupComponent<'post'> = ({ onClose }) => {
             placeholder="Piensa en algo interesante..."
             autoFocus
             rows={4}
+            maxLength={300}
+            showLengthHint
             autoComplete="off"
             className="text-lg sm:text-xl"
           />

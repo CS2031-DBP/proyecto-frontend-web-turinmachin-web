@@ -1,5 +1,4 @@
 'use client';
-
 import { Button } from '@/common/components/Button';
 import { FileCarousel } from '@/common/components/FileCarousel';
 import { Form } from '@/common/components/form/Form';
@@ -23,6 +22,8 @@ export const PostEditor = ({ post }: Props) => {
       <FormTextArea
         form={form}
         name="content"
+        maxLength={300}
+        showLengthHint
         autoComplete="off"
         placeholder="Piensa en algo interesante..."
       />

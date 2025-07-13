@@ -17,6 +17,7 @@ export interface Props<T extends FieldValues>
   extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'form'> {
   form: UseFormReturn<T>;
   name: FieldName<FieldValuesFromFieldErrors<FieldErrors<T>>> & Path<T>;
+  showLengthHint?: boolean;
   label?: string;
 }
 
@@ -24,6 +25,7 @@ export const FormTextArea = <T extends FieldValues>({
   form,
   label,
   name,
+  showLengthHint,
   required = true,
   disabled,
   minLength,
@@ -32,6 +34,8 @@ export const FormTextArea = <T extends FieldValues>({
   ...props
 }: Props<T>) => {
   const { errors } = form.formState;
+
+  const value = form.watch(name);
 
   return (
     <label className="my-4 block space-y-2">
@@ -55,6 +59,18 @@ export const FormTextArea = <T extends FieldValues>({
           className,
         )}
       />
+      {showLengthHint && (
+        <div
+          className={twJoin(
+            'text-sm',
+            maxLength && value && value.length > maxLength
+              ? 'text-error'
+              : 'text-foreground-muted',
+          )}
+        >
+          {value?.length ?? 0}/{maxLength}
+        </div>
+      )}
       <ErrorMessage name={name} errors={errors} render={FormError} />
     </label>
   );
