@@ -1,7 +1,6 @@
 import { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  output: 'standalone',
   transpilePackages: ['@t3-oss/env-nextjs', '@t3-oss/env-core'],
   images: {
     remotePatterns: [
@@ -14,6 +13,12 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'unilife-testing.s3.amazonaws.com',
+        port: '',
+        search: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'unilife-prod.s3.amazonaws.com',
         port: '',
         search: '',
       },
