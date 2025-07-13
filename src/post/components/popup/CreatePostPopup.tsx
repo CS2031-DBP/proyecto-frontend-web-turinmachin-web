@@ -5,14 +5,36 @@ import { MediaSelector } from '@/common/components/form/MediaSelector';
 import { Popup } from '@/common/components/popup/Popup';
 import { TagInput } from '@/common/components/TagInput';
 import { PopupComponent } from '@/common/context/PopupProvider';
+import { useTagSuggestions } from '@/post/hooks/use-tag-suggestions';
 import { LuPlus, LuSparkles } from 'react-icons/lu';
 import { useCreatePost } from '../../hooks/use-create-post';
+import { TagSuggestionList } from '../TagSuggestionList';
 
 export const CreatePostPopup: PopupComponent<'post'> = ({ onClose }) => {
   const { form, pending, handleSubmit, files, setFiles, tags, setTags } =
     useCreatePost({
       onClose,
     });
+
+  const {
+    suggestions,
+    loading: loadingSuggestions,
+    fetchSuggestions,
+    removeSuggestion,
+  } = useTagSuggestions();
+
+  const handleSuggestTags = () => {
+    const content = form.getValues().content;
+    if (!content?.trim()) return;
+    fetchSuggestions(content);
+  };
+
+  const handleAddSuggestedTag = (tag: string) => {
+    if (!tags.includes(tag)) {
+      setTags([...tags, tag]);
+    }
+    removeSuggestion(tag);
+  };
 
   return (
     <Popup className="mx-6 w-9/10 max-w-4xl" disableClickOutside>
@@ -47,15 +69,19 @@ export const CreatePostPopup: PopupComponent<'post'> = ({ onClose }) => {
               <button
                 type="button"
                 title="Sugerir etiquetas"
-                className="bg-special hover:bg-special-muted inline-flex items-center gap-1 rounded-full px-3 py-2.5 text-sm font-semibold shadow-sm transition"
-                onClick={() => {
-                  // Aquí se llamará al endpoint más adelante
-                }}
+                className="bg-special hover:bg-special-muted ml-2 inline-flex items-center gap-1 rounded-full px-4 py-2.5 text-sm font-semibold shadow-sm transition"
+                onClick={handleSuggestTags}
+                disabled={loadingSuggestions}
               >
                 <LuSparkles className="h-4 w-4" />
                 Sugerir
               </button>
             </div>
+
+            <TagSuggestionList
+              suggestions={suggestions}
+              onSelect={handleAddSuggestedTag}
+            />
           </div>
 
           <MediaSelector value={files} setValue={setFiles} />

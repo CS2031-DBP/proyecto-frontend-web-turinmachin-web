@@ -255,9 +255,9 @@ export const appContract = c.router(
         403: DetailResponseSchema,
       },
     },
-    suggestTags: {
+    tagCompletion: {
       method: 'GET',
-      path: '/posts/suggest-tags',
+      path: '/posts/tag-completion',
       query: z.object({
         content: z.string(),
       }),

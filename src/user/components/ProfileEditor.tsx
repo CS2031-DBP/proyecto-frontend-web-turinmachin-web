@@ -140,9 +140,9 @@ export const ProfileEditor = ({ session, user }: Props) => {
           rows={6}
           required={false}
         />
-        <div className="flex justify-between">
+        <div className="flex flex-col-reverse items-stretch gap-2 sm:flex-row sm:items-center sm:justify-between">
           <DeleteAccountButton />
-          <div>
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
             <ResetButton form={form}>Restablecer</ResetButton>
             <Button variant="special" disabled={pending}>
               Guardar
