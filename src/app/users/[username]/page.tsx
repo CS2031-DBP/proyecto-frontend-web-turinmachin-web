@@ -42,7 +42,6 @@ const UserPage = async ({ params }: Readonly<Props>) => {
   const isSelf = user.id === session?.user.id;
 
   const joinedAt = day(user.createdAt).locale('es').format('MMMM [de] YYYY');
-  console.log(user.birthday);
 
   return (
     <Main>
