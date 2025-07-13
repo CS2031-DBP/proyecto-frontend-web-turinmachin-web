@@ -1,5 +1,4 @@
 'use client';
-
 import { UserSchema } from '@/user/schemas/user';
 import { createContext } from 'react';
 
