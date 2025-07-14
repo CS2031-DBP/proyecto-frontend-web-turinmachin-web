@@ -93,17 +93,6 @@ const UserPage = async ({ params }: Readonly<Props>) => {
       )}
 
       <ul className="text-foreground-muted my-4 flex flex-col gap-x-4 gap-y-2 not-sm:items-center lg:gap-x-8">
-        <li className="flex items-center">
-          <LuCalendar className="mr-2 shrink-0" />
-          <span className="mr-1 not-lg:hidden">Se unió en</span>
-          {joinedAt}
-        </li>
-        {user.birthday && (
-          <li className="flex items-center">
-            <LuCake className="mr-2 shrink-0" />
-            {day(user.birthday).locale('es').format('D [de] MMMM')}
-          </li>
-        )}
         {user.role !== 'USER' &&
           (user.role === 'ADMIN' ? (
             <li className="text-important flex items-center">
@@ -116,6 +105,17 @@ const UserPage = async ({ params }: Readonly<Props>) => {
               Moderador
             </li>
           ))}
+        <li className="flex items-center">
+          <LuCalendar className="mr-2 shrink-0" />
+          <span className="mr-1 not-lg:hidden">Se unió en</span>
+          {joinedAt}
+        </li>
+        {user.birthday && (
+          <li className="flex items-center">
+            <LuCake className="mr-2 shrink-0" />
+            {day(user.birthday).locale('es').format('D [de] MMMM')}
+          </li>
+        )}
         {user.university && (
           <li className="flex items-center">
             <LuUniversity className="mr-2 shrink-0" />
