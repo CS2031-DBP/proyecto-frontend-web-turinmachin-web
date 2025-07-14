@@ -59,7 +59,7 @@ export const CreatePostPopup: PopupComponent<'post'> = ({ onClose }) => {
 
           <div className="my-4">
             <label className="mb-2 block">Tags</label>
-            <div className="flex items-center gap-2">
+            <div className="flex items-start gap-2">
               <TagInput
                 value={tags}
                 setValue={setTags}
