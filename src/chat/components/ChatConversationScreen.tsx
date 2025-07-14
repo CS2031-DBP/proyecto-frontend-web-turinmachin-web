@@ -19,6 +19,7 @@ import { useChatConversation } from '../hooks/use-chat-conversation';
 import { ChatMessage } from './ChatMessage';
 
 import { useRouter } from 'next/navigation';
+import { twJoin } from 'tailwind-merge';
 
 export interface Props {
   session: Session;
@@ -32,7 +33,7 @@ export const ChatConversationScreen = ({ session, otherUser }: Props) => {
     useChatConversation({ messagesRef, otherUser, session });
 
   return (
-    <div className="flex h-full w-full max-w-xl flex-col">
+    <div className="relative flex h-full w-full max-w-xl flex-col">
       <div className="mb-2 flex w-full items-center px-4 pt-4">
         <button
           className="hover:bg-foreground/5 text-foreground-muted mr-2 rounded-md px-1 py-1"
@@ -64,7 +65,7 @@ export const ChatConversationScreen = ({ session, otherUser }: Props) => {
       </div>
 
       <div
-        className="border-muted relative grow overflow-y-auto border px-4 py-2"
+        className="border-muted grow overflow-y-auto border py-2 not-sm:px-0 sm:px-4"
         ref={messagesRef}
       >
         {!messages ? (
@@ -78,7 +79,7 @@ export const ChatConversationScreen = ({ session, otherUser }: Props) => {
             <div>¡Escribe algo!</div>
           </div>
         ) : (
-          <ul className="pr-2">
+          <ul>
             {messages.map((message, index) => (
               <ChatMessage
                 key={message.id}
@@ -92,22 +93,22 @@ export const ChatConversationScreen = ({ session, otherUser }: Props) => {
           </ul>
         )}
 
-        {showReturn && (
-          <button
-            type="button"
-            onClick={scrollToBottom}
-            className="bg-muted absolute right-4 bottom-4 z-10 rounded-full p-2 shadow transition hover:brightness-90"
-            title="Ir abajo"
-          >
-            <LuArrowDown className="size-5" />
-          </button>
-        )}
+        <button
+          type="button"
+          onClick={scrollToBottom}
+          className={twJoin(
+            'bg-muted absolute left-1/2 z-10 -translate-x-1/2 rounded-full p-2 transition-[bottom] hover:brightness-90',
+            showReturn ? 'bottom-16' : 'bottom-0',
+          )}
+        >
+          <LuArrowDown className="size-5" />
+        </button>
       </div>
 
       <Form
         form={form}
         onSubmit={handleSubmit}
-        className="mt-2 flex items-stretch gap-2"
+        className="bg-background z-20 flex items-stretch gap-2 pt-2"
       >
         <FormInput
           form={form}

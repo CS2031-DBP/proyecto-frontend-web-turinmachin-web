@@ -11,24 +11,29 @@ export const metadata: Metadata = {
 const ChatPage = async () => {
   const session = await auth();
 
+  if (!session) {
+    return (
+      <Main className="text-foreground-muted flex grow flex-col items-center justify-center gap-y-2 px-4 py-6">
+        <LuMessageSquare className="size-10" />
+        <p className="font-medium">Inicia sesión para chatear.</p>
+        <p className="text-sm">
+          Necesitas iniciar sesión para usar esta función.
+        </p>
+      </Main>
+    );
+  }
+
+  if (!session.user.verified || true) {
+    <Main className="text-foreground-muted flex grow flex-col items-center justify-center gap-y-2 px-4 py-6">
+      <LuMessageSquare className="size-10" />
+      <p className="text-sm">¡Debes verificar tu cuenta para chatear!</p>
+    </Main>;
+  }
+
   return (
-    <>
-      {session?.user.verified ? (
-        <Main className="flex grow flex-col items-center px-4 py-6">
-          <ChatMainScreen session={session} />
-        </Main>
-      ) : (
-        <Main className="flex grow flex-col items-center px-4 py-6">
-          <div className="text-foreground-muted flex flex-1 flex-col items-center justify-center gap-2 px-6 text-center">
-            <LuMessageSquare className="h-8 w-8" />
-            <p className="text-sm font-medium">Inicia sesión para chatear.</p>
-            <p className="text-xs">
-              Necesitas estar logueado para usar esta función.
-            </p>
-          </div>
-        </Main>
-      )}
-    </>
+    <Main className="flex grow flex-col items-center px-4 py-6">
+      <ChatMainScreen session={session} />
+    </Main>
   );
 };
 
