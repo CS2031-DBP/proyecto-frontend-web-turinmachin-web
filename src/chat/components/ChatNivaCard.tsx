@@ -16,7 +16,7 @@ export const ChatNivaCard = () => {
         <LuBotMessageSquare className="size-6" />
       </div>
       <div className="flex-1">
-        <div className="font-semibold">Niva</div>
+        <div className="text-special font-semibold">Niva</div>
         <div className="text-foreground-muted text-sm">Tu asistente IA</div>
       </div>
     </div>

@@ -15,7 +15,7 @@ export interface Props {
 export const LeftBar = ({ session, ...props }: Props) => (
   <aside
     {...props}
-    className="border-muted flex w-18 min-w-18 flex-col border-r px-2 py-4 lg:w-72 lg:min-w-72"
+    className="border-muted hidden w-16 min-w-16 flex-col border-r px-2 py-4 sm:flex lg:w-72 lg:min-w-72"
   >
     <Link
       href={routes.home}

@@ -1,10 +1,12 @@
 import { ApiClientProvider } from '@/api/context/ApiClientProvider';
 import { auth } from '@/auth';
+import { BottomNavigation } from '@/common/components/layout/BottomNavigation';
 import { LeftBar } from '@/common/components/layout/LeftBar/LeftBar';
 import { RightBar } from '@/common/components/layout/RightBar';
 import { NotificationsProvider } from '@/common/components/NotificationsProvider';
 import { PopupProvider } from '@/common/context/PopupProvider';
 import { clientEnv } from '@/common/env/client';
+import { FloatingPostButton } from '@/post/components/FloatingPostButton';
 import { SessionUserProvider } from '@/user/context/SessionUserProvider';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import type { Metadata } from 'next';
@@ -42,9 +44,21 @@ const RootLayout = async ({ children }: Readonly<Props>) => {
                 >
                   <PopupProvider>
                     {session?.user.verified && <NotificationsProvider />}
-                    <LeftBar session={session} />
-                    {children}
-                    <RightBar />
+                    <div className="flex h-screen w-full">
+                      <div className="hidden sm:flex">
+                        <LeftBar session={session} />
+                      </div>
+
+                      <main className="flex grow flex-col items-stretch overflow-y-auto pb-8">
+                        {children}
+                      </main>
+
+                      <div className="hidden xl:flex">
+                        <RightBar />
+                      </div>
+                    </div>
+                    {session && <FloatingPostButton session={session} />}
+                    <BottomNavigation session={session} />
                   </PopupProvider>
                 </GoogleOAuthProvider>
               </SessionUserProvider>
