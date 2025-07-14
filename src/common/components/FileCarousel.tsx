@@ -1,151 +1,78 @@
 'use client';
-
-import { AnimatePresence, motion } from 'framer-motion';
-import Image from 'next/image';
-import { type HTMLAttributes } from 'react';
-import { LuChevronLeft, LuChevronRight } from 'react-icons/lu';
-import { twJoin, twMerge } from 'tailwind-merge';
+import { twJoin } from 'tailwind-merge';
+import LightBox, { Lightbox } from 'yet-another-react-lightbox';
+import Inline from 'yet-another-react-lightbox/plugins/inline';
+import Video from 'yet-another-react-lightbox/plugins/video';
+import Zoom from 'yet-another-react-lightbox/plugins/zoom';
+import 'yet-another-react-lightbox/styles.css';
 import { useFileCarousel } from '../hooks/use-file-carousel';
-import { useHasMounted } from '../hooks/use-has-mounted';
 import type { FileInfoSchema } from '../schemas/file-info';
-import { MaybeLink } from './MaybeLink';
 
-export interface Props extends HTMLAttributes<HTMLDivElement> {
+export interface Props {
+  aspectRatio: string;
   height?: number;
   files: FileInfoSchema[];
-  keyControls?: boolean;
-  contain?: boolean;
+  imageFit?: 'contain' | 'cover';
   muteVideos?: boolean;
   fullVideoControls?: boolean;
-  linkTo?: string;
 }
-
-const variants = {
-  enter: (dir: number) => ({
-    x: dir > 0 ? 300 : -300,
-    opacity: 0,
-    position: 'absolute',
-  }),
-  center: {
-    x: 0,
-    opacity: 1,
-    position: 'relative',
-  },
-  exit: (dir: number) => ({
-    x: dir > 0 ? -300 : 300,
-    opacity: 0,
-    position: 'absolute',
-  }),
-};
 
 export const FileCarousel = ({
   files,
-  contain = false,
-  keyControls = false,
+  imageFit = 'cover',
   muteVideos = true,
-  fullVideoControls,
-  linkTo,
-  className,
-  ...props
+  fullVideoControls = false,
+  aspectRatio,
 }: Props) => {
-  const hasMounted = useHasMounted();
-  const {
-    direction,
-    currentFile,
-    currentIndex,
-    setCurrentIndex,
-    slideLeft,
-    slideRight,
-  } = useFileCarousel({ files, keyControls });
+  const { slides, index, updateIndex, open, toggleOpen } =
+    useFileCarousel(files);
 
-  if (files.length === 0) return null;
+  const videoOptions = {
+    autoPlay: true,
+    playsInline: true,
+    loop: true,
+    controls: fullVideoControls,
+  };
 
   return (
-    <div
-      {...props}
-      role="button"
-      className={twMerge(
-        className,
-        'border-muted group relative h-64 min-h-64 overflow-hidden rounded-xl border sm:h-100 sm:min-h-100',
-      )}
-    >
-      <AnimatePresence custom={direction} mode="popLayout">
-        <motion.div
-          key={currentFile.url}
-          custom={direction}
-          variants={variants}
-          initial={hasMounted ? 'enter' : false}
-          animate="center"
-          exit="exit"
-          transition={{ duration: 0.25, ease: 'easeInOut' }}
-          role="button"
-          className="relative h-full w-full"
-        >
-          <MaybeLink
-            href={linkTo ? `${linkTo}?file=${currentIndex}` : undefined}
-          >
-            {currentFile.mediaType.startsWith('video') ? (
-              <video
-                key={currentFile.url}
-                src={currentFile.url}
-                muted={muteVideos}
-                loop
-                autoPlay
-                playsInline
-                controls={fullVideoControls}
-                className={twJoin(
-                  'h-full w-full',
-                  contain ? 'object-contain' : 'object-cover',
-                )}
-              >
-                Tu navegador no soporta videos :(
-              </video>
-            ) : (
-              <Image
-                key={currentFile.url}
-                src={currentFile.url}
-                alt=""
-                fill
-                sizes="70vw"
-                placeholder={currentFile.blurDataUrl ? 'blur' : 'empty'}
-                blurDataURL={currentFile.blurDataUrl}
-                className={twJoin(contain ? 'object-contain' : 'object-cover')}
-              />
+    <div className="relative my-4">
+      <LightBox
+        index={index}
+        plugins={[Video, Inline]}
+        on={{ view: updateIndex(false), click: toggleOpen(true) }}
+        video={{ ...videoOptions, muted: muteVideos }}
+        carousel={{ padding: 0, spacing: 0, imageFit }}
+        inline={{
+          className:
+            'rounded-lg overflow-hidden mx-0 my-auto cursor-pointer border border-muted',
+          style: { aspectRatio },
+        }}
+        slides={slides}
+      />
+      <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 cursor-default items-center space-x-1.5 rounded-full bg-black/65 px-2 py-2">
+        {files.map((_, i) => (
+          <button
+            key={i}
+            className={twJoin(
+              'h-1.5 rounded-full transition-all',
+              index === i ? 'w-3 bg-white' : 'w-1.5 bg-white/50',
             )}
-          </MaybeLink>
-        </motion.div>
-      </AnimatePresence>
+          />
+        ))}
+      </div>
 
-      {files.length > 1 && (
-        <>
-          <button
-            onClick={slideLeft}
-            type="button"
-            className="absolute top-0 left-0 h-full bg-black/75 p-6 text-white opacity-0 transition-all group-hover:opacity-40 hover:opacity-80"
-          >
-            <LuChevronLeft className="inline" size={36} />
-          </button>
-          <button
-            onClick={slideRight}
-            type="button"
-            className="absolute top-0 right-0 h-full bg-black/75 p-6 text-white opacity-0 transition-all group-hover:opacity-40 hover:opacity-80"
-          >
-            <LuChevronRight className="inline" size={36} />
-          </button>
-          <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 cursor-default items-center space-x-1.5 rounded-full bg-black/65 px-2 py-2">
-            {files.map((_, index) => (
-              <button
-                onClick={() => setCurrentIndex(index)}
-                key={index}
-                className={twJoin(
-                  'h-1.5 rounded-full transition-all',
-                  currentIndex === index ? 'w-3 bg-white' : 'w-1.5 bg-white/50',
-                )}
-              />
-            ))}
-          </div>
-        </>
-      )}
+      <Lightbox
+        plugins={[Video, Zoom]}
+        open={open}
+        close={toggleOpen(false)}
+        index={index}
+        slides={slides}
+        carousel={{ padding: 0, spacing: 0 }}
+        on={{ view: updateIndex(true) }}
+        animation={{ fade: 0 }}
+        controller={{ closeOnPullDown: true, closeOnBackdropClick: true }}
+        video={videoOptions}
+      />
     </div>
   );
 };

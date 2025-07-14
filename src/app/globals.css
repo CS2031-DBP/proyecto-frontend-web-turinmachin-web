@@ -20,6 +20,14 @@
 }
 
 @layer base {
+  .yarl__button {
+    @apply h-full;
+  }
+
+  .yarl__toolbar {
+    @apply z-100;
+  }
+
   * {
     @apply transition-colors;
   }

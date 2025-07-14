@@ -64,13 +64,12 @@ const Post = async ({ params }: Readonly<Props>) => {
       {post.tags.length !== 0 && <TagList tags={post.tags} className="my-2" />}
       {post.files.length !== 0 && (
         <FileCarousel
+          aspectRatio="16 / 9"
           files={post.files}
-          contain
-          keyControls
+          imageFit="contain"
           muteVideos={false}
           fullVideoControls
           height={140}
-          className="my-2"
         />
       )}
       <PostActionBar post={post} session={session} />

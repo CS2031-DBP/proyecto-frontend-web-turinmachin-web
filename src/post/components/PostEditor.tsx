@@ -37,7 +37,11 @@ export const PostEditor = ({ post }: Props) => {
       </div>
       {post.files.length !== 0 && (
         <>
-          <FileCarousel files={post.files} contain />
+          <FileCarousel
+            files={post.files}
+            imageFit="contain"
+            aspectRatio="16 / 9"
+          />
           <p className="text-foreground-muted my-8 text-center">
             (Lo sentimos, no puedes editar las imágenes de un post...)
           </p>

@@ -1,59 +1,32 @@
-import { useSearchParams } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
+import { useState } from 'react';
+import { Slide } from 'yet-another-react-lightbox';
 import { FileInfoSchema } from '../schemas/file-info';
 
-export interface UseFileCarouselOptions {
-  files: FileInfoSchema[];
-  keyControls: boolean;
-}
+export const useFileCarousel = (files: FileInfoSchema[]) => {
+  const [open, setOpen] = useState(false);
+  const [index, setIndex] = useState(0);
 
-export const useFileCarousel = ({
-  files,
-  keyControls,
-}: UseFileCarouselOptions) => {
-  const searchParams = useSearchParams();
-  const initialIndex = Number(searchParams.get('file'));
+  const toggleOpen = (state: boolean) => () => setOpen(state);
 
-  const [currentIndex, setCurrentIndex] = useState(
-    initialIndex >= 0 && initialIndex < files.length ? initialIndex : 0,
-  );
-  const [direction, setDirection] = useState(0);
-
-  const slideLeft = useCallback(() => {
-    setDirection(-1);
-    setCurrentIndex(
-      (prevIndex) => (prevIndex - 1 + files.length) % files.length,
-    );
-  }, [files.length]);
-
-  const slideRight = useCallback(() => {
-    setDirection(1);
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % files.length);
-  }, [files.length]);
-
-  useEffect(() => {
-    if (!keyControls) return;
-
-    const handleKeyDown = (ev: KeyboardEvent) => {
-      if (ev.key === 'ArrowLeft') {
-        slideLeft();
-      } else if (ev.key === 'ArrowRight') {
-        slideRight();
+  const updateIndex =
+    (when: boolean) =>
+    ({ index: current }: { index: number }) => {
+      if (when === open) {
+        setIndex(current);
       }
     };
 
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [keyControls, slideRight, slideLeft]);
+  const slides: Slide[] = files.map((file) =>
+    file.mediaType.startsWith('video')
+      ? {
+          type: 'video',
+          sources: [{ src: file.url, type: 'video/mp4' }],
+        }
+      : {
+          type: 'image',
+          src: file.url,
+        },
+  );
 
-  const currentFile = files[currentIndex];
-
-  return {
-    direction,
-    currentFile,
-    currentIndex,
-    setCurrentIndex,
-    slideLeft,
-    slideRight,
-  };
+  return { slides, index, updateIndex, open, toggleOpen };
 };

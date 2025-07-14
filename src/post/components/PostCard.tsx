@@ -17,11 +17,11 @@ export interface Props extends HTMLAttributes<HTMLLIElement> {
 export const PostCard = ({ post, session, className, ...props }: Props) => (
   <li {...props}>
     <DivLink
+      href={routes.posts.byId(post.id)}
       className={twMerge(
         'border-muted hover:border-special block w-full rounded-2xl border px-6 py-4 not-sm:px-4 not-sm:py-2.5',
         className,
       )}
-      href={routes.posts.byId(post.id)}
     >
       <ResourceDetails
         user={post.author}
@@ -35,11 +35,7 @@ export const PostCard = ({ post, session, className, ...props }: Props) => (
       </p>
       {post.tags.length !== 0 && <TagList tags={post.tags} className="mb-3" />}
       {post.files.length !== 0 && (
-        <FileCarousel
-          files={post.files}
-          linkTo={routes.posts.byId(post.id)}
-          className="my-4"
-        />
+        <FileCarousel files={post.files} aspectRatio="1 / 1" />
       )}
       <PostActionBar post={post} session={session} />
     </DivLink>

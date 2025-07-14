@@ -12,7 +12,7 @@ export const DivLink = ({ href, className, children, ...props }: Props) => {
   const router = useRouter();
 
   const handleClick = (e: MouseEvent<HTMLDivElement>) => {
-    if (!(e.target instanceof Element) || !e.target.closest('a, button')) {
+    if (!(e.target instanceof Element) || !e.target.closest('a, button, img')) {
       router.push(href);
     }
   };
