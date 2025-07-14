@@ -18,21 +18,18 @@ import { twJoin } from 'tailwind-merge';
 type Link =
   | {
       to: string;
-      label: string;
       Icon: IconType;
       exact?: boolean;
       sessionOnly?: boolean;
     }
   | {
       to: (session: Session | null) => string;
-      label: string;
       Icon: IconType;
       exact?: boolean;
       sessionOnly: false;
     }
   | {
       to: (session: Session) => string;
-      label: string;
       Icon: IconType;
       exact?: boolean;
       sessionOnly: true;
@@ -41,38 +38,32 @@ type Link =
 const links: Link[] = [
   {
     to: routes.home,
-    label: 'Inicio',
     Icon: LuHouse,
     exact: true,
   },
   {
     to: routes.posts.root,
-    label: 'Explorar',
     Icon: LuSearch,
     exact: true,
   },
   {
     to: routes.universities.root,
-    label: 'Universidades',
     Icon: LuUniversity,
     exact: true,
   },
   {
     to: routes.degrees.root,
-    label: 'Carreras',
     Icon: LuGraduationCap,
     exact: true,
   },
   {
     to: routes.chat.root,
-    label: 'Chats',
     Icon: LuMessagesSquare,
     sessionOnly: true,
   },
   {
     to: (session) =>
       session ? routes.users.byUsername(session.user.username) : '',
-    label: 'Yo',
     Icon: LuUser,
     sessionOnly: true,
   },
@@ -103,7 +94,6 @@ export const BottomNavigation = ({ session }: { session: Session | null }) => {
               )}
             >
               <link.Icon size={22} />
-              <span className="text-[10px]">{link.label}</span>
             </Link>
           );
         })}
