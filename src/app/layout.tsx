@@ -1,5 +1,6 @@
 import { ApiClientProvider } from '@/api/context/ApiClientProvider';
 import { auth } from '@/auth';
+import { SupabaseProvider } from '@/chat/context/SupabaseProvider';
 import { BottomNavigation } from '@/common/components/layout/BottomNavigation';
 import { LeftBar } from '@/common/components/layout/LeftBar/LeftBar';
 import { RightBar } from '@/common/components/layout/RightBar';
@@ -48,11 +49,9 @@ const RootLayout = async ({ children }: Readonly<Props>) => {
                       <div className="hidden sm:flex">
                         <LeftBar session={session} />
                       </div>
-
-                      <main className="flex grow flex-col items-stretch overflow-y-auto pb-8">
+                      <SupabaseProvider session={session}>
                         {children}
-                      </main>
-
+                      </SupabaseProvider>
                       <div className="hidden xl:flex">
                         <RightBar />
                       </div>

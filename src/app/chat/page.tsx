@@ -1,6 +1,5 @@
 import { auth } from '@/auth';
 import { ChatMainScreen } from '@/chat/components/ChatMainScreen';
-import { SupabaseProvider } from '@/chat/context/SupabaseProvider';
 import { Main } from '@/common/components/layout/Main';
 import { Metadata } from 'next';
 import { LuMessageSquare } from 'react-icons/lu';
@@ -15,11 +14,9 @@ const ChatPage = async () => {
   return (
     <>
       {session?.user.verified ? (
-        <SupabaseProvider session={session}>
-          <Main className="flex grow flex-col items-center px-4 py-6">
-            <ChatMainScreen session={session} />
-          </Main>
-        </SupabaseProvider>
+        <Main className="flex grow flex-col items-center px-4 py-6">
+          <ChatMainScreen session={session} />
+        </Main>
       ) : (
         <Main className="flex grow flex-col items-center px-4 py-6">
           <div className="text-foreground-muted flex flex-1 flex-col items-center justify-center gap-2 px-6 text-center">

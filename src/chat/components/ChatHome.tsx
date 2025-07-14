@@ -16,12 +16,12 @@ export const ChatHome = ({ session, onUserSelect, goToSearch }: Props) => {
   const { recentUsers } = useChatHome({ session });
 
   return (
-    <div className="flex h-full w-full flex-col gap-4">
+    <>
       <Button
         onClick={goToSearch}
-        className="bg-primary text-background hover:bg-primary/90 flex w-full items-center justify-center gap-2 rounded px-4 py-2 text-sm font-medium transition"
+        className="button-normal mb-2 flex w-full items-center justify-center px-4 py-2 text-sm font-medium"
       >
-        <LuPlus className="size-5" />
+        <LuPlus className="mr-2 size-5" />
         Nueva conversación
       </Button>
 
@@ -42,7 +42,7 @@ export const ChatHome = ({ session, onUserSelect, goToSearch }: Props) => {
           </div>
         </div>
       ) : (
-        <ul className="border-muted divide-muted flex-1 divide-y overflow-y-auto rounded border">
+        <ul className="border-muted grow overflow-y-auto rounded border">
           {recentUsers.map(({ user, alert }) => (
             <li
               key={user.id}
@@ -75,6 +75,6 @@ export const ChatHome = ({ session, onUserSelect, goToSearch }: Props) => {
           ))}
         </ul>
       )}
-    </div>
+    </>
   );
 };

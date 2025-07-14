@@ -7,14 +7,14 @@ import { Database } from '../types/supabase';
 import { SupabaseContext } from './SupabaseContext';
 
 export interface Props {
-  session: Session;
+  session: Session | null;
   children?: ReactNode;
 }
 
 export const SupabaseProvider = ({ session, children }: Props) => {
   const supabase = useRef<SupabaseClient<Database, 'public'>>(null);
 
-  if (supabase.current === null) {
+  if (supabase.current === null && session) {
     supabase.current = createClient<Database>(
       clientEnv.NEXT_PUBLIC_SUPABASE_URL,
       clientEnv.NEXT_PUBLIC_SUPABASE_KEY,

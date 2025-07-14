@@ -25,25 +25,18 @@ export const ChatMainScreen = ({ session }: Props) => {
   const handleGoBack = () => setView('home');
 
   return (
-    <div className="flex h-full w-full flex-col items-center">
-      <div className="flex w-full max-w-xl flex-1 flex-col overflow-hidden px-4 py-6">
-        <p className="mb-2 text-xl font-semibold">Chat</p>
-        <ChatNivaCard />
-        <div className="flex-1 overflow-y-auto">
-          {view === 'search' ? (
-            <ChatSearcher
-              onUserSelect={handleUserSelect}
-              onGoBack={handleGoBack}
-            />
-          ) : (
-            <ChatHome
-              session={session}
-              onUserSelect={handleUserSelect}
-              goToSearch={handleGoToSearch}
-            />
-          )}
-        </div>
-      </div>
+    <div className="flex h-full w-xl flex-col px-4 py-6">
+      <p className="mb-2 text-xl font-semibold">Chat</p>
+      <ChatNivaCard />
+      {view === 'search' ? (
+        <ChatSearcher onUserSelect={handleUserSelect} onGoBack={handleGoBack} />
+      ) : (
+        <ChatHome
+          session={session}
+          onUserSelect={handleUserSelect}
+          goToSearch={handleGoToSearch}
+        />
+      )}
     </div>
   );
 };
