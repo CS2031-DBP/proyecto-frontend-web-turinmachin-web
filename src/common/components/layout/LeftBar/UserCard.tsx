@@ -36,7 +36,12 @@ export const UserCard = ({ session }: Props) => {
           )}
         </div>
       </div>
-      {user && <StreakIndicator streak={user.streak ?? 0} />}
+      {user && (
+        <StreakIndicator
+          streak={user.streak ?? 0}
+          streakSafe={user.streakSafe}
+        />
+      )}
     </Link>
   );
 };
