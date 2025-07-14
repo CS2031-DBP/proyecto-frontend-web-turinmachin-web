@@ -14,7 +14,6 @@ import {
   LuMessagesSquare,
   LuSend,
 } from 'react-icons/lu';
-import { twJoin } from 'tailwind-merge';
 import { useChatConversation } from '../hooks/use-chat-conversation';
 import { ChatMessage } from './ChatMessage';
 
@@ -30,17 +29,18 @@ export const ChatConversation = ({ session, otherUser, onGoBack }: Props) => {
     useChatConversation({ messagesRef, otherUser, session });
 
   return (
-    <>
-      <div className="mb-2 flex w-full items-center">
+    <div className="flex h-full w-full flex-col">
+      {/* Header */}
+      <div className="mb-2 flex w-full items-center px-4 pt-4">
         <button
-          className="hover:bg-foreground/5 text-foreground-muted mr-2 block rounded-md px-1 py-1"
+          className="hover:bg-foreground/5 text-foreground-muted mr-2 rounded-md px-1 py-1"
           onClick={onGoBack}
         >
-          <LuArrowLeft className="inline size-6" />
+          <LuArrowLeft className="size-6" />
         </button>
         <Link
           href={routes.users.byUsername(otherUser.username)}
-          className="hover:bg-foreground/5 flex cursor-pointer items-center gap-x-2 rounded px-3 py-2"
+          className="hover:bg-foreground/5 flex items-center gap-x-2 rounded px-3 py-2"
         >
           <ProfilePicture
             profilePicture={otherUser.profilePicture}
@@ -60,48 +60,50 @@ export const ChatConversation = ({ session, otherUser, onGoBack }: Props) => {
           </div>
         </Link>
       </div>
-      <ul
-        className="border-muted h-100 overflow-y-auto rounded-lg border px-2"
-        ref={messagesRef}
-      >
-        {!messages ? (
-          <div className="flex h-full flex-col items-center justify-center gap-2">
-            <Spinner className="size-8 border-4" />
-            <p className="text-foreground-muted">Cargando mensajes...</p>
-          </div>
-        ) : messages.length === 0 ? (
-          <div className="text-foreground-muted flex h-full flex-col items-center justify-center gap-y-2">
-            <LuMessagesSquare className="size-8" />
-            <div>¡Escribe algo!</div>
-          </div>
-        ) : (
-          messages.map((message, index) => (
-            <ChatMessage
-              key={message.id}
-              session={session}
-              message={message}
-              otherUser={otherUser}
-              prevMessage={messages[index - 1] ?? null}
-              scrollToBottom={scrollToBottom}
-            />
-          ))
-        )}
-      </ul>
-      <div className="relative z-20">
-        <button
-          type="button"
-          onClick={scrollToBottom}
-          className={twJoin(
-            'bg-muted absolute left-1/2 z-15 size-8 -translate-x-1/2 rounded-full transition-all hover:brightness-80',
-            showReturn ? '-top-12' : 'top-0',
+
+      <div className="relative flex-1 overflow-hidden px-4">
+        <ul ref={messagesRef} className="h-full overflow-y-auto pr-2">
+          {!messages ? (
+            <div className="flex h-full items-center justify-center gap-2">
+              <Spinner className="size-8 border-4" />
+              <p className="text-foreground-muted">Cargando mensajes...</p>
+            </div>
+          ) : messages.length === 0 ? (
+            <div className="text-foreground-muted flex h-full flex-col items-center justify-center gap-y-2">
+              <LuMessagesSquare className="size-8" />
+              <div>¡Escribe algo!</div>
+            </div>
+          ) : (
+            messages.map((message, index) => (
+              <ChatMessage
+                key={message.id}
+                session={session}
+                message={message}
+                otherUser={otherUser}
+                prevMessage={messages[index - 1] ?? null}
+                scrollToBottom={scrollToBottom}
+              />
+            ))
           )}
-        >
-          <LuArrowDown className="inline" />
-        </button>
+        </ul>
+
+        {showReturn && (
+          <button
+            type="button"
+            onClick={scrollToBottom}
+            className="bg-muted absolute right-4 bottom-4 z-10 rounded-full p-2 shadow transition hover:brightness-90"
+            title="Ir abajo"
+          >
+            <LuArrowDown className="size-5" />
+          </button>
+        )}
+      </div>
+
+      <div className="w-full max-w-2xl px-4 pt-2 pb-4">
         <Form
           form={form}
           onSubmit={handleSubmit}
-          className="bg-background-alt relative z-20 flex gap-x-3 py-4"
+          className="bg-background-alt flex items-end gap-2 rounded-lg px-4 py-2 shadow"
         >
           <FormInput
             form={form}
@@ -113,10 +115,10 @@ export const ChatConversation = ({ session, otherUser, onGoBack }: Props) => {
             showError={false}
           />
           <Button className="px-3 py-1" disabled={messages === null}>
-            <LuSend className="inline" />
+            <LuSend />
           </Button>
         </Form>
       </div>
-    </>
+    </div>
   );
 };

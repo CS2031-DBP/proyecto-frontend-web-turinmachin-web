@@ -1,7 +1,5 @@
 import { ApiClientProvider } from '@/api/context/ApiClientProvider';
 import { auth } from '@/auth';
-import { ChatContainer } from '@/chat/components/ChatContainer';
-import { SupabaseProvider } from '@/chat/context/SupabaseProvider';
 import { LeftBar } from '@/common/components/layout/LeftBar/LeftBar';
 import { RightBar } from '@/common/components/layout/RightBar';
 import { NotificationsProvider } from '@/common/components/NotificationsProvider';
@@ -39,11 +37,6 @@ const RootLayout = async ({ children }: Readonly<Props>) => {
           <SessionProvider>
             <ApiClientProvider session={session}>
               <SessionUserProvider session={session}>
-                {session?.user.verified && (
-                  <SupabaseProvider session={session}>
-                    <ChatContainer session={session} />
-                  </SupabaseProvider>
-                )}
                 <GoogleOAuthProvider
                   clientId={clientEnv.NEXT_PUBLIC_GOOGLE_CLIENT_ID}
                 >

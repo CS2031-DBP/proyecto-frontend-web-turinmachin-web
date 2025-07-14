@@ -16,58 +16,65 @@ export const ChatHome = ({ session, onUserSelect, goToSearch }: Props) => {
   const { recentUsers } = useChatHome({ session });
 
   return (
-    <>
-      <p className="mb-2 text-xl font-semibold">Chat</p>
+    <div className="flex h-full w-full flex-col gap-4">
       <Button
         onClick={goToSearch}
-        className="my-4 flex items-center justify-center"
+        className="bg-primary text-background hover:bg-primary/90 flex w-full items-center justify-center gap-2 rounded px-4 py-2 text-sm font-medium transition"
       >
-        <LuPlus className="mr-2" />
+        <LuPlus className="size-5" />
         Nueva conversación
       </Button>
 
       {recentUsers === null ? (
-        <div className="flex grow items-center justify-center">
+        <div className="border-muted flex flex-1 items-center justify-center">
           <Spinner className="size-8 border-4" />
         </div>
       ) : recentUsers.length === 0 ? (
-        <div className="border-muted text-foreground-muted flex grow flex-col items-center justify-center gap-y-4 rounded border">
+        <div className="border-muted text-foreground-muted flex flex-1 flex-col items-center justify-center gap-4 rounded border py-10 text-center">
           <LuGhost className="size-12" />
-          <p>¡No tienes conversaciones recientes!</p>
+          <div>
+            <p className="text-base font-medium">
+              ¡No tienes conversaciones recientes!
+            </p>
+            <p className="text-foreground-muted text-sm">
+              Inicia una nueva conversación para comenzar.
+            </p>
+          </div>
         </div>
       ) : (
-        <ul className="border-muted grow overflow-y-auto rounded border">
+        <ul className="border-muted divide-muted flex-1 divide-y overflow-y-auto rounded border">
           {recentUsers.map(({ user, alert }) => (
             <li
               key={user.id}
               onClick={() => onUserSelect(user)}
               role="button"
-              className="hover:bg-foreground/5 flex cursor-pointer items-center space-x-2 px-3 py-2"
+              className="hover:bg-foreground/5 flex cursor-pointer items-center gap-3 px-4 py-3 transition"
             >
               <ProfilePicture
                 profilePicture={user.profilePicture}
                 className="size-10"
               />
-              <div>
+              <div className="flex flex-col">
                 {user.displayName ? (
                   <>
-                    <div className="font-semibold">{user.displayName}</div>
-                    <div className="text-foreground-muted text-sm">
+                    <span className="font-semibold">{user.displayName}</span>
+                    <span className="text-foreground-muted text-sm">
                       @{user.username}
-                    </div>
+                    </span>
                   </>
                 ) : (
-                  <>
-                    <span className="text-foreground-muted font-medium">@</span>
-                    <span className="font-semibold">{user.username}</span>
-                  </>
+                  <span className="text-sm font-semibold">
+                    @{user.username}
+                  </span>
                 )}
               </div>
-              {alert && <LuCircle className="ml-4 fill-red-500 text-red-500" />}
+              {alert && (
+                <LuCircle className="ml-auto size-4 fill-red-500 text-red-500" />
+              )}
             </li>
           ))}
         </ul>
       )}
-    </>
+    </div>
   );
 };

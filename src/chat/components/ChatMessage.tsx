@@ -33,8 +33,8 @@ export const ChatMessage = ({
   return (
     <li
       className={twJoin(
-        'my-2 flex items-start gap-x-1.5',
-        isOwnMessage && 'flex-row-reverse',
+        'flex w-full max-w-2xl items-start gap-3 px-4 py-1',
+        isOwnMessage ? 'flex-row-reverse text-right' : 'flex-row text-left',
       )}
     >
       <Link href={routes.users.byUsername(author.username)}>
@@ -42,19 +42,19 @@ export const ChatMessage = ({
           profilePicture={
             isOwnMessage ? user?.profilePicture : otherUser.profilePicture
           }
-          className="size-4"
+          className="size-8"
         />
       </Link>
 
-      <div>
-        <div
-          className={twJoin(
-            'border-muted flex flex-wrap items-end space-x-2 rounded-md border px-3 py-1 text-sm',
-            isOwnMessage && 'bg-muted',
-          )}
-        >
-          {message.content}
-        </div>
+      <div
+        className={twJoin(
+          'inline-block max-w-[80%] rounded px-4 py-2 text-sm',
+          isOwnMessage
+            ? 'bg-special text-background whitespace-pre-line'
+            : 'bg-background-alt text-foreground',
+        )}
+      >
+        {message.content}
       </div>
     </li>
   );

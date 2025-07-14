@@ -6,9 +6,9 @@ import { usePathname } from 'next/navigation';
 import { HTMLAttributes } from 'react';
 import { IconType } from 'react-icons';
 import {
-  LuBotMessageSquare,
   LuGraduationCap,
   LuHouse,
+  LuMessagesSquare,
   LuSearch,
   LuUniversity,
   LuUser,
@@ -64,10 +64,10 @@ const links: Link[] = [
     exact: true,
   },
   {
-    to: routes.niva,
-    label: 'Niva',
-    Icon: LuBotMessageSquare,
-    exact: true,
+    to: routes.chat.root,
+    label: 'Chats',
+    Icon: LuMessagesSquare,
+    sessionOnly: true,
   },
   {
     to: (session) =>
