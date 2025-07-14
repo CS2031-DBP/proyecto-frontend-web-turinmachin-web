@@ -15,14 +15,14 @@ export interface Props {
 export const LeftBar = ({ session, ...props }: Props) => (
   <aside
     {...props}
-    className="border-muted flex w-18 min-w-18 flex-col border-r px-2 py-4 md:w-64 md:min-w-64 md:px-6 lg:w-72 lg:min-w-72"
+    className="border-muted flex w-18 min-w-18 flex-col border-r px-2 py-4 lg:w-72 lg:min-w-72"
   >
     <Link
       href={routes.home}
       className="my-3 flex items-center justify-center text-4xl font-extrabold"
     >
       <LuGraduationCap className="h-full w-auto" />
-      <span className="ml-3 not-md:hidden">UniLife</span>
+      <span className="ml-3 not-lg:hidden">UniLife</span>
     </Link>
 
     <SearchBar />

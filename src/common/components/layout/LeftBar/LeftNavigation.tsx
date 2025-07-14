@@ -102,7 +102,7 @@ export const LeftNavigation = ({ session }: Props) => {
               key={toValue}
               href={toValue}
               className={twJoin(
-                'hover:bg-background-alt my-3 flex items-center justify-start rounded-full px-4 py-2.5 text-xl text-nowrap transition-colors duration-400 ease-in-out not-md:justify-center not-md:px-2',
+                'hover:bg-background-alt my-3 flex items-center justify-start rounded-full px-4 py-2.5 text-xl text-nowrap transition-colors duration-400 ease-in-out not-lg:justify-center not-lg:px-2',
                 isActive && 'text-special',
               )}
             >
@@ -110,7 +110,7 @@ export const LeftNavigation = ({ session }: Props) => {
                 className={twJoin(isActive && 'fill-current')}
                 size={30}
               />
-              <div className="ml-2 not-md:hidden">{link.label}</div>
+              <div className="ml-2 not-lg:hidden">{link.label}</div>
             </Link>
           );
         })}

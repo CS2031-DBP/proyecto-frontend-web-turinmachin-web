@@ -25,7 +25,7 @@ export const UserCard = ({ session }: Props) => {
           className="size-10 min-w-10"
         />
 
-        <div className="not-md:hidden">
+        <div className="not-lg:hidden">
           <p className="font-semibold">
             {session.user.displayName ?? session.user.username}
           </p>

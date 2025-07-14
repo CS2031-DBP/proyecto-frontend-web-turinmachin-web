@@ -28,10 +28,10 @@ export const CreatePostButton = ({ session, ...props }: Props) => {
         {...props}
         variant="special"
         onClick={handleClick}
-        className="flex items-center justify-center py-3 text-xl not-md:px-0"
+        className="flex items-center justify-center py-3 text-xl not-lg:px-0"
       >
         <LuPlus size={24} />
-        <span className="ml-2 not-md:hidden">Publicar</span>
+        <span className="ml-2 not-lg:hidden">Publicar</span>
       </Button>
     </>
   );

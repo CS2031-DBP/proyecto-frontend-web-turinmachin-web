@@ -56,7 +56,7 @@ export const PostActionBar = ({
       className="flex"
     >
       <LuShare2 size={16} />
-      <span className="ml-2 not-lg:hidden">Compartir</span>
+      <span className="ml-2 not-sm:hidden">Compartir</span>
     </Dropdown>
   </div>
 );

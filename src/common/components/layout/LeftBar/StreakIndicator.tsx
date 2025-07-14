@@ -18,7 +18,7 @@ export const StreakIndicator = ({ streak, streakSafe }: Props) => {
   const color = getStreakColor(streak);
   const fillClass = streakSafe && streak > 0 ? 'fill-current' : 'fill-none';
   return (
-    <div className="flex items-center not-md:hidden">
+    <div className="flex items-center not-lg:hidden">
       <LuFlame className={`${color} ${fillClass}`} size={36} />
       <span className="pl-1 text-lg font-extrabold">{streak}</span>
     </div>
