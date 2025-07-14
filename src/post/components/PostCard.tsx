@@ -35,7 +35,7 @@ export const PostCard = ({ post, session, className, ...props }: Props) => (
       </p>
       {post.tags.length !== 0 && <TagList tags={post.tags} className="mb-3" />}
       {post.files.length !== 0 && (
-        <FileCarousel files={post.files} aspectRatio="1 / 1" />
+        <FileCarousel files={post.files} imageFit="cover" aspectRatio="1 / 1" />
       )}
       <PostActionBar post={post} session={session} />
     </DivLink>
