@@ -65,7 +65,7 @@ export const ChatConversationScreen = ({ session, otherUser }: Props) => {
       </div>
 
       <div
-        className="border-muted grow overflow-y-auto border py-2 not-sm:px-0 sm:px-4"
+        className="border-muted grow overflow-y-auto rounded border py-2 not-sm:px-0 sm:px-4"
         ref={messagesRef}
       >
         {!messages ? (
