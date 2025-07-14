@@ -22,7 +22,7 @@ export const LoginButton = ({ className, ...props }: Props) => {
       )}
     >
       <LuLogIn size={24} />
-      <span className="ml-2 not-md:hidden">Iniciar sesión</span>
+      <span className="ml-2 not-lg:hidden">Iniciar sesión</span>
     </Button>
   );
 };

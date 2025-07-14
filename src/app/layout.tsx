@@ -2,6 +2,7 @@ import { ApiClientProvider } from '@/api/context/ApiClientProvider';
 import { auth } from '@/auth';
 import { SupabaseProvider } from '@/chat/context/SupabaseProvider';
 import { BottomNavigation } from '@/common/components/layout/BottomNavigation';
+import { FloatingLoginButton } from '@/common/components/layout/FloatingLoginButton';
 import { LeftBar } from '@/common/components/layout/LeftBar/LeftBar';
 import { RightBar } from '@/common/components/layout/RightBar';
 import { NotificationsProvider } from '@/common/components/NotificationsProvider';
@@ -59,7 +60,11 @@ const RootLayout = async ({ children }: Readonly<Props>) => {
                         <RightBar />
                       </div>
                     </div>
-                    {session && <FloatingPostButton session={session} />}
+                    {session ? (
+                      <FloatingPostButton session={session} />
+                    ) : (
+                      <FloatingLoginButton />
+                    )}
                     <BottomNavigation session={session} />
                   </PopupProvider>
                 </GoogleOAuthProvider>
