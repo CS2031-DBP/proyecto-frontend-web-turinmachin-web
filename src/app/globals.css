@@ -20,12 +20,18 @@
 }
 
 @layer base {
-  .yarl__button {
+  .yarl__navigation_next,
+  .yarl__navigation_prev {
     @apply h-full;
   }
 
   .yarl__toolbar {
     @apply z-100;
+  }
+
+  .hide-navigation .yarl__navigation_next,
+  .hide-navigation .yarl__navigation_prev {
+    display: none;
   }
 
   * {

@@ -31,35 +31,42 @@ export const FileCarousel = ({
     autoPlay: true,
     playsInline: true,
     loop: true,
-    controls: fullVideoControls,
   };
 
+  const singleSlide = files.length === 1;
+
   return (
-    <div className="relative my-4">
+    <div className={twJoin('relative my-4', singleSlide && 'hide-navigation')}>
       <LightBox
         index={index}
         plugins={[Video, Inline]}
         on={{ view: updateIndex(false), click: toggleOpen(true) }}
-        video={{ ...videoOptions, muted: muteVideos }}
-        carousel={{ padding: 0, spacing: 0, imageFit }}
+        video={{
+          ...videoOptions,
+          controls: fullVideoControls,
+          muted: muteVideos,
+        }}
+        carousel={{ padding: 0, spacing: 0, imageFit, finite: singleSlide }}
         inline={{
           className:
-            'rounded-lg overflow-hidden mx-0 my-auto cursor-pointer border border-muted',
+            'rounded-lg overflow-hidden mx-0 my-auto border border-muted',
           style: { aspectRatio },
         }}
         slides={slides}
       />
-      <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 cursor-default items-center space-x-1.5 rounded-full bg-black/65 px-2 py-2">
-        {files.map((_, i) => (
-          <button
-            key={i}
-            className={twJoin(
-              'h-1.5 rounded-full transition-all',
-              index === i ? 'w-3 bg-white' : 'w-1.5 bg-white/50',
-            )}
-          />
-        ))}
-      </div>
+      {files.length > 1 && (
+        <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 cursor-default items-center space-x-1.5 rounded-full bg-black/65 px-2 py-2">
+          {files.map((_, i) => (
+            <button
+              key={i}
+              className={twJoin(
+                'h-1.5 rounded-full transition-all',
+                index === i ? 'w-3 bg-white' : 'w-1.5 bg-white/50',
+              )}
+            />
+          ))}
+        </div>
+      )}
 
       <Lightbox
         plugins={[Video, Zoom]}
@@ -67,11 +74,12 @@ export const FileCarousel = ({
         close={toggleOpen(false)}
         index={index}
         slides={slides}
-        carousel={{ padding: 0, spacing: 0 }}
+        carousel={{ padding: 0, spacing: 0, finite: singleSlide }}
         on={{ view: updateIndex(true) }}
         animation={{ fade: 0 }}
         controller={{ closeOnPullDown: true, closeOnBackdropClick: true }}
         video={videoOptions}
+        className={twJoin(singleSlide && 'hide-navigation')}
       />
     </div>
   );
