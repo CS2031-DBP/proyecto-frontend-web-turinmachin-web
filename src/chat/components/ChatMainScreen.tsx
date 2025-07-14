@@ -25,7 +25,7 @@ export const ChatMainScreen = ({ session }: Props) => {
   const handleGoBack = () => setView('home');
 
   return (
-    <div className="flex h-full w-xl flex-col px-4 py-6">
+    <div className="flex h-full w-xl max-w-full flex-col px-4 py-6">
       <p className="mb-2 text-xl font-semibold">Chat</p>
       <ChatNivaCard />
       {view === 'search' ? (
