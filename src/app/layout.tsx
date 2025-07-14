@@ -35,6 +35,9 @@ const RootLayout = async ({ children }: Readonly<Props>) => {
 
   return (
     <html lang="es" suppressHydrationWarning>
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+      </head>
       <body className={twJoin(inter.className)}>
         <div className="flex h-full justify-items-stretch">
           <SessionProvider>
