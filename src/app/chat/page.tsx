@@ -23,7 +23,7 @@ const ChatPage = async () => {
     );
   }
 
-  if (!session.user.verified || true) {
+  if (!session.user.verified) {
     <Main className="text-foreground-muted flex grow flex-col items-center justify-center gap-y-2 px-4 py-6">
       <LuMessageSquare className="size-10" />
       <p className="text-sm">¡Debes verificar tu cuenta para chatear!</p>

@@ -20,7 +20,6 @@ export const DegreeExplorer = () => {
       <form onSubmit={form.handleSubmit(onSubmit)} className="mb-6">
         <input
           placeholder="Buscar..."
-          autoFocus
           {...form.register('query')}
           className="form-input w-100 max-w-full"
         />

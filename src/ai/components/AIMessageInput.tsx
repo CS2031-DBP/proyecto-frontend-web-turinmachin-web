@@ -1,9 +1,8 @@
 'use client';
-
 import { useEffect, useRef, useState } from 'react';
 import { LuSend } from 'react-icons/lu';
 
-interface Props {
+export interface Props {
   onSend: (content: string) => void;
   disabled?: boolean;
 }
@@ -43,7 +42,7 @@ export const AIMessageInput = ({ onSend, disabled }: Props) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex w-full max-w-2xl items-center gap-2 px-4 py-2"
+      className="flex w-full max-w-2xl items-center gap-2 py-2"
     >
       <textarea
         ref={textareaRef}

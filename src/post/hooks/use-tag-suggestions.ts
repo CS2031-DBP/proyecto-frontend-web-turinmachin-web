@@ -1,32 +1,32 @@
 import { useApiClient } from '@/api/hooks/use-api-client';
+import { usePendingCallback } from '@/common/hooks/use-pending';
 import { useState } from 'react';
 
 export const useTagSuggestions = () => {
   const { apiClient } = useApiClient();
   const [suggestions, setSuggestions] = useState<string[]>([]);
-  const [loading, setLoading] = useState(false);
 
-  const fetchSuggestions = async (content: string) => {
-    setLoading(true);
-    try {
-      const res = await apiClient.tagCompletion({ query: { content } });
+  const [pending, fetchSuggestions] = usePendingCallback(
+    async (content: string) => {
+      try {
+        const res = await apiClient.tagCompletion({ query: { content } });
 
-      if (res.status === 200) {
-        setSuggestions(res.body);
-      } else {
-        console.warn('Sugerencias fallidas:', res.body);
+        if (res.status === 200) {
+          setSuggestions(res.body);
+        } else {
+          console.warn('Sugerencias fallidas:', res.body);
+          setSuggestions([]);
+        }
+      } catch (e) {
+        console.error('Error al obtener sugerencias de tags', e);
         setSuggestions([]);
       }
-    } catch (e) {
-      console.error('Error al obtener sugerencias de tags', e);
-      setSuggestions([]);
-    } finally {
-      setLoading(false);
-    }
-  };
+    },
+    [apiClient],
+  );
 
   const removeSuggestion = (tag: string) =>
     setSuggestions((prev) => prev.filter((t) => t !== tag));
 
-  return { suggestions, loading, fetchSuggestions, removeSuggestion };
+  return { suggestions, pending, fetchSuggestions, removeSuggestion };
 };

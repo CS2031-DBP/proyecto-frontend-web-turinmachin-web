@@ -30,7 +30,7 @@ export const TagInput = ({
       )}
     >
       <LuTag className="text-foreground-muted mx-1 size-5 min-w-5" />
-      <div className="flex flex-wrap items-center gap-2 overflow-hidden">
+      <div className="flex grow flex-wrap items-center gap-2 overflow-hidden">
         {value.map((tag) => (
           <div
             key={tag}
@@ -63,7 +63,7 @@ export const TagInput = ({
           }
           onKeyDown={handleKeyDown}
           className={twMerge(
-            'ml-2 min-w-0 flex-shrink-0 flex-grow basis-30 py-0.5 outline-none',
+            'ml-2 min-w-0 grow basis-30 py-0.5 outline-none',
             inputClassName,
           )}
         />

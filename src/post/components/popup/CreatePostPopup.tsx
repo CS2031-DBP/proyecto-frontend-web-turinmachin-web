@@ -18,7 +18,7 @@ export const CreatePostPopup: PopupComponent<'post'> = ({ onClose }) => {
 
   const {
     suggestions,
-    loading: loadingSuggestions,
+    pending: pendingSuggestions,
     fetchSuggestions,
     removeSuggestion,
   } = useTagSuggestions();
@@ -68,17 +68,17 @@ export const CreatePostPopup: PopupComponent<'post'> = ({ onClose }) => {
               />
               <button
                 type="button"
-                title="Sugerir etiquetas"
-                className="bg-special hover:bg-special-muted ml-2 inline-flex items-center gap-1 rounded-full px-4 py-2.5 text-sm font-semibold shadow-sm transition"
+                className="from-ai-start to-ai-end ml-2 inline-flex items-center gap-1 rounded-full bg-gradient-to-br px-4 py-2.5 text-sm font-semibold transition-[filter] enabled:hover:brightness-80"
                 onClick={handleSuggestTags}
-                disabled={loadingSuggestions}
+                disabled={pendingSuggestions}
               >
-                <LuSparkles className="h-4 w-4" />
-                Sugerir
+                <LuSparkles className="size-4" />
+                <span className="not-sm:hidden">Sugerir</span>
               </button>
             </div>
 
             <TagSuggestionList
+              pending={pendingSuggestions}
               suggestions={suggestions}
               onSelect={handleAddSuggestedTag}
             />

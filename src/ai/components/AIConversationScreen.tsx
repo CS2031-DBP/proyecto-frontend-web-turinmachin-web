@@ -1,9 +1,9 @@
 'use client';
-
 import { usePopup } from '@/common/hooks/use-popup';
 import { useSessionUser } from '@/user/hooks/use-session-user';
+import { useRouter } from 'next/navigation';
 import { useEffect, useRef } from 'react';
-import { LuMessageSquare, LuTrash } from 'react-icons/lu';
+import { LuArrowLeft, LuMessageSquare, LuTrash } from 'react-icons/lu';
 import { useAIConversation } from '../hooks/use-ai-conversation';
 import { AIMessage } from './AIMessage';
 import { AIMessageInput } from './AIMessageInput';
@@ -13,6 +13,7 @@ export const AIConversationScreen = () => {
   const notAllowed = !user || !user.verified;
   const { openPopup } = usePopup();
   const bottomRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   const { messages, loading, sending, sendMessage, resetConversation } =
     useAIConversation({ enabled: !notAllowed });
@@ -23,8 +24,16 @@ export const AIConversationScreen = () => {
 
   return (
     <div className="flex h-full w-full flex-col items-center">
-      <div className="flex w-full max-w-2xl items-center justify-between px-4 pb-4">
-        <div className="text-foreground text-xl font-semibold">Niva AI</div>
+      <div className="flex w-full max-w-2xl items-center justify-between pb-4">
+        <div className="flex items-center gap-x-3">
+          <button
+            onClick={() => router.back()}
+            className="text-foreground-muted hover:bg-foreground/10 cursor-pointer rounded p-1"
+          >
+            <LuArrowLeft className="size-6" />
+          </button>
+          <div className="text-foreground text-xl font-semibold">Niva AI</div>
+        </div>
 
         {!notAllowed && messages.length > 0 && (
           <button
@@ -39,7 +48,7 @@ export const AIConversationScreen = () => {
         )}
       </div>
 
-      <div className="flex w-full max-w-2xl flex-1 flex-col overflow-y-auto px-4 py-6">
+      <div className="border-muted flex w-full max-w-2xl flex-1 flex-col overflow-y-auto rounded border px-4 py-6">
         {notAllowed ? (
           <div className="text-foreground-muted flex flex-1 items-center justify-center px-6 text-center">
             <div className="flex flex-col items-center gap-2">
@@ -73,9 +82,8 @@ export const AIConversationScreen = () => {
             {messages.map((message) => (
               <AIMessage key={message.id} message={message} />
             ))}
-
             {sending && (
-              <div className="px-4 py-2 text-sm text-gray-500 italic">
+              <div className="text-foreground-muted mx-4 py-2 text-2xl">
                 <span className="inline-block animate-bounce [animation-delay:0ms]">
                   .
                 </span>
