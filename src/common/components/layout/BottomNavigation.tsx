@@ -93,7 +93,7 @@ export const BottomNavigation = ({ session }: { session: Session | null }) => {
                 isActive && 'text-special',
               )}
             >
-              <link.Icon size={22} />
+              <link.Icon className="size-7" />
             </Link>
           );
         })}
