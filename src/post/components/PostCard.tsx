@@ -19,7 +19,7 @@ export const PostCard = ({ post, session, className, ...props }: Props) => (
     <DivLink
       href={routes.posts.byId(post.id)}
       className={twMerge(
-        'border-muted hover:border-special block w-full rounded-2xl border px-6 py-4 not-sm:px-4 not-sm:py-2.5',
+        'border-muted block w-full rounded-2xl border px-6 py-4 not-sm:px-4 not-sm:py-2.5',
         className,
       )}
     >

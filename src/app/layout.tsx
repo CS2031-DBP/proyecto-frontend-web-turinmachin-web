@@ -24,7 +24,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: 'UniLife',
-  description: 'La plataforma social que une universidades.',
+  description: 'La universidad, de quienes la viven',
 };
 
 export interface Props {
