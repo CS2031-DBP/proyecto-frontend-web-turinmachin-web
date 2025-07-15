@@ -1,4 +1,5 @@
 import { useApiClient } from '@/api/hooks/use-api-client';
+import { usePopup } from '@/common/hooks/use-popup';
 import { Session } from 'next-auth';
 import { useState } from 'react';
 
@@ -15,11 +16,20 @@ export const useVoteButtons = ({
   postScore,
   session,
 }: UseVoteButtonsOptions) => {
+  const { openPopup } = usePopup();
   const { apiClient } = useApiClient();
   const [localCurrentVote, setLocalCurrentVote] = useState(originalVote ?? 0);
 
   const upvote = async () => {
-    if (session === null) return;
+    if (session === null) {
+      openPopup('login', {});
+      return;
+    }
+
+    if (!session.user.verified) {
+      openPopup('verification', {});
+      return;
+    }
 
     if (localCurrentVote === 1) {
       await apiClient.removePostVote({ params: { id: postId } });
@@ -31,7 +41,15 @@ export const useVoteButtons = ({
   };
 
   const downvote = async () => {
-    if (session === null) return;
+    if (session === null) {
+      openPopup('login', {});
+      return;
+    }
+
+    if (!session.user.verified) {
+      openPopup('verification', {});
+      return;
+    }
 
     if (localCurrentVote === -1) {
       await apiClient.removePostVote({ params: { id: postId } });

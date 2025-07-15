@@ -45,24 +45,22 @@ export const VoteButtons = ({
     >
       <button
         className={twJoin(
-          'hover:text-upvote disabled:text-foreground-muted/50 h-full pr-2 pl-3',
+          'hover:text-upvote h-full pr-2 pl-3',
           localCurrentVote === 1 && 'text-upvote',
         )}
         title="Upvote"
         onClick={upvote}
-        disabled={session === null || !session.user.verified}
       >
         <UpvoteIcon className="inline" size={22} />
       </button>
       <span className="min-w-4 text-center">{displayScore}</span>
       <button
         className={twJoin(
-          'hover:text-downvote disabled:text-foreground-muted/50 h-full pr-3 pl-2',
+          'hover:text-downvote h-full pr-3 pl-2',
           localCurrentVote === -1 && 'text-downvote',
         )}
         title="Downvote"
         onClick={downvote}
-        disabled={session === null || !session.user.verified}
       >
         <DownvoteIcon className="inline" size={22} />
       </button>
