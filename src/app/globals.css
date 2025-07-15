@@ -99,3 +99,7 @@
 @utility button-error {
   @apply button hover:text-background border-error text-error hover:bg-error border;
 }
+
+@utility text-ai {
+  @apply from-ai-start to-ai-end inline-block bg-gradient-to-br bg-clip-text text-transparent;
+}

@@ -12,7 +12,7 @@ export const TagSuggestionList = ({
   onSelect,
 }: Props) => {
   if (pending) {
-    return <p>Creando sugerencias...</p>;
+    return <p className="text-ai mt-2 mb-4">Creando sugerencias...</p>;
   }
   if (suggestions.length === 0) return null;
 

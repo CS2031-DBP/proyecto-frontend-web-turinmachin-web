@@ -36,6 +36,8 @@ export const CreatePostPopup: PopupComponent<'post'> = ({ onClose }) => {
     removeSuggestion(tag);
   };
 
+  const content = form.watch('content');
+
   return (
     <Popup className="mx-6 w-9/10 max-w-4xl" disableClickOutside>
       <Popup.Title>Publicar</Popup.Title>
@@ -68,9 +70,9 @@ export const CreatePostPopup: PopupComponent<'post'> = ({ onClose }) => {
               />
               <button
                 type="button"
-                className="from-ai-start to-ai-end ml-2 inline-flex items-center gap-1 rounded-full bg-gradient-to-br px-4 py-2.5 text-sm font-semibold transition-[filter] enabled:hover:brightness-80"
+                className="from-ai-start to-ai-end ml-2 inline-flex items-center gap-1 rounded-full bg-gradient-to-br px-4 py-2.5 text-sm font-semibold transition-[filter] enabled:hover:brightness-80 disabled:brightness-60"
                 onClick={handleSuggestTags}
-                disabled={pendingSuggestions}
+                disabled={pendingSuggestions || !content.trim()}
               >
                 <LuSparkles className="size-4" />
                 <span className="not-sm:hidden">Sugerir</span>
