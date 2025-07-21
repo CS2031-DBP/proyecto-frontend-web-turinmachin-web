@@ -40,4 +40,4 @@ Para quienes están llevando el curso luego de nosotros, aquí les dejamos algun
 - **[React OAuth2 | Google](https://github.com/MomenSherif/react-oauth):** Un componente de botón de "Iniciar sesión con Google". Se encarga de toda la lógica de mostrar el pop-up Google y obtener un "ID token". Revisa [nuestro backend](https://github.com/CS2031-DBP/proyecto-backend-turinmachin) para ver cómo se maneja de ese lado.
 - **[T3 Env](https://env.t3.gg):** Usa Zod para validar tus variables de entorno.
 
-Éxitos, nos tienen que superar. ;)
+Éxitos, nos tienen que superar. 😉
