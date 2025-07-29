@@ -7,19 +7,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'unilife-production.s3.amazonaws.com',
-        port: '',
-        search: '',
-      },
-      {
-        protocol: 'https',
-        hostname: 'unilife-testing.s3.amazonaws.com',
-        port: '',
-        search: '',
-      },
-      {
-        protocol: 'https',
-        hostname: 'unilife-storage.s3.amazonaws.com',
+        hostname: 's3.unilife.lat',
         port: '',
         search: '',
       },
