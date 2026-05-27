@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 's3.unilife.lat',
+        hostname: 'unilife-s3.grazen.xyz',
         port: '',
         search: '',
       },
